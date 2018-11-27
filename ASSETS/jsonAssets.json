@@ -1,0 +1,4 @@
+{
+    "soundsList": [{ "music": "../ASSETS/Music.mp3"}],
+    "imageList": [{"coin": ["../ASSETS/coin.png", 10, 10, 788, 219, "mycanvas"]}]
+}
