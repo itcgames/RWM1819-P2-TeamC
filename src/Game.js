@@ -11,7 +11,7 @@ class Game{
   constructor()
   {
     // Create an Asset manager
-    this.MyAssetManager = new AssetManager();
+    this.MyAssetManager = new AssetManager("ASSETS/jsonAssets.json");
   }
 
   /**
