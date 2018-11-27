@@ -1,0 +1,15 @@
+[submodule "lib/MenuComponent"]
+	path = lib/MenuComponent
+	url = https://github.com/itcgames/RWM1819-Menu-B
+[submodule "lib/CameraComponent"]
+	path = lib/CameraComponent
+	url = https://github.com/itcgames/RWM1819-Camera-A
+[submodule "lib/ParticleComponent"]
+	path = lib/ParticleComponent
+	url = https://github.com/itcgames/RWM1819-Particle-A
+[submodule "lib/AssetManagerComponent"]
+	path = lib/AssetManagerComponent
+	url = https://github.com/itcgames/RWM1819-Asset-A
+[submodule "lib/GestureComponent"]
+	path = lib/GestureComponent
+	url = https://github.com/itcgames/RWM1819-Gesture-B
