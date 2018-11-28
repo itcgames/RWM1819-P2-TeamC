@@ -38,7 +38,7 @@ class Game{
     // Executed once everything is loaded
     if(gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true)
     {
-      this.b2dWorld.Step(1.0 / 60.0, 1);
+      gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
       gameNs.game.MyAssetManager.update();
       gameNs.game.draw();
     }
