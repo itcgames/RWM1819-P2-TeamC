@@ -14,8 +14,20 @@ class Game{
     this.MyAssetManager = new AssetManager("ASSETS/jsonAssets.json");
     this.b2dWorld = b2dCreateWorld();
     this.body1 = b2dCreateBox(200, 200, 40, 40, this.b2dWorld, true);
-    this.body2 = b2dCreateCircle(600, 200, 40, this.b2dWorld, true);
+    //this.body2 = b2dCreateCircle(600, 200, 40, this.b2dWorld, false);
+    this.player = new PlayerBall(this.b2dWorld, 600,200,20);
     this.body3 = b2dCreateBox(400, 400, 40, 40, this.b2dWorld, false);
+
+
+
+    //mouse stuff
+    this.mouseX;
+    this.mouseY;
+    this.clicked = false;
+    document.addEventListener("mousedown", this.onClick);
+    document.addEventListener("mousemove", this.printMousePos);
+    document.addEventListener("mouseup", this.onRelease);
+
   }
 
   /**
@@ -38,7 +50,8 @@ class Game{
     // Executed once everything is loaded
     if(gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true)
     {
-      this.b2dWorld.Step(1.0 / 60.0, 1);
+      gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
+      //console.log(gameNs.game.body2.GetCenterPosition());
       gameNs.game.MyAssetManager.update();
       gameNs.game.draw();
     }
@@ -58,7 +71,15 @@ class Game{
     // Executed once everything is loaded
     if(this.MyAssetManager.isSetUp === true && this.MyAssetManager.isLoaded === true)
     {
-      this.MyAssetManager.draw();
+      //this.MyAssetManager.draw();
+    }
+
+
+    if (this.clicked) {
+      ctx.beginPath();
+      ctx.moveTo(this.player.getBody().GetCenterPosition().x, this.player.getBody().GetCenterPosition().y);
+      ctx.lineTo(this.mouseX, this.mouseY);
+      ctx.stroke();
     }
     drawWorld(this.b2dWorld, ctx);
   }
@@ -76,6 +97,32 @@ class Game{
      this.music.loop = true;
     // confirm assets are setup
     gameNs.game.MyAssetManager.isSetUp = true;
+  }
+
+
+
+
+  onClick() {
+    //var v = new b2Vec2(circleBody.GetCenterPosition().x - mouseX, circleBody.GetCenterPosition().y - mouseY);
+    //v.Normalize();
+    //circleBody.ApplyImpulse(new b2Vec2(v.x*300,v.y*300), circleBody.GetCenterPosition());
+    gameNs.game.clicked = true;
+    console.log("clicked");
+  }
+
+  onRelease() {
+    if (gameNs.game.clicked) {
+      console.log("release");
+      var v = new b2Vec2(gameNs.game.player.getBody().GetCenterPosition().x - gameNs.game.mouseX, gameNs.game.player.getBody().GetCenterPosition().y - gameNs.game.mouseY);
+      //console.log("v: ",v)
+      gameNs.game.player.getBody().ApplyImpulse(new b2Vec2(v.x * 500, v.y * 500), gameNs.game.player.getBody().GetCenterPosition());
+      gameNs.game.clicked = false;
+    }
+  }
+
+printMousePos(event) {
+    gameNs.game.mouseX = event.clientX;
+    gameNs.game.mouseY = event.clientY;
   }
 
 }
