@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 /**
  * Game class
  * @class
