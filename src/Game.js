@@ -26,14 +26,6 @@ class Game{
   }
 
   /**
-   * Set up Box2D
-   */
-  setupBox2d()
-  {
-
-  }
-
-  /**
   * updates the game
   */
   update()
@@ -43,7 +35,6 @@ class Game{
     {
       gameNs.game.setUp();
     }
-    console.log("Update");
     // Executed once everything is loaded
     if(gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true)
     {
@@ -60,7 +51,6 @@ class Game{
   */
   draw()
   {
-    console.log("Draw");
     var canv = document.getElementById("canvas");
     var ctx = canv.getContext("2d");
     ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
