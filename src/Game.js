@@ -107,13 +107,14 @@ class Game{
    */
   setUp ()
   {
-    // Declare sprites images && sounds here using...
+    // Declare sprites images && sounds here using... 
+    //overall asset setup, can do this in each class for other object images
      this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
      this.coin.setSpriteSheet(true, 5, 5);
      this.music = this.MyAssetManager.find(this.MyAssetManager.SoundAssets, "music");
      this.music.loop = true;
     // confirm assets are setup
-    gameNs.game.MyAssetManager.isSetUp = true;
+     gameNs.game.MyAssetManager.isSetUp = true;
   }
 
 
