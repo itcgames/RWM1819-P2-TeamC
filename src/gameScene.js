@@ -25,12 +25,12 @@ class gameScene extends Scene{
 
         this.init();
 
-        this._containerDiv.appendChild(document.getElementById("mycanvas"));
+        this._containerDiv.appendChild(document.getElementById("canvas"));
     }
 
     init()
     {
-        let canv =  document.getElementById("mycanvas");
+        let canv =  document.getElementById("canvas");
         let ctx = canv.getContext("2d");
         canv.style.position = 'absolute';
         canv.style.height = "90%";

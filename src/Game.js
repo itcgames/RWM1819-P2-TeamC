@@ -36,7 +36,7 @@ class Game{
   */
   initWorld()
   {
-    let canvas = document.getElementById('mycanvas');
+    let canvas = document.getElementById('canvas');
     document.body.style.padding = '0px, 0px, 0px, 0px';
 
     let div =  document.createElement('div');
