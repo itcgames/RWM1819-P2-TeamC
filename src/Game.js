@@ -88,7 +88,7 @@ class Game{
     // Executed once everything is loaded
     if(this.MyAssetManager.isSetUp === true && this.MyAssetManager.isLoaded === true)
     {
-      //this.MyAssetManager.draw();
+      this.MyAssetManager.draw();
     }
 
 
