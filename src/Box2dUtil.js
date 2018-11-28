@@ -47,3 +47,15 @@ function b2dCreateCircle(x, y, r, world, static)
   var body = world.CreateBody(bodyDef);
   return body; // Can be done in fewer lines
 }
+
+function createRotor(x, y, w, h, world)
+{
+  var rotor = b2dCreateBox(x, y, w, h, world, false);
+  rotor.friction = 0.5;
+  var jointDef = new b2RevoluteJointDef();
+  jointDef.body1 = rotor;
+  jointDef.body2 = world.GetAroundBody();
+  jointDef.anchorPoint = rotor.GetCenterPosition();
+  world.CreateJoint(jointDef);
+  return rotor;
+}
