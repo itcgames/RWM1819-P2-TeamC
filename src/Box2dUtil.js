@@ -18,7 +18,7 @@ function b2dCreateBox(x, y, w, h, world, static)
   var bodyDef = new b2BodyDef();
   bodyDef.position.Set(x, y);
   bodyDef.preventRotation = static;
-  
+
   var shapeDef = new b2BoxDef();
   shapeDef.extents.Set(w, h);
   shapeDef.density = static ? 0.0 : 1.0;
@@ -47,6 +47,24 @@ function b2dCreateCircle(x, y, r, world, static)
   var body = world.CreateBody(bodyDef);
   return body; // Can be done in fewer lines
 }
+
+function b2dCreateCustomCircle(x, y, r, world, density)
+{
+  var bodyDef = new b2BodyDef();
+  bodyDef.position.Set(x, y);
+  bodyDef.preventRotation = false;
+
+  var shapeDef = new b2CircleDef();
+  shapeDef.density = density;
+  shapeDef.radius = r;
+  shapeDef.restitution = 1.0;
+  shapeDef.friction = 0.5; // Not necessary??
+
+  bodyDef.AddShape(shapeDef);
+  var body = world.CreateBody(bodyDef);
+  return body; // Can be done in fewer lines
+}
+
 
 function createRotor(x, y, w, h, world)
 {
