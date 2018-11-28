@@ -12,6 +12,10 @@ class Game{
   {
     // Create an Asset manager
     this.MyAssetManager = new AssetManager("ASSETS/jsonAssets.json");
+    this.b2dWorld = b2dCreateWorld();
+    this.body1 = b2dCreateBox(200, 200, 40, 40, this.b2dWorld, true);
+    this.body2 = b2dCreateCircle(600, 200, 40, this.b2dWorld, true);
+    this.body3 = b2dCreateBox(400, 400, 40, 40, this.b2dWorld, false);
   }
 
   /**
@@ -31,10 +35,10 @@ class Game{
     {
       gameNs.game.setUp();
     }
-
     // Executed once everything is loaded
     if(gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true)
     {
+      this.b2dWorld.Step(1.0 / 60.0, 1);
       gameNs.game.MyAssetManager.update();
       gameNs.game.draw();
     }
@@ -47,7 +51,7 @@ class Game{
   */
   draw()
   {
-    var canv = document.getElementById("mycanvas");
+    var canv = document.getElementById("canvas");
     var ctx = canv.getContext("2d");
     ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
 
@@ -56,6 +60,7 @@ class Game{
     {
       this.MyAssetManager.draw();
     }
+    drawWorld(this.b2dWorld, ctx);
   }
 
   /**
