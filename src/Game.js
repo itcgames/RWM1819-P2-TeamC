@@ -14,6 +14,17 @@ class Game
   */
   initWorld()
   {
+    let canvas = document.getElementById('mycanvas');
+    document.body.style.padding = '0px, 0px, 0px, 0px';
+
+    let div =  document.createElement('div');
+    div.style.position = "relative";
+    div.style.width = document.body.clientWidth + "px";
+    div.style.height = document.body.scrollHeight + "px";
+    div.appendChild(canvas);
+    document.body.appendChild(div);
+
+    let g = new gameScene("Game Scene", div, {'x': 0, 'y': 0, 'width': 100, 'height': 100});
   }
 
   /**
