@@ -12,7 +12,8 @@ class ObstacleSquare{
       this.body = b2dCreateBox(x, y, 50, 50, world, true);
       console.log(assetManager.ImageAssets);
       this.image = assetManager.find(assetManager.ImageAssets, "wall_square");
-      this.image.setPos(x, y);
+      this.image.setPos(x - 50, y - 50);
+      this.image.setActive(true);
     }
   
     getBody()

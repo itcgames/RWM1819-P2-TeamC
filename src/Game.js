@@ -124,7 +124,7 @@ class Game{
 
     // Demo obstacles
     this.obSq = new ObstacleSquare(300, 300, this.b2dWorld, this.MyAssetManager);
-    this.obRe = new ObstacleRect(500, 200, this.b2dWorld, this.MyAssetManager);
+    this.obRe = new ObstacleRect(700, 200, this.b2dWorld, this.MyAssetManager);
     this.obCi = new ObstacleCircle(500, 100, this.b2dWorld, this.MyAssetManager);
     // Declare sprites images && sounds here using... 
     //overall asset setup, can do this in each class for other object images
