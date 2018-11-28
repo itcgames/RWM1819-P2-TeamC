@@ -17,6 +17,7 @@ class Game{
     this.body1 = b2dCreateBox(200, 200, 40, 40, this.b2dWorld, true);
     //this.body2 = b2dCreateCircle(600, 200, 40, this.b2dWorld, false);
     this.player = new PlayerBall(this.b2dWorld, 600,200,20);
+    this.goal = new Goal(800,200,20);
     this.body3 = b2dCreateBox(400, 400, 40, 40, this.b2dWorld, false);
 
 
@@ -29,6 +30,9 @@ class Game{
     document.addEventListener("mousemove", this.printMousePos);
     document.addEventListener("mouseup", this.onRelease);
 
+
+
+    //this.player.getBody().SetCenterPosition(new b2Vec2(100,200));
   }
 
   /**
@@ -70,6 +74,12 @@ class Game{
     {
       gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
       gameNs.game.MyAssetManager.update();
+      if(gameNs.game.goal.collision(gameNs.game.player.getBody().GetCenterPosition().x,gameNs.game.player.getBody().GetCenterPosition().y, 20))
+      {
+        //console.log("PUT");
+        gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600,200),gameNs.game.player.getBody().GetRotation() );
+        gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0,0));
+      }
       gameNs.game.draw();
     }
 
@@ -98,6 +108,8 @@ class Game{
       ctx.lineTo(this.mouseX, this.mouseY);
       ctx.stroke();
     }
+
+    this.goal.draw(ctx);
     drawWorld(this.b2dWorld, ctx);
   }
 
@@ -124,8 +136,13 @@ class Game{
     //var v = new b2Vec2(circleBody.GetCenterPosition().x - mouseX, circleBody.GetCenterPosition().y - mouseY);
     //v.Normalize();
     //circleBody.ApplyImpulse(new b2Vec2(v.x*300,v.y*300), circleBody.GetCenterPosition());
-    gameNs.game.clicked = true;
-    console.log("clicked");
+    if((gameNs.game.player.getBody().GetLinearVelocity().x >= -0.5 && gameNs.game.player.getBody().GetLinearVelocity().x <= 0.5)
+    &&(gameNs.game.player.getBody().GetLinearVelocity().y >= -0.5 && gameNs.game.player.getBody().GetLinearVelocity().y <= 0.5))
+    {
+      gameNs.game.clicked = true;
+      console.log("clicked");
+    }
+
   }
 
   onRelease() {
