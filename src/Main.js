@@ -1,9 +1,9 @@
 /*jshint esversion: 6 */
 /**
 * @author Eric O' Toole && Dylan Murphy
-*Code has been reviewed
+* Code has been reviewed
 * entry point for js
-*Total time 2 hours
+* Total time 2 hours
 */
 
 var gameNs = {};
@@ -25,7 +25,7 @@ function init()
     console.log('initialising Game');
 
     var canv = document.createElement('canvas');
-    canv.id = "mycanvas";
+    canv.id = "canvas";
     var ctx = canv.getContext("2d");
 
     canv.width = window.innerWidth;
