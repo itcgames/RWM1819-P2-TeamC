@@ -51,7 +51,6 @@ class Game{
     if(gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true)
     {
       gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
-      //console.log(gameNs.game.body2.GetCenterPosition());
       gameNs.game.MyAssetManager.update();
       gameNs.game.draw();
     }
