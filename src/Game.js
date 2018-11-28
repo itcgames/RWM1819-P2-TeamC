@@ -13,16 +13,25 @@ class Game{
   {
     // Create an Asset manager
     this.MyAssetManager = new AssetManager("ASSETS/jsonAssets.json");
+
+    // Initialise Box2D World
     this.b2dWorld = b2dCreateWorld();
-    this.body1 = b2dCreateBox(200, 200, 40, 40, this.b2dWorld, true);
-    //this.body2 = b2dCreateCircle(600, 200, 40, this.b2dWorld, false);
+
+    // Create Player
     this.player = new PlayerBall(this.b2dWorld, 600,200,20);
+<<<<<<< HEAD
     this.goal = new Goal(800,200,20);
     this.body3 = b2dCreateBox(400, 400, 40, 40, this.b2dWorld, false);
+=======
+>>>>>>> Obstacle classes complete no sprites
+
+    // Demo obstacles
+    this.obSq = new ObstacleSquare(300, 300, this.b2dWorld, this.MyAssetManager);
+    this.obRe = new ObstacleRect(500, 200, this.b2dWorld, this.MyAssetManager);
+    this.obCi = new ObstacleCircle(500, 100, this.b2dWorld, this.MyAssetManager);
 
 
-
-    //mouse stuff
+    // Mosue Stuff
     this.mouseX;
     this.mouseY;
     this.clicked = false;
