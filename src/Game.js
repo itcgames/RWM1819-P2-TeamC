@@ -15,7 +15,8 @@ class Game{
     this.MyAssetManager = new AssetManager("ASSETS/jsonAssets.json");
 
 
-
+        // Initialise Box2D World
+        this.b2dWorld = b2dCreateWorld();
 
     // Mosue Stuff
     this.mouseX;
@@ -114,8 +115,7 @@ class Game{
    */
   setUp ()
   {
-        // Initialise Box2D World
-    this.b2dWorld = b2dCreateWorld();
+
 
     // Create Player
     this.player = new PlayerBall(this.b2dWorld, 600,200,20);
