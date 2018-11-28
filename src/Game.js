@@ -18,11 +18,17 @@ class Game
     document.body.style.padding = '0px, 0px, 0px, 0px';
 
     let div =  document.createElement('div');
+    div.id = 'main div';
     div.style.position = "relative";
     div.style.width = document.body.clientWidth + "px";
     div.style.height = document.body.scrollHeight + "px";
     div.appendChild(canvas);
     document.body.appendChild(div);
+    document.body.onresize = function(){
+      console.log("resize");
+      div.style.width = document.body.clientWidth + "px";
+      div.style.height = document.body.scrollHeight + "px";
+    };
 
     let g = new gameScene("Game Scene", div, {'x': 0, 'y': 0, 'width': 100, 'height': 100});
   }
@@ -33,7 +39,6 @@ class Game
   update()
   {
     gameNs.game.draw();
-    console.log("test");
     window.requestAnimationFrame(gameNs.game.update);
   }
 
