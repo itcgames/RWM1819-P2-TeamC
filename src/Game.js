@@ -51,8 +51,10 @@ class Game{
       div.style.width = document.body.clientWidth + "px";
       div.style.height = document.body.scrollHeight + "px";
     };
-
+    this.menuHandler = new MenuHandler();
     let g = new gameScene("Game Scene", div, {'x': 0, 'y': 0, 'width': 100, 'height': 100});
+    this.menuHandler.addScene("Game Scene", g);
+    this.initMenus();
   }
 
   /**
@@ -140,6 +142,48 @@ class Game{
 printMousePos(event) {
     gameNs.game.mouseX = event.clientX;
     gameNs.game.mouseY = event.clientY;
+  }
+
+  initMenus() {
+    let mainMenuScene = new Scene("Main Menu",
+        document.getElementById("main div"),
+        {'x': 0, 'y': 0, 'width': 100, 'height': 100},
+        "#FF0026",
+        "%");
+    let mainMenu = new Menu("Main Menu",
+        {'x': 0, 'y': 0, 'width': 100, 'height': 100},
+        "%");
+    mainMenuScene.alpha = "22";
+    mainMenuScene.addMenu(mainMenu);
+    let playBtn = new Button("Play", mainMenu.containerDiv,
+        this.menuHandler.goToScene.bind(this.menuHandler, "Game Scene"),
+        {'x': 40, 'y': 60, 'width': 20, 'height': 10},
+        "%");
+
+    let leaderboardBtn = new Button("Leaderboard", mainMenu.containerDiv,
+        this.menuHandler.goToScene.bind(this.menuHandler, "Leaderboard"),
+        {'x': 40, 'y': 75, 'width': 20, 'height': 10},
+        "%");
+
+    this.menuHandler.addScene("Main Menu", mainMenuScene);
+
+    let leaderboardMenuScene = new Scene("Leaderboard",
+        document.getElementById("main div"),
+        {'x': 0, 'y': 0, 'width': 100, 'height': 100},
+        "#77e7ff",
+        "%");
+    let leaderboardMenu = new Menu("Leaderboard Menu",
+        {'x': 0, 'y': 0, 'width': 100, 'height': 100},
+        "%");
+    leaderboardMenuScene.addMenu(leaderboardMenu);
+    let backBtn = new Button("Back", leaderboardMenu.containerDiv,
+        this.menuHandler.goToScene.bind(this.menuHandler, "Main Menu"),
+        {'x': 40, 'y': 60, 'width': 20, 'height': 10},
+        "%");
+    this.menuHandler.addScene("Leaderboard", leaderboardMenuScene);
+
+    this.menuHandler.currentScene = "Main Menu";
+    this.menuHandler.showOnlyCurrentScene();
   }
 
 }
