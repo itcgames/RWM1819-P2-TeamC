@@ -95,6 +95,8 @@ class Game {
       }
       gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
       gameNs.game.MyAssetManager.update();
+      gameNs.game.levelHandler.update();
+      //gameNs.game.obRo.updateSprite();
       gameNs.game.player.update(window.innerWidth, window.innerHeight);
       gameNs.game.goal.update(window.innerWidth, window.innerHeight);
 
@@ -171,23 +173,23 @@ class Game {
       new Terrain(800,400,100,100,"Sandtrap", this.MyAssetManager),
       new Terrain(400,400,200,100,"Water", this.MyAssetManager),
       ];
-    this.boundLeft = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical_left");
-    this.boundRight = new BoundaryRect(1595, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical_right");
-    this.boundTop = new BoundaryRect(800, 5, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal_top");
-    this.boundBottom = new BoundaryRect(800, 895, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal_bottom");
+    // this.boundLeft = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical_left");
+    // this.boundRight = new BoundaryRect(1595, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical_right");
+    // this.boundTop = new BoundaryRect(800, 5, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal_top");
+    // this.boundBottom = new BoundaryRect(800, 895, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal_bottom");
 
     // Demo obstacles
-    this.obs2 = new ObstacleSquare(233, 649, 0, this.b2dWorld, this.MyAssetManager, "wall_square");
-    this.obs3 = new ObstacleCircle(533, 33, this.b2dWorld, this.MyAssetManager, "wall_circle");
-    this.obs4 = new ObstacleCircle(766, 233, this.b2dWorld, this.MyAssetManager, "wall_circle");
-    this.obs5 = new ObstacleCircle(964, 83, this.b2dWorld, this.MyAssetManager, "wall_circle");
-    this.obs6 = new ObstacleSquare(1396, 216, 0, this.b2dWorld, this.MyAssetManager, "wall_square");
-    this.obs7 = new ObstacleSquare(615, 515, 55, this.b2dWorld, this.MyAssetManager, "wall_square");
-    this.obs8 = new ObstacleRect(581, 900, 20, this.b2dWorld, this.MyAssetManager, "wall_rect_vertical");
-    this.obs9 = new ObstacleRect(831, 831, 40, this.b2dWorld, this.MyAssetManager, "wall_rect_vertical");
-    this.obs10 = new ObstacleCircle(1197, 831, this.b2dWorld, this.MyAssetManager, "wall_circle");
+    // this.obs2 = new ObstacleSquare(233, 649, 0, this.b2dWorld, this.MyAssetManager, "wall_square");
+    // this.obs3 = new ObstacleCircle(533, 33, this.b2dWorld, this.MyAssetManager, "wall_circle");
+    // this.obs4 = new ObstacleCircle(766, 233, this.b2dWorld, this.MyAssetManager, "wall_circle");
+    // this.obs5 = new ObstacleCircle(964, 83, this.b2dWorld, this.MyAssetManager, "wall_circle");
+    // this.obs6 = new ObstacleSquare(1396, 216, 0, this.b2dWorld, this.MyAssetManager, "wall_square");
+    // this.obs7 = new ObstacleSquare(615, 515, 55, this.b2dWorld, this.MyAssetManager, "wall_square");
+    // this.obs8 = new ObstacleRect(581, 900, 20, this.b2dWorld, this.MyAssetManager, "wall_rect_vertical");
+    // this.obs9 = new ObstacleRect(831, 831, 40, this.b2dWorld, this.MyAssetManager, "wall_rect_vertical");
+    // this.obs10 = new ObstacleCircle(1197, 831, this.b2dWorld, this.MyAssetManager, "wall_circle");
     // Declare sprites images && sounds here using... 
-    
+
     // overall asset setup, can do this in each class for other object images
      this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
      this.coin.setSpriteSheet(true, 5, 5);
@@ -195,11 +197,13 @@ class Game {
      this.music = this.MyAssetManager.find(this.MyAssetManager.SoundAssets, "music");
      this.music.loop = true;
     // confirm assets are setup
+    this.levelHandler = new LevelHandler();
+    this.levelHandler.addLevel(new Level("assets/level.json"));
+    this.levelHandler.levels.forEach((level) => {
+      level.loadLevel();
+    });
     gameNs.game.MyAssetManager.isSetUp = true;
   }
-
-
-
 
   onClick() {
     //var v = new b2Vec2(circleBody.GetCenterPosition().x - mouseX, circleBody.GetCenterPosition().y - mouseY);
