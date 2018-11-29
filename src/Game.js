@@ -71,6 +71,11 @@ class Game {
       if (gameNs.game.goal.collision(gameNs.game.player.getBody().GetCenterPosition().x, gameNs.game.player.getBody().GetCenterPosition().y, 20)) {
         //console.log("PUT");
         gameNs.game.goal.emit = true;
+
+        gameNs.game.player.score += gameNs.game.player.shotNumber - 4;
+        gameNs.game.player.shotNumber = 0;
+        console.log("Score: ",gameNs.game.player.score);
+
         gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), gameNs.game.player.getBody().GetRotation());
         gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0, 0));
       }
@@ -124,7 +129,7 @@ class Game {
     this.goal = new Goal(800, 200, 20);
 
 
-    // Demo obstacles
+
     this.obSq = new ObstacleSquare(100, 100, 45, this.b2dWorld, this.MyAssetManager, "wall_square");
     this.obRe = new ObstacleRect(700, 400, 45, this.b2dWorld, this.MyAssetManager, "wall_rect_vertical");
     this.obCi = new ObstacleCircle(500, 100, this.b2dWorld, this.MyAssetManager, "wall_circle");
@@ -159,6 +164,8 @@ class Game {
   onRelease() {
     if (gameNs.game.clicked) {
       console.log("release");
+      gameNs.game.player.shotNumber += 1;
+      console.log("Shot number: ",gameNs.game.player.shotNumber);
       var v = new b2Vec2(gameNs.game.player.getBody().GetCenterPosition().x - gameNs.game.mouseX, gameNs.game.player.getBody().GetCenterPosition().y - gameNs.game.mouseY);
       //console.log("v: ",v)
       gameNs.game.player.getBody().ApplyImpulse(new b2Vec2(v.x * 500, v.y * 500), gameNs.game.player.getBody().GetCenterPosition());

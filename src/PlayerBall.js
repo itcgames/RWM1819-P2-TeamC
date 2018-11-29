@@ -21,6 +21,9 @@ class PlayerBall{
     this.image = assetManager.find(assetManager.ImageAssets, "ball");
     this.image.setPos(positionX - 20, positionY - 20);
     this.image.setActive(true);
+
+    this.shotNumber = 0;
+    this.score = 0;
   }
   update(width, height) {
     this.emitter.addNewParticles();
