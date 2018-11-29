@@ -14,9 +14,8 @@ class Game{
     // Create an Asset manager
     this.MyAssetManager = new AssetManager("ASSETS/jsonAssets.json");
 
-
-        // Initialise Box2D World
-        this.b2dWorld = b2dCreateWorld();
+    // Initialise Box2D World
+    this.b2dWorld = b2dCreateWorld();
 
     // Mosue Stuff
     this.mouseX;
@@ -32,10 +31,9 @@ class Game{
   }
 
   /**
-  * initialise the game world
+  * initialize the game world
   */
-  initWorld()
-  {
+  initWorld() {
     let canvas = document.getElementById('canvas');
     document.body.style.padding = '0px, 0px, 0px, 0px';
 
@@ -46,20 +44,22 @@ class Game{
     div.style.height = document.body.scrollHeight + "px";
     div.appendChild(canvas);
     document.body.appendChild(div);
+
+    gameNs.game.g = new gameScene("Game Scene", div, {'x': 0, 'y': 0, 'width': 100, 'height': 100});
+
     document.body.onresize = function(){
       console.log("resize");
       div.style.width = document.body.clientWidth + "px";
       div.style.height = document.body.scrollHeight + "px";
+      gameNs.game.g.resizeCanvas();
     };
 
-    let g = new gameScene("Game Scene", div, {'x': 0, 'y': 0, 'width': 100, 'height': 100});
   }
 
   /**
   * updates the game
   */
-  update()
-  {
+  update() {
     // Sets up assets once they are loaded
     if(gameNs.game.MyAssetManager.isLoaded === true && gameNs.game.MyAssetManager.isSetUp === false)
     {
@@ -100,7 +100,6 @@ class Game{
         gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600,200),gameNs.game.player.getBody().GetRotation() );
         gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0,0));
       }
-
       gameNs.game.draw();
     }
 
@@ -110,8 +109,7 @@ class Game{
   /**
   * draws the game
   */
-  draw()
-  {
+  draw() {
     var canv = document.getElementById("canvas");
     var ctx = canv.getContext("2d");
     ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
@@ -161,7 +159,9 @@ class Game{
     this.obRe = new ObstacleRect(700, 400, 45, this.b2dWorld, this.MyAssetManager);
     this.obCi = new ObstacleCircle(500, 100, this.b2dWorld, this.MyAssetManager);
     this.obRo = new ObstacleRotor(100, 400, this.b2dWorld, this.MyAssetManager);
-    // Declare sprites images && sounds here using... 
+    this.boReV = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager);
+    this.boReV = new BoundaryRect(800, 0, false, this.b2dWorld, this.MyAssetManager);
+    // Declare sprites images && sounds here using...
     //overall asset setup, can do this in each class for other object images
      this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
      this.coin.setSpriteSheet(true, 5, 5);
