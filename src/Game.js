@@ -12,25 +12,19 @@ class Game {
   constructor() {
     // Create an Asset manager
     this.MyAssetManager = new AssetManager("ASSETS/jsonAssets.json");
+
     // Initialise Box2D World
     this.b2dWorld = b2dCreateWorld();
-    this.body1 = b2dCreateBox(200, 200, 40, 40, this.b2dWorld, true);
-    //this.body2 = b2dCreateCircle(600, 200, 40, this.b2dWorld, false);
-    this.player = new PlayerBall(this.b2dWorld, 600,200,20);
-    this.body3 = b2dCreateBox(400, 400, 40, 40, this.b2dWorld, false);
-
 
     // Mosue Stuff
-    this.mouseX;
-    this.mouseY;
+    this.mouseX = 0;
+    this.mouseY = 0;
     this.clicked = false;
     document.addEventListener("mousedown", this.onClick);
     document.addEventListener("mousemove", this.printMousePos);
     document.addEventListener("mouseup", this.onRelease);
 
-
-
-    this.canvasHeight = document.getElementById('canvas')
+    this.canvasHeight = document.getElementById('canvas');
   }
 
   /**
@@ -72,7 +66,30 @@ class Game {
       gameNs.game.setUp();
     }
     // Executed once everything is loaded
-    if (gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true) {
+    if(gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true)
+    {
+      // Terrain logic
+      gameNs.game.player.body.m_linearDamping = gameNs.game.player.standardFriction;
+      console.log(gameNs.game.player.startPos);
+      for(let i = 0; i < gameNs.game.terrainList.length; i++) {
+        if (gameNs.game.terrainList[i].checkCollision(
+          gameNs.game.player.body.GetCenterPosition().x,
+          gameNs.game.player.body.GetCenterPosition().y,
+          20,
+        )) {
+          if (gameNs.game.terrainList[i].type === "Water") {
+            gameNs.game.player.body.SetCenterPosition(
+              { x: gameNs.game.player.startPos.x,
+                y: gameNs.game.player.startPos.y,},
+              0,
+            );
+            gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0,0));
+            console.log("WATER!");
+          } else {
+            gameNs.game.player.body.m_linearDamping = gameNs.game.player.sandFriction;
+          }
+        }
+      }
       gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
       gameNs.game.MyAssetManager.update();
       gameNs.game.obRo.updateSprite();
@@ -82,6 +99,11 @@ class Game {
       if (gameNs.game.goal.collision(gameNs.game.player.getBody().GetCenterPosition().x, gameNs.game.player.getBody().GetCenterPosition().y, 20)) {
         //console.log("PUT");
         gameNs.game.goal.emit = true;
+
+        gameNs.game.player.score += gameNs.game.player.shotNumber - 4;
+        gameNs.game.player.shotNumber = 0;
+        console.log("Score: ",gameNs.game.player.score);
+
         gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), gameNs.game.player.getBody().GetRotation());
         gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0, 0));
       }
@@ -121,8 +143,13 @@ class Game {
 
     this.goal.draw(ctx);
 
-    //drawWorld(this.b2dWorld, ctx);
 
+    for(let i = 0; i < gameNs.game.terrainList.length; i++){
+      gameNs.game.terrainList[i].draw(ctx);
+    }
+    //this.testTerrain.draw(ctx);
+
+    //drawWorld(this.b2dWorld, ctx);
   }
 
   /**
@@ -134,16 +161,24 @@ class Game {
     this.player = new PlayerBall(this.b2dWorld, 600, 200, 20, this.MyAssetManager);
     this.goal = new Goal(800, 200, 20);
 
+    this.terrainList = [
+      new Terrain(800,200,100,100,"Sandtrap"),
+      new Terrain(400,400,200,100,"Water"),
+    ];
 
-    // Demo obstacles
-    this.obSq = new ObstacleSquare(100, 100, 45, this.b2dWorld, this.MyAssetManager);
-    this.obRe = new ObstacleRect(700, 400, 45, this.b2dWorld, this.MyAssetManager);
-    this.obCi = new ObstacleCircle(500, 100, this.b2dWorld, this.MyAssetManager);
-    this.obRo = new ObstacleRotor(100, 400, this.b2dWorld, this.MyAssetManager);
-    this.boReV = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager);
-    this.boReV = new BoundaryRect(800, 0, false, this.b2dWorld, this.MyAssetManager);
+
+    // Create Player
+    this.player = new PlayerBall(this.b2dWorld, 600,200,20);
+    this.goal = new Goal(800,200,20);
+
+    this.obSq = new ObstacleSquare(100, 100, 45, this.b2dWorld, this.MyAssetManager, "wall_square");
+    this.obRe = new ObstacleRect(700, 400, 45, this.b2dWorld, this.MyAssetManager, "wall_rect_vertical");
+    this.obCi = new ObstacleCircle(500, 100, this.b2dWorld, this.MyAssetManager, "wall_circle");
+    this.obRo = new ObstacleRotor(100, 400, this.b2dWorld, this.MyAssetManager, "rotor");
+    this.boReV = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical");
+    this.boReV = new BoundaryRect(800, 0, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal");
     // Declare sprites images && sounds here using...
-    //overall asset setup, can do this in each class for other object images
+    // overall asset setup, can do this in each class for other object images
      this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
      this.coin.setSpriteSheet(true, 5, 5);
      //this.coin.setActive(true);
@@ -170,16 +205,23 @@ class Game {
   onRelease() {
     if (gameNs.game.clicked) {
       console.log("release");
+      gameNs.game.player.shotNumber += 1;
+      console.log("Shot number: ",gameNs.game.player.shotNumber);
       var v = new b2Vec2(gameNs.game.player.getBody().GetCenterPosition().x - gameNs.game.mouseX, gameNs.game.player.getBody().GetCenterPosition().y - gameNs.game.mouseY);
       //console.log("v: ",v)
+
+      gameNs.game.player.startPos.x = gameNs.game.player.getBody().GetCenterPosition().x;
+      gameNs.game.player.startPos.y = gameNs.game.player.getBody().GetCenterPosition().y;
       gameNs.game.player.getBody().ApplyImpulse(new b2Vec2(v.x * 500, v.y * 500), gameNs.game.player.getBody().GetCenterPosition());
       gameNs.game.clicked = false;
     }
   }
 
   printMousePos(event) {
-    gameNs.game.mouseX = event.clientX;
-    gameNs.game.mouseY = event.clientY;
+    var canvas = document.getElementById('canvas');
+    var rect = canvas.getBoundingClientRect();
+    gameNs.game.mouseX = (event.clientX - rect.left)/ (rect.right - rect.left) * canvas.width;
+    gameNs.game.mouseY = (event.clientY - rect.top)/ (rect.bottom - rect.top) * canvas.height;
   }
 
   initMenus() {
