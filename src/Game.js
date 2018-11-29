@@ -12,7 +12,7 @@ class Game {
   constructor() {
     // Create an Asset manager
     this.MyAssetManager = new AssetManager("ASSETS/jsonAssets.json");
-    
+
     // Initialise Box2D World
     this.b2dWorld = b2dCreateWorld();
 
@@ -66,7 +66,7 @@ class Game {
     {
       // Terrain logic
       gameNs.game.player.body.m_linearDamping = gameNs.game.player.standardFriction;
-      console.log(gameNs.game.player.startPos);
+      
       for(let i = 0; i < gameNs.game.terrainList.length; i++) {
         if (gameNs.game.terrainList[i].checkCollision(
           gameNs.game.player.body.GetCenterPosition().x,
@@ -161,11 +161,6 @@ class Game {
       new Terrain(800,200,100,100,"Sandtrap"),
       new Terrain(400,400,200,100,"Water"),
     ];
-
-
-    // Create Player
-    this.player = new PlayerBall(this.b2dWorld, 600,200,20);
-    this.goal = new Goal(800,200,20);
 
     this.obSq = new ObstacleSquare(100, 100, 45, this.b2dWorld, this.MyAssetManager, "wall_square");
     this.obRe = new ObstacleRect(700, 400, 45, this.b2dWorld, this.MyAssetManager, "wall_rect_vertical");
