@@ -69,7 +69,7 @@ class Game{
     {
       gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
       gameNs.game.MyAssetManager.update();
-      gameNs.game.obRo.updateSprite();
+      //gameNs.game.obRo.updateSprite();
       if(gameNs.game.goal.collision(gameNs.game.player.getBody().GetCenterPosition().x,gameNs.game.player.getBody().GetCenterPosition().y, 20))
       {
         //console.log("PUT");
@@ -88,7 +88,7 @@ class Game{
   draw() {
     var canv = document.getElementById("canvas");
     var ctx = canv.getContext("2d");
-    ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
+    ctx.clearRect(0,0, canv.width, canv.height);
 
     // Executed once everything is loaded
     if(this.MyAssetManager.isSetUp === true && this.MyAssetManager.isLoaded === true)
@@ -114,14 +114,19 @@ class Game{
    */
   setUp () {
     // Create Player
-    this.player = new PlayerBall(this.b2dWorld, 600,200,20);
-    this.goal = new Goal(800,200,20);
+    this.player = new PlayerBall(this.b2dWorld, 216,433,20);
+    this.goal = new Goal(1496,864,20);
 
     // Demo obstacles
-    this.obSq = new ObstacleSquare(100, 100, 45, this.b2dWorld, this.MyAssetManager);
-    this.obRe = new ObstacleRect(700, 400, 45, this.b2dWorld, this.MyAssetManager);
-    this.obCi = new ObstacleCircle(500, 100, this.b2dWorld, this.MyAssetManager);
-    this.obRo = new ObstacleRotor(100, 400, this.b2dWorld, this.MyAssetManager);
+    this.obs2 = new ObstacleSquare(233, 649, 0, this.b2dWorld, this.MyAssetManager);
+    this.obs3 = new ObstacleCircle(533, 33, this.b2dWorld, this.MyAssetManager);
+    this.obs4 = new ObstacleCircle(766, 233, this.b2dWorld, this.MyAssetManager);
+    this.obs5 = new ObstacleCircle(964, 83, this.b2dWorld, this.MyAssetManager);
+    this.obs6 = new ObstacleSquare(1396, 216, 0, this.b2dWorld, this.MyAssetManager);
+    this.obs7 = new ObstacleSquare(615, 515, 55, this.b2dWorld, this.MyAssetManager);
+    this.obs8 = new ObstacleRect(581, 900, 20, this.b2dWorld, this.MyAssetManager);
+    this.obs9 = new ObstacleRect(831, 831, 40, this.b2dWorld, this.MyAssetManager);
+    this.obs10 = new ObstacleCircle(1197, 831, this.b2dWorld, this.MyAssetManager);
     // Declare sprites images && sounds here using... 
     //overall asset setup, can do this in each class for other object images
      this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
