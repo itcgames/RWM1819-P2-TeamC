@@ -28,6 +28,28 @@ class Game {
 
     this.canvasHeight = document.getElementById('canvas');
     this.inSand=false;
+
+    var ws = new WebSocket("ws://149.153.106.151:8080/wstest");
+
+    //called when the websocket is opened
+    ws.onopen = function() {
+      var message = {};
+      message.type = "connect";
+      message.data = "game";
+      var mString = JSON.stringify(message);
+      ws.send(mString);
+    };
+
+    //called when the client receives a message
+    ws.onmessage = function (evt) {
+
+      var obj = JSON.parse(evt.data);
+      //gameNs.game.player.getBody().ApplyImpulse(new b2Vec2(obj.x * 500, obj.y * 500), gameNs.game.player.getBody().GetCenterPosition());
+      if((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) &&
+      (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 && gameNs.game.player.getBody().GetLinearVelocity().y <= 3)) {
+        gameNs.game.playerShot(new b2Vec2(obj.x, obj.y));
+      }
+    };
   }
 
   /**
@@ -212,7 +234,7 @@ class Game {
     //v.Normalize();
     //circleBody.ApplyImpulse(new b2Vec2(v.x*300,v.y*300), circleBody.GetCenterPosition());
     if ((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) &&
-      (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 && gameNs.game.player.getBody().GetLinearVelocity().y <= 3)) {
+    (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 && gameNs.game.player.getBody().GetLinearVelocity().y <= 3)) {
       gameNs.game.clicked = true;
       console.log("clicked");
     }
@@ -229,11 +251,17 @@ class Game {
       gameNs.game.player.startPos.x = gameNs.game.player.getBody().GetCenterPosition().x;
       gameNs.game.player.startPos.y = gameNs.game.player.getBody().GetCenterPosition().y;
       //console.log(v);
-      if(v.x > 500)
+      gameNs.game.playerShot(v);
+      gameNs.game.clicked = false;
+    }
+  }
+
+  playerShot(v) {
+    if(v.x > 500)
       {
         v.x = 500;
       }
-      if(v.x < -500)
+      else if(v.x < -500)
       {
         v.x = -500;
       }
@@ -241,13 +269,11 @@ class Game {
       {
         v.y = 500;
       }
-      if(v.y < -500)
+      else if(v.y < -500)
       {
         v.y = -500;
       }
       gameNs.game.player.getBody().ApplyImpulse(new b2Vec2(v.x * 500, v.y * 500), gameNs.game.player.getBody().GetCenterPosition());
-      gameNs.game.clicked = false;
-    }
   }
 
   printMousePos(event) {
