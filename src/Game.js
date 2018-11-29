@@ -116,29 +116,32 @@ class Game {
           }
         }
       }
-      gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
-      gameNs.game.MyAssetManager.update();
-      gameNs.game.levelHandler.update();
-      //gameNs.game.obRo.updateSprite();
-      gameNs.game.player.update(window.innerWidth, window.innerHeight);
-      gameNs.game.goal.update(window.innerWidth, window.innerHeight);
 
-      if (gameNs.game.goal.collision(gameNs.game.player.getBody().GetCenterPosition().x, gameNs.game.player.getBody().GetCenterPosition().y, 20)) {
-        //console.log("PUT");
-        gameNs.game.goal.emit = true;
+      if(gameNs.game.menuHandler.currentScene === "Game Scene") {
+        gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
+        gameNs.game.MyAssetManager.update();
+        gameNs.game.levelHandler.update();
+        //gameNs.game.obRo.updateSprite();
+        gameNs.game.player.update(window.innerWidth, window.innerHeight);
+        gameNs.game.goal.update(window.innerWidth, window.innerHeight);
 
-        gameNs.game.player.score += gameNs.game.player.shotNumber - 4;
-        gameNs.game.player.shotNumber = 0;
-        console.log("Score: ",gameNs.game.player.score);
+        if (gameNs.game.goal.collision(gameNs.game.player.getBody().GetCenterPosition().x, gameNs.game.player.getBody().GetCenterPosition().y, 20)) {
+          //console.log("PUT");
+          gameNs.game.goal.emit = true;
 
-        gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), gameNs.game.player.getBody().GetRotation());
-        gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0, 0));
-      }
-      if (gameNs.game.goal.emit === true) {
-        gameNs.game.goal.particleTimer += 1;
-        if (gameNs.game.goal.particleTimer >= 180) {
-          gameNs.game.goal.emit = false;
-          gameNs.game.goal.particleTimer = 0;
+          gameNs.game.player.score += gameNs.game.player.shotNumber - 4;
+          gameNs.game.player.shotNumber = 0;
+          console.log("Score: ", gameNs.game.player.score);
+
+          gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), gameNs.game.player.getBody().GetRotation());
+          gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0, 0));
+        }
+        if (gameNs.game.goal.emit === true) {
+          gameNs.game.goal.particleTimer += 1;
+          if (gameNs.game.goal.particleTimer >= 180) {
+            gameNs.game.goal.emit = false;
+            gameNs.game.goal.particleTimer = 0;
+          }
         }
       }
       gameNs.game.draw();
@@ -309,20 +312,23 @@ class Game {
 
     this.menuHandler.addScene("Main Menu", mainMenuScene);
 
-    let leaderboardMenuScene = new Scene("Leaderboard",
-        document.getElementById("main div"),
-        {'x': 0, 'y': 0, 'width': 100, 'height': 100},
-        "#77e7ff",
-        "%");
-    let leaderboardMenu = new Menu("Leaderboard Menu",
-        {'x': 0, 'y': 0, 'width': 100, 'height': 100},
-        "%");
-    leaderboardMenuScene.addMenu(leaderboardMenu);
-    let backBtn = new Button("Back", leaderboardMenu.containerDiv,
-        this.menuHandler.goToScene.bind(this.menuHandler, "Main Menu"),
-        {'x': 40, 'y': 60, 'width': 20, 'height': 10},
-        "%");
-    this.menuHandler.addScene("Leaderboard", leaderboardMenuScene);
+    // let leaderboardMenuScene = new Scene("Leaderboard",
+    //     document.getElementById("main div"),
+    //     {'x': 0, 'y': 0, 'width': 100, 'height': 100},
+    //     "#77e7ff",
+    //     "%");
+    // let leaderboardMenu = new Menu("Leaderboard Menu",
+    //     {'x': 0, 'y': 0, 'width': 100, 'height': 100},
+    //     "%");
+    // leaderboardMenuScene.addMenu(leaderboardMenu);
+    // let backBtn = new Button("Back", leaderboardMenu.containerDiv,
+    //     this.menuHandler.goToScene.bind(this.menuHandler, "Main Menu"),
+    //     {'x': 40, 'y': 60, 'width': 20, 'height': 10},
+    //     "%");
+    let leaderboard = new leaderboardScene("Leaderboard",
+        document.getElementById("main div"),{'x': 0, 'y': 0, 'width': 100, 'height': 100},
+        "#7aacff");
+    this.menuHandler.addScene("Leaderboard", leaderboard);
 
     this.menuHandler.currentScene = "Main Menu";
     this.menuHandler.showOnlyCurrentScene();
