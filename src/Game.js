@@ -136,7 +136,7 @@ class Game {
     this.obRo = new ObstacleRotor(100, 400, this.b2dWorld, this.MyAssetManager, "rotor");
     this.boReV = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical");
     this.boReV = new BoundaryRect(800, 0, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal");
-    // Declare sprites images && sounds here using... 
+    // Declare sprites images && sounds here using...
     // overall asset setup, can do this in each class for other object images
      this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
      this.coin.setSpriteSheet(true, 5, 5);
@@ -174,8 +174,10 @@ class Game {
   }
 
   printMousePos(event) {
-    gameNs.game.mouseX = event.clientX;
-    gameNs.game.mouseY = event.clientY;
+    var canvas = document.getElementById('canvas');
+    var rect = canvas.getBoundingClientRect();
+    gameNs.game.mouseX = (event.clientX - rect.left)/ (rect.right - rect.left) * canvas.width;
+    gameNs.game.mouseY = (event.clientY - rect.top)/ (rect.bottom - rect.top) * canvas.height;
   }
 
 }
