@@ -125,7 +125,7 @@ class Game{
     this.player = new PlayerBall(this.b2dWorld, 600,200,20);
     this.goal = new Goal(800,200,20);
 
-    // Demo obstacles
+    // Demo level 1
     this.obSq = new ObstacleSquare(300, 300, this.b2dWorld, this.MyAssetManager);
     this.obRe = new ObstacleRect(700, 200, this.b2dWorld, this.MyAssetManager);
     this.obCi = new ObstacleCircle(500, 100, this.b2dWorld, this.MyAssetManager);
