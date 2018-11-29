@@ -28,6 +28,7 @@ class Game {
 
     this.canvasHeight = document.getElementById('canvas');
     this.inSand=false;
+    this.menuHandler = new MenuHandler();
   }
 
   /**
@@ -46,7 +47,7 @@ class Game {
     document.body.appendChild(div);
 
     gameNs.game.g = new gameScene("Game Scene", div, {'x': 0, 'y': 0, 'width': 100, 'height': 100});
-
+    this.menuHandler.addScene("Game Scene", gameNs.game.g);
     document.body.onresize = function(){
       console.log("resize");
       div.style.width = document.body.clientWidth + "px";
@@ -204,6 +205,7 @@ class Game {
     this.levelHandler.levels.forEach((level) => {
       level.loadLevel();
     });
+    this.initMenus();
     gameNs.game.MyAssetManager.isSetUp = true;
   }
 
@@ -212,14 +214,14 @@ class Game {
     //v.Normalize();
     //circleBody.ApplyImpulse(new b2Vec2(v.x*300,v.y*300), circleBody.GetCenterPosition());
     if ((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) &&
-      (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 && gameNs.game.player.getBody().GetLinearVelocity().y <= 3)) {
+      (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 && gameNs.game.player.getBody().GetLinearVelocity().y <= 3) && gameNs.game.menuHandler.currentScene === "Game Scene") {
       gameNs.game.clicked = true;
       console.log("clicked");
     }
   }
 
   onRelease() {
-    if (gameNs.game.clicked) {
+    if (gameNs.game.clicked && gameNs.game.menuHandler.currentScene === "Game Scene") {
       console.log("release");
       gameNs.game.player.shotNumber += 1;
       console.log("Shot number: ",gameNs.game.player.shotNumber);
@@ -256,4 +258,48 @@ class Game {
     gameNs.game.mouseX = (event.clientX - rect.left)/ (rect.right - rect.left) * canvas.width;
     gameNs.game.mouseY = (event.clientY - rect.top)/ (rect.bottom - rect.top) * canvas.height;
   }
+
+
+  initMenus() {
+    let mainMenuScene = new Scene("Main Menu",
+        document.getElementById("main div"),
+        {'x': 0, 'y': 0, 'width': 100, 'height': 100},
+        "#FF0026",
+        "%");
+    let mainMenu = new Menu("Main Menu",
+        {'x': 0, 'y': 0, 'width': 100, 'height': 100},
+        "%");
+    mainMenuScene.alpha = "22";
+    mainMenuScene.addMenu(mainMenu);
+    let playBtn = new Button("Play", mainMenu.containerDiv,
+        this.menuHandler.goToScene.bind(this.menuHandler, "Game Scene"),
+        {'x': 40, 'y': 60, 'width': 20, 'height': 10},
+        "%");
+
+    let leaderboardBtn = new Button("Leaderboard", mainMenu.containerDiv,
+        this.menuHandler.goToScene.bind(this.menuHandler, "Leaderboard"),
+        {'x': 40, 'y': 75, 'width': 20, 'height': 10},
+        "%");
+
+    this.menuHandler.addScene("Main Menu", mainMenuScene);
+
+    let leaderboardMenuScene = new Scene("Leaderboard",
+        document.getElementById("main div"),
+        {'x': 0, 'y': 0, 'width': 100, 'height': 100},
+        "#77e7ff",
+        "%");
+    let leaderboardMenu = new Menu("Leaderboard Menu",
+        {'x': 0, 'y': 0, 'width': 100, 'height': 100},
+        "%");
+    leaderboardMenuScene.addMenu(leaderboardMenu);
+    let backBtn = new Button("Back", leaderboardMenu.containerDiv,
+        this.menuHandler.goToScene.bind(this.menuHandler, "Main Menu"),
+        {'x': 40, 'y': 60, 'width': 20, 'height': 10},
+        "%");
+    this.menuHandler.addScene("Leaderboard", leaderboardMenuScene);
+
+    this.menuHandler.currentScene = "Main Menu";
+    this.menuHandler.showOnlyCurrentScene();
+  }
+
 }
