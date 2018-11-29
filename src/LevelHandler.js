@@ -68,6 +68,12 @@ class LevelHandler {
     }
   }
 
+  update() {
+    this.levels.forEach((level) => {
+      level.update();
+    });
+  }
+
   /**
    * Get the current level object
    * @returns {Level} the current level object the index refers to

@@ -1,6 +1,6 @@
 class Terrain{
 
-  constructor(x,y, w, h, type){
+  constructor(x,y, w, h, type, assetManager){
     this.pos = {
       x: x,
       y: y,
@@ -18,6 +18,20 @@ class Terrain{
     this.type = type;
 
     this.testBool = false;
+
+    if(this.type === "Sandtrap")
+    {
+      console.log("sand!!!!!!");
+      this.image = assetManager.find(assetManager.ImageAssets, "sand");
+    }
+    else {
+      this.image = assetManager.find(assetManager.ImageAssets, "water");
+    }
+
+
+    this.image.setPos(this.pos.x , this.pos.y );
+    this.image.setActive(true);
+
   }
 
   /**
@@ -75,11 +89,11 @@ class Terrain{
     } else if(this.type === "Water"){
       ctx.fillStyle = "#8acdff";
     }
-    ctx.fillRect(
-      this.pos.x,
-      this.pos.y,
-      this.size.w,
-      this.size.h,
-    );
+    //ctx.fillRect(
+    //  this.pos.x,
+    //  this.pos.y,
+      //this.size.w,
+      //this.size.h,
+    //);
   }
 }
