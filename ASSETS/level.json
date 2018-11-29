@@ -2,58 +2,38 @@
   "obstacles": {
     "squareObstacles": [
       {
-        "x": 233,
-        "y": 649,
+        "x": 100,
+        "y": 100,
+        "rotation": 60,
+        "sprite": "wall_square"
+      },
+      {
+        "x": 700,
+        "y": 500,
         "rotation": 0,
         "sprite": "wall_square1"
-      },
-      {
-        "x": 1396,
-        "y": 216,
-        "rotation": 0,
-        "sprite": "wall_square2"
-      },
-      {
-        "x": 615,
-        "y": 515,
-        "rotation": 55,
-        "sprite": "wall_square3"
       }
     ],
     "rectangleObstacles": [
       {
-        "x": 581,
-        "y": 900,
-        "rotation": 20,
-        "sprite": "wall_rect_vertical1"
-      },
-      {
-        "x": 831,
-        "y": 831,
-        "rotation": 40,
-        "sprite": "wall_rect_vertical2"
+        "x": 700,
+        "y": 400,
+        "rotation": -45,
+        "sprite": "wall_rect_vertical"
       }
     ],
     "circleObstacles": [
       {
-        "x": 533,
-        "y": 33,
-        "sprite": "wall_circle1"
-      },
+        "x": 500,
+        "y": 100,
+        "sprite": "wall_circle"
+      }
+    ],
+    "rotatingObstacles": [
       {
-        "x": 766,
-        "y": 233,
-        "sprite": "wall_circle2"
-      },
-      {
-        "x": 964,
-        "y": 83,
-        "sprite": "wall_circle3"
-      },
-      {
-        "x": 1197,
-        "y": 831,
-        "sprite": "wall_circle4"
+        "x": 100,
+        "y": 400,
+        "sprite": "rotor"
       }
     ],
     "boundaryObstacles": [

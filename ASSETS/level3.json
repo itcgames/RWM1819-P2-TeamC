@@ -2,58 +2,75 @@
   "obstacles": {
     "squareObstacles": [
       {
-        "x": 233,
-        "y": 649,
-        "rotation": 0,
+        "x": 1163,
+        "y": 83,
+        "rotation": 45,
         "sprite": "wall_square1"
-      },
-      {
-        "x": 1396,
-        "y": 216,
-        "rotation": 0,
-        "sprite": "wall_square2"
-      },
-      {
-        "x": 615,
-        "y": 515,
-        "rotation": 55,
-        "sprite": "wall_square3"
       }
     ],
     "rectangleObstacles": [
       {
-        "x": 581,
-        "y": 900,
-        "rotation": 80,
+        "x": 216,
+        "y": 665,
+        "rotation": -65,
         "sprite": "wall_rect_vertical1"
       },
       {
-        "x": 831,
-        "y": 831,
-        "rotation": 40,
+        "x": 798,
+        "y": 580,
+        "rotation": 60,
         "sprite": "wall_rect_vertical2"
+      },
+      {
+        "x": 1562,
+        "y": 382,
+        "rotation": -45,
+        "sprite": "wall_rect_vertical3"
+      },
+      {
+        "x": 1562,
+        "y": 598,
+        "rotation": 45,
+        "sprite": "wall_rect_vertical4"
       }
     ],
     "circleObstacles": [
       {
-        "x": 533,
-        "y": 33,
+        "x": 631,
+        "y": 99,
         "sprite": "wall_circle1"
       },
       {
-        "x": 964,
-        "y": 83,
-        "sprite": "wall_circle3"
-      },
-      {
-        "x": 766,
-        "y": 233,
+        "x": 831,
+        "y": 831,
         "sprite": "wall_circle2"
       },
       {
-        "x": 1197,
-        "y": 831,
+        "x": 1413,
+        "y": 764,
+        "sprite": "wall_circle3"
+      },
+      {
+        "x": 1396,
+        "y": 166,
         "sprite": "wall_circle4"
+      }
+    ],
+    "rotatingObstacles": [
+      {
+        "x": 482,
+        "y": 432,
+        "sprite": "rotor1"
+      },
+      {
+        "x": 1047,
+        "y": 332,
+        "sprite": "rotor2"
+      },
+      {
+        "x": 1130,
+        "y": 598,
+        "sprite": "rotor3"
       }
     ],
     "boundaryObstacles": [
