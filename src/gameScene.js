@@ -48,6 +48,7 @@ class gameScene extends Scene{
     }
 
     resizeCanvas() {
+
         let canv =  document.getElementById("canvas");
         let screenX = document.body.clientWidth;
         let screenY = document.body.scrollHeight*0.9;
