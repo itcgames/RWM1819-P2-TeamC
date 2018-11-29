@@ -1,0 +1,66 @@
+{
+  "obstacles": {
+    "squareObstacles": [
+      {
+        "x": 100,
+        "y": 100,
+        "rotation": 60,
+        "sprite": "wall_square"
+      },
+      {
+        "x": 700,
+        "y": 500,
+        "rotation": 0,
+        "sprite": "wall_square1"
+      }
+    ],
+    "rectangleObstacles": [
+      {
+        "x": 700,
+        "y": 400,
+        "rotation": -45,
+        "sprite": "wall_rect_vertical"
+      }
+    ],
+    "circleObstacles": [
+      {
+        "x": 500,
+        "y": 100,
+        "sprite": "wall_circle"
+      }
+    ],
+    "rotatingObstacles": [
+      {
+        "x": 100,
+        "y": 400,
+        "sprite": "rotor"
+      }
+    ],
+    "boundaryObstacles": [
+      {
+        "x": 0,
+        "y": 450,
+        "vertical": true,
+        "sprite": "boundary_vertical1"
+      },
+      {
+        "x": 800,
+        "y": 0,
+        "vertical": false,
+        "sprite": "boundary_horizontal1"
+      },
+      {
+        "x": 1600,
+        "y": 450,
+        "vertical": true,
+        "sprite": "boundary_vertical2"
+      },
+      {
+        "x": 800,
+        "y": 900,
+        "vertical": false,
+        "sprite": "boundary_horizontal2"
+      }
+    ]
+  }
+}

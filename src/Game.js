@@ -23,8 +23,6 @@ class Game {
     document.addEventListener("mousemove", this.printMousePos);
     document.addEventListener("mouseup", this.onRelease);
 
-
-
     this.canvasHeight = document.getElementById('canvas')
   }
 
@@ -66,7 +64,8 @@ class Game {
     if (gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true) {
       gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
       gameNs.game.MyAssetManager.update();
-      gameNs.game.obRo.updateSprite();
+      gameNs.game.levelHandler.update();
+      //gameNs.game.obRo.updateSprite();
       gameNs.game.player.update(window.innerWidth, window.innerHeight);
       gameNs.game.goal.update(window.innerWidth, window.innerHeight);
 
@@ -111,9 +110,7 @@ class Game {
     }
 
     this.goal.draw(ctx);
-
-    //drawWorld(this.b2dWorld, ctx);
-
+    drawWorld(this.b2dWorld, ctx);
   }
 
   /**
@@ -127,12 +124,12 @@ class Game {
 
 
     // Demo obstacles
-    this.obSq = new ObstacleSquare(100, 100, 45, this.b2dWorld, this.MyAssetManager, "wall_square");
-    this.obRe = new ObstacleRect(700, 400, 45, this.b2dWorld, this.MyAssetManager, "wall_rect_vertical");
-    this.obCi = new ObstacleCircle(500, 100, this.b2dWorld, this.MyAssetManager, "wall_circle");
-    this.obRo = new ObstacleRotor(100, 400, this.b2dWorld, this.MyAssetManager, "rotor");
-    this.boReV = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical");
-    this.boReV = new BoundaryRect(800, 0, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal");
+    // this.obSq = new ObstacleSquare(100, 100, 45, this.b2dWorld, this.MyAssetManager, "wall_square");
+    // this.obRe = new ObstacleRect(700, 400, 45, this.b2dWorld, this.MyAssetManager, "wall_rect_vertical");
+    // this.obCi = new ObstacleCircle(500, 100, this.b2dWorld, this.MyAssetManager, "wall_circle");
+    // this.obRo = new ObstacleRotor(100, 400, this.b2dWorld, this.MyAssetManager, "rotor");
+    //this.boReV = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical");
+    //this.boReV = new BoundaryRect(800, 0, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal");
     // Declare sprites images && sounds here using... 
     //overall asset setup, can do this in each class for other object images
      this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
@@ -141,11 +138,13 @@ class Game {
      this.music = this.MyAssetManager.find(this.MyAssetManager.SoundAssets, "music");
      this.music.loop = true;
     // confirm assets are setup
+    this.levelHandler = new LevelHandler();
+    this.levelHandler.addLevel(new Level("assets/level.json"));
+    this.levelHandler.levels.forEach((level) => {
+      level.loadLevel();
+    });
     gameNs.game.MyAssetManager.isSetUp = true;
   }
-
-
-
 
   onClick() {
     //var v = new b2Vec2(circleBody.GetCenterPosition().x - mouseX, circleBody.GetCenterPosition().y - mouseY);
