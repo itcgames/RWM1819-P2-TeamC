@@ -24,6 +24,8 @@ class Game {
     document.addEventListener("mousemove", this.printMousePos);
     document.addEventListener("mouseup", this.onRelease);
 
+    document.body.style.userSelect = 'none';
+
     this.canvasHeight = document.getElementById('canvas');
   }
 
@@ -88,7 +90,6 @@ class Game {
       }
       gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
       gameNs.game.MyAssetManager.update();
-      gameNs.game.obRo.updateSprite();
       gameNs.game.player.update(window.innerWidth, window.innerHeight);
       gameNs.game.goal.update(window.innerWidth, window.innerHeight);
 
@@ -122,7 +123,7 @@ class Game {
   draw() {
     var canv = document.getElementById("canvas");
     var ctx = canv.getContext("2d");
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx.clearRect(0,0, canv.width, canv.height);
     this.player.draw(ctx);
     // Executed once everything is loaded
     if (this.MyAssetManager.isSetUp === true && this.MyAssetManager.isLoaded === true) {
@@ -139,6 +140,7 @@ class Game {
 
     this.goal.draw(ctx);
 
+    drawWorld(this.b2dWorld, ctx);
 
     for(let i = 0; i < gameNs.game.terrainList.length; i++){
       gameNs.game.terrainList[i].draw(ctx);
@@ -154,21 +156,26 @@ class Game {
    */
   setUp() {
     // Create Player
-    this.player = new PlayerBall(this.b2dWorld, 600, 200, 20, this.MyAssetManager);
-    this.goal = new Goal(800, 200, 20);
+    this.player = new PlayerBall(this.b2dWorld, 216, 433, 20, this.MyAssetManager);
+    this.goal = new Goal(1496,864,20);
 
-    this.terrainList = [
+     this.terrainList = [
       new Terrain(800,200,100,100,"Sandtrap"),
       new Terrain(400,400,200,100,"Water"),
     ];
-
-    this.obSq = new ObstacleSquare(100, 100, 45, this.b2dWorld, this.MyAssetManager, "wall_square");
-    this.obRe = new ObstacleRect(700, 400, 45, this.b2dWorld, this.MyAssetManager, "wall_rect_vertical");
-    this.obCi = new ObstacleCircle(500, 100, this.b2dWorld, this.MyAssetManager, "wall_circle");
-    this.obRo = new ObstacleRotor(100, 400, this.b2dWorld, this.MyAssetManager, "rotor");
-    this.boReV = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical");
-    this.boReV = new BoundaryRect(800, 0, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal");
-    // Declare sprites images && sounds here using...
+    
+    // Demo obstacles
+    this.obs2 = new ObstacleSquare(233, 649, 0, this.b2dWorld, this.MyAssetManager, "wall_square");
+    this.obs3 = new ObstacleCircle(533, 33, this.b2dWorld, this.MyAssetManager, "wall_circle");
+    this.obs4 = new ObstacleCircle(766, 233, this.b2dWorld, this.MyAssetManager, "wall_circle");
+    this.obs5 = new ObstacleCircle(964, 83, this.b2dWorld, this.MyAssetManager, "wall_circle");
+    this.obs6 = new ObstacleSquare(1396, 216, 0, this.b2dWorld, this.MyAssetManager, "wall_square");
+    this.obs7 = new ObstacleSquare(615, 515, 55, this.b2dWorld, this.MyAssetManager, "wall_square");
+    this.obs8 = new ObstacleRect(581, 900, 20, this.b2dWorld, this.MyAssetManager, "wall_rect_vertical");
+    this.obs9 = new ObstacleRect(831, 831, 40, this.b2dWorld, this.MyAssetManager, "wall_rect_vertical");
+    this.obs10 = new ObstacleCircle(1197, 831, this.b2dWorld, this.MyAssetManager, "wall_circle");
+    // Declare sprites images && sounds here using... 
+    
     // overall asset setup, can do this in each class for other object images
      this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
      this.coin.setSpriteSheet(true, 5, 5);

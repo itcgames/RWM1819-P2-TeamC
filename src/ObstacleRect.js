@@ -10,7 +10,7 @@ class ObstacleRect{
   */
   constructor(x, y, rotation, world, assetManager, sprite) {
     var radians = rotation * Math.PI / 180;
-    this.body = b2dCreateBox(x, y, 50, 75, world, true);
+    this.body = b2dCreateBox(x, y, 66, 99, world, true);
     this.body.SetOriginPosition(this.body.GetCenterPosition(), radians);
     this.image = assetManager.find(assetManager.ImageAssets, sprite);
     this.image.setPos(x - 50, y - 75);
