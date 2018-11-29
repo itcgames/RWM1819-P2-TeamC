@@ -11,7 +11,21 @@ class Terrain{
       h: h,
     };
 
+    this.typeList = {
+      "Sandtrap": 1,
+      "Water": 2,
+    };
+    this.type = "Sandtrap";
+
     this.testBool = false;
+  }
+
+  /**
+   *
+   * @returns {*}
+   */
+  getType(){
+    return this.typeList[this.type];
   }
 
   /**
@@ -24,10 +38,6 @@ class Terrain{
   checkCollision(x,y,radius){
     // Find closest point P
     // Initialised to circle's center
-
-    console.log(x);
-    console.log(y);
-    console.log(radius);
     let p = {
       x: x,
       y: y,
@@ -46,6 +56,7 @@ class Terrain{
       p.y = this.pos.y + this.size.h;
     }
 
+    // Find the distance between the origin (x,y) and the closest point (P)
     const dist = Math.sqrt((x - p.x) * (x - p.x) + (y - p.y) * (y - p.y));
 
     if (dist < radius){
@@ -59,11 +70,10 @@ class Terrain{
   }
 
   draw(ctx){
-    if(this.testBool) {
-      ctx.fillStyle = "#ff0000";
-    }
-    else{
-      ctx.fillStyle = "#ffffff";
+    if(this.type === "Sandtrap") {
+      ctx.fillStyle = "#ffca77";
+    } else if(this.type === "Water"){
+      ctx.fillStyle = "#8acdff";
     }
     ctx.fillRect(
       this.pos.x,
