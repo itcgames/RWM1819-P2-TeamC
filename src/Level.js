@@ -64,7 +64,6 @@ class Level {
        } else if (key === "boundaryObstacles") {
          level.data.obstacles[key].forEach((obs) => {
            console.log(obs);
-           debugger
            list.push(new BoundaryRect(obs.x, obs.y,
                obs.vertical,
                gameNs.game.b2dWorld,
