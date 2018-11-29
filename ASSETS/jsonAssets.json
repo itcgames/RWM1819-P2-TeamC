@@ -10,7 +10,9 @@
         "water": ["../ASSETS/water.png", 0, 0, 200, 100, "canvas"],
         "sand": ["../ASSETS/sand.png", 0, 0, 100, 100, "canvas"],
         "ball": ["../ASSETS/ball.png", 0, 0, 40, 40, "canvas"],
-        "boundary_horizontal": ["../ASSETS/boundary_horizontal.png", 0, 0, 1600, 10, "canvas"],
-        "boundary_vertical": ["../ASSETS/boundary_vertical.png", 0, 0, 10, 900, "canvas"]
+        "boundary_horizontal_top": ["../ASSETS/boundary_horizontal.png", 0, 0, 1600, 10, "canvas"],
+        "boundary_horizontal_bottom": ["../ASSETS/boundary_horizontal.png", 0, 0, 1600, 10, "canvas"],
+        "boundary_vertical_left": ["../ASSETS/boundary_vertical.png", 0, 0, 10, 900, "canvas"],
+        "boundary_vertical_right": ["../ASSETS/boundary_vertical.png", 0, 0, 10, 900, "canvas"]
     }]
 }
