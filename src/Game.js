@@ -6,23 +6,12 @@
  */
 class Game {
   /**
-<<<<<<< HEAD
    * @constructor
    * @desc simple game constructor
    */
-=======
-  * @constructor
-  * @desc simple game constructor
-  */
->>>>>>> 90fcc9cf9c0fd8211fd435c20d2f5bb1415793a0
   constructor() {
     // Create an Asset manager
     this.MyAssetManager = new AssetManager("ASSETS/jsonAssets.json");
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 90fcc9cf9c0fd8211fd435c20d2f5bb1415793a0
     // Initialise Box2D World
     this.b2dWorld = b2dCreateWorld();
 
@@ -40,13 +29,8 @@ class Game {
   }
 
   /**
-<<<<<<< HEAD
    * initialise the game world
    */
-=======
-  * initialize the game world
-  */
->>>>>>> 90fcc9cf9c0fd8211fd435c20d2f5bb1415793a0
   initWorld() {
     let canvas = document.getElementById('canvas');
     document.body.style.padding = '0px, 0px, 0px, 0px';
@@ -58,39 +42,21 @@ class Game {
     div.style.height = document.body.scrollHeight + "px";
     div.appendChild(canvas);
     document.body.appendChild(div);
-<<<<<<< HEAD
-    document.body.onresize = function() {
-=======
 
     gameNs.game.g = new gameScene("Game Scene", div, {'x': 0, 'y': 0, 'width': 100, 'height': 100});
 
     document.body.onresize = function(){
->>>>>>> 90fcc9cf9c0fd8211fd435c20d2f5bb1415793a0
       console.log("resize");
       div.style.width = document.body.clientWidth + "px";
       div.style.height = document.body.scrollHeight + "px";
       gameNs.game.g.resizeCanvas();
     };
-
-<<<<<<< HEAD
-    let g = new gameScene("Game Scene", div, {
-      'x': 0,
-      'y': 0,
-      'width': 100,
-      'height': 100
-    });
   }
 
-  /**
-   * updates the game
-   */
-=======
-  }
 
   /**
   * updates the game
   */
->>>>>>> 90fcc9cf9c0fd8211fd435c20d2f5bb1415793a0
   update() {
     // Sets up assets once they are loaded
     if (gameNs.game.MyAssetManager.isLoaded === true && gameNs.game.MyAssetManager.isSetUp === false) {
