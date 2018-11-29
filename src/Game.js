@@ -16,16 +16,14 @@ class Game {
     this.b2dWorld = b2dCreateWorld();
 
     // Mosue Stuff
-    this.mouseX;
-    this.mouseY;
+    this.mouseX = 0;
+    this.mouseY = 0;
     this.clicked = false;
     document.addEventListener("mousedown", this.onClick);
     document.addEventListener("mousemove", this.printMousePos);
     document.addEventListener("mouseup", this.onRelease);
 
-
-
-    this.canvasHeight = document.getElementById('canvas')
+    this.canvasHeight = document.getElementById('canvas');
   }
 
   /**
@@ -131,15 +129,15 @@ class Game {
     this.goal = new Goal(800, 200, 20);
 
 
-    // Demo obstacles
-    this.obSq = new ObstacleSquare(100, 100, 45, this.b2dWorld, this.MyAssetManager);
-    this.obRe = new ObstacleRect(700, 400, 45, this.b2dWorld, this.MyAssetManager);
-    this.obCi = new ObstacleCircle(500, 100, this.b2dWorld, this.MyAssetManager);
-    this.obRo = new ObstacleRotor(100, 400, this.b2dWorld, this.MyAssetManager);
-    this.boReV = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager);
-    this.boReV = new BoundaryRect(800, 0, false, this.b2dWorld, this.MyAssetManager);
-    // Declare sprites images && sounds here using...
-    //overall asset setup, can do this in each class for other object images
+
+    this.obSq = new ObstacleSquare(100, 100, 45, this.b2dWorld, this.MyAssetManager, "wall_square");
+    this.obRe = new ObstacleRect(700, 400, 45, this.b2dWorld, this.MyAssetManager, "wall_rect_vertical");
+    this.obCi = new ObstacleCircle(500, 100, this.b2dWorld, this.MyAssetManager, "wall_circle");
+    this.obRo = new ObstacleRotor(100, 400, this.b2dWorld, this.MyAssetManager, "rotor");
+    this.boReV = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical");
+    this.boReV = new BoundaryRect(800, 0, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal");
+    // Declare sprites images && sounds here using... 
+    // overall asset setup, can do this in each class for other object images
      this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
      this.coin.setSpriteSheet(true, 5, 5);
      //this.coin.setActive(true);

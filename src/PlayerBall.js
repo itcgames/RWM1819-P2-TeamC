@@ -7,8 +7,7 @@ class PlayerBall{
   * @constructor
   * @desc Simple constructor
   */
-  constructor(world, positionX, positionY, radius, assetManager)
-  {
+  constructor(world, positionX, positionY, radius, assetManager) {
     this.body = b2dCreateCustomCircle(positionX, positionY, radius, world, 0.1);
     this.body.m_linearDamping = 0.975;
     this.body.m_angularDamping = 0.98;
@@ -26,8 +25,7 @@ class PlayerBall{
     this.shotNumber = 0;
     this.score = 0;
   }
-  update(width, height)
-  {
+  update(width, height) {
     this.emitter.addNewParticles();
     this.emitter.plotParticles(width, height);
     this.emitter.setPos(this.body.GetCenterPosition().x, this.body.GetCenterPosition().y);
@@ -47,13 +45,11 @@ class PlayerBall{
     //this.emitter.setParticlesLifeTime(1);
   }
 
-  draw(ctx)
-  {
+  draw(ctx) {
     this.emitter.draw(ctx);
   }
 
-  getBody()
-  {
+  getBody() {
     return this.body;
   }
 }
