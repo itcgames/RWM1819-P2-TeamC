@@ -9,14 +9,12 @@ class Game{
   * @constructor
   * @desc simple game constructor
   */
-  constructor()
-  {
+  constructor() {
     // Create an Asset manager
     this.MyAssetManager = new AssetManager("ASSETS/jsonAssets.json");
 
-
-        // Initialise Box2D World
-        this.b2dWorld = b2dCreateWorld();
+    // Initialise Box2D World
+    this.b2dWorld = b2dCreateWorld();
 
     // Mosue Stuff
     this.mouseX;
@@ -34,8 +32,7 @@ class Game{
   /**
   * initialise the game world
   */
-  initWorld()
-  {
+  initWorld() {
     let canvas = document.getElementById('canvas');
     document.body.style.padding = '0px, 0px, 0px, 0px';
 
@@ -58,8 +55,7 @@ class Game{
   /**
   * updates the game
   */
-  update()
-  {
+  update() {
     // Sets up assets once they are loaded
     if(gameNs.game.MyAssetManager.isLoaded === true && gameNs.game.MyAssetManager.isSetUp === false)
     {
@@ -86,8 +82,7 @@ class Game{
   /**
   * draws the game
   */
-  draw()
-  {
+  draw() {
     var canv = document.getElementById("canvas");
     var ctx = canv.getContext("2d");
     ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
@@ -114,10 +109,7 @@ class Game{
    * Game setUp function for when files are finished loading
    * @function setUp
    */
-  setUp ()
-  {
-
-
+  setUp () {
     // Create Player
     this.player = new PlayerBall(this.b2dWorld, 600,200,20);
     this.goal = new Goal(800,200,20);
