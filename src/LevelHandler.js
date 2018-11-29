@@ -23,6 +23,8 @@ class LevelHandler {
         for (let i = 0; i < this.levels.length; i++) {
           if (i !== this._currentLevelIndex) {
             this.levels[i].hideLevel();
+          } else {
+            this.levels[i].showLevel();
           }
         }
       }
@@ -41,6 +43,8 @@ class LevelHandler {
         for (let i = 0; i < this.levels.length; i++) {
           if (i !== this._currentLevelIndex) {
             this.levels[i].hideLevel();
+          } else {
+            this.levels[i].showLevel();
           }
         }
       }
@@ -57,6 +61,8 @@ class LevelHandler {
       for (let i = 0; i < this.levels.length; i++) {
         if (i !== this._currentLevelIndex) {
           this.levels[i].hideLevel();
+        } else {
+          this.levels[i].showLevel();
         }
       }
     }

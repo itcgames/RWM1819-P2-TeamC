@@ -32,6 +32,14 @@ class Level {
     });
   }
 
+  showLevel() {
+    this.obstacles.forEach((obsArray) => {
+      obsArray.forEach((obs) => {
+        obs.image.setActive(true);
+      });
+    });
+  }
+
   update() {
 
   }
