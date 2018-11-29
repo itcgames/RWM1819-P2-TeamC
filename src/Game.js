@@ -13,16 +13,12 @@ class Game{
   {
     // Create an Asset manager
     this.MyAssetManager = new AssetManager("ASSETS/jsonAssets.json");
-    this.b2dWorld = b2dCreateWorld();
-    this.body1 = b2dCreateBox(200, 200, 40, 40, this.b2dWorld, true);
-    //this.body2 = b2dCreateCircle(600, 200, 40, this.b2dWorld, false);
-    this.player = new PlayerBall(this.b2dWorld, 600,200,20);
-    this.goal = new Goal(800,200,20);
-    this.body3 = b2dCreateBox(400, 400, 40, 40, this.b2dWorld, false);
 
 
+        // Initialise Box2D World
+        this.b2dWorld = b2dCreateWorld();
 
-    //mouse stuff
+    // Mosue Stuff
     this.mouseX;
     this.mouseY;
     this.clicked = false;
@@ -74,6 +70,7 @@ class Game{
     {
       gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
       gameNs.game.MyAssetManager.update();
+      gameNs.game.obRo.updateSprite();
       if(gameNs.game.goal.collision(gameNs.game.player.getBody().GetCenterPosition().x,gameNs.game.player.getBody().GetCenterPosition().y, 20))
       {
         //console.log("PUT");
@@ -119,6 +116,17 @@ class Game{
    */
   setUp ()
   {
+
+
+    // Create Player
+    this.player = new PlayerBall(this.b2dWorld, 600,200,20);
+    this.goal = new Goal(800,200,20);
+
+    // Demo obstacles
+    this.obSq = new ObstacleSquare(300, 300, this.b2dWorld, this.MyAssetManager);
+    this.obRe = new ObstacleRect(700, 200, this.b2dWorld, this.MyAssetManager);
+    this.obCi = new ObstacleCircle(500, 100, this.b2dWorld, this.MyAssetManager);
+    this.obRo = new ObstacleRotor(100, 400, this.b2dWorld, this.MyAssetManager);
     // Declare sprites images && sounds here using... 
     //overall asset setup, can do this in each class for other object images
      this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
