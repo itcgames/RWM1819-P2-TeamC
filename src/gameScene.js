@@ -41,10 +41,10 @@ class gameScene extends Scene{
     init()
     {
         let canv =  document.getElementById("canvas");
-        let ctx = canv.getContext("2d");
         canv.style.position = 'absolute';
-        canv.style.height = "90%";
-        canv.style.width = '100%';
+        canv.width = 1600;
+        canv.height = 900;
+        this.resizeCanvas();
         canv.style.top = "10%";
     }
 
@@ -52,15 +52,15 @@ class gameScene extends Scene{
         let canv =  document.getElementById("canvas");
         let screenX = document.body.clientWidth;
         let screenY = document.body.scrollHeight*0.9;
-        let ratio = 19/9;
+        let ratio = 16/9;
         let newRatio = screenX/screenY;
 
         if (newRatio > ratio) {
-            screenX = screenY * widthToHeight;
+            screenX = screenY * ratio;
             canv.style.height = screenY + 'px';
             canv.style.width = screenX + 'px';
         } else {
-            newHeight = screenX / widthToHeight;
+            screenY = screenX / ratio;
             canv.style.width = screenX + 'px';
             canv.style.height = screenY + 'px';
         }
