@@ -143,6 +143,7 @@ class Game {
      //this.coin.setActive(true);
      this.music = this.MyAssetManager.find(this.MyAssetManager.SoundAssets, "music");
      this.music.loop = true;
+     this.music.play();
     // confirm assets are setup
     gameNs.game.MyAssetManager.isSetUp = true;
   }
