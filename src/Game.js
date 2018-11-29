@@ -75,13 +75,13 @@ class Game {
         if (gameNs.game.terrainList[i].checkCollision(
           gameNs.game.player.body.GetCenterPosition().x,
           gameNs.game.player.body.GetCenterPosition().y,
-          20,
+          20
         )) {
           if (gameNs.game.terrainList[i].type === "Water") {
             gameNs.game.player.body.SetCenterPosition(
               { x: gameNs.game.player.startPos.x,
                 y: gameNs.game.player.startPos.y,},
-              0,
+              0
             );
             gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0,0));
             gameNs.game.player.shotNumber +=1;
@@ -157,6 +157,7 @@ class Game {
     }
 
     this.goal.draw(ctx);
+    drawWorld(this.b2dWorld, ctx);
 
   }
 
@@ -255,5 +256,4 @@ class Game {
     gameNs.game.mouseX = (event.clientX - rect.left)/ (rect.right - rect.left) * canvas.width;
     gameNs.game.mouseY = (event.clientY - rect.top)/ (rect.bottom - rect.top) * canvas.height;
   }
-
 }
