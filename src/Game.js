@@ -25,6 +25,7 @@ class Game {
     document.addEventListener("mouseup", this.onRelease);
 
     this.canvasHeight = document.getElementById('canvas');
+    this.inSand=false;
   }
 
   /**
@@ -66,7 +67,8 @@ class Game {
     {
       // Terrain logic
       gameNs.game.player.body.m_linearDamping = gameNs.game.player.standardFriction;
-      
+      gameNs.game.player.emitter.color = 'rgb(0,250,0)';
+      gameNs.game.inSand = false;
       for(let i = 0; i < gameNs.game.terrainList.length; i++) {
         if (gameNs.game.terrainList[i].checkCollision(
           gameNs.game.player.body.GetCenterPosition().x,
@@ -80,9 +82,12 @@ class Game {
               0,
             );
             gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0,0));
+            gameNs.game.player.shotNumber +=1;
             console.log("WATER!");
           } else {
             gameNs.game.player.body.m_linearDamping = gameNs.game.player.sandFriction;
+            gameNs.game.player.emitter.color = 'rgb(255,0,0)';
+            gameNs.game.inSand = true;
           }
         }
       }
@@ -123,10 +128,21 @@ class Game {
     var canv = document.getElementById("canvas");
     var ctx = canv.getContext("2d");
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    this.player.draw(ctx);
+
+
+    if(this.inSand === false)
+    {
+      this.player.draw(ctx);
+    }
+
     // Executed once everything is loaded
     if (this.MyAssetManager.isSetUp === true && this.MyAssetManager.isLoaded === true) {
       this.MyAssetManager.draw();
+    }
+
+    if(this.inSand === true)
+    {
+      this.player.draw(ctx);
     }
 
 
@@ -138,12 +154,6 @@ class Game {
     }
 
     this.goal.draw(ctx);
-
-
-    for(let i = 0; i < gameNs.game.terrainList.length; i++){
-      gameNs.game.terrainList[i].draw(ctx);
-    }
-    //this.testTerrain.draw(ctx);
 
     //drawWorld(this.b2dWorld, ctx);
   }
@@ -158,8 +168,8 @@ class Game {
     this.goal = new Goal(800, 200, 20);
 
     this.terrainList = [
-      new Terrain(800,200,100,100,"Sandtrap"),
-      new Terrain(400,400,200,100,"Water"),
+      new Terrain(800,400,100,100,"Sandtrap", this.MyAssetManager),
+      new Terrain(400,400,200,100,"Water", this.MyAssetManager),
     ];
 
     this.obSq = new ObstacleSquare(100, 100, 45, this.b2dWorld, this.MyAssetManager, "wall_square");
@@ -203,6 +213,23 @@ class Game {
 
       gameNs.game.player.startPos.x = gameNs.game.player.getBody().GetCenterPosition().x;
       gameNs.game.player.startPos.y = gameNs.game.player.getBody().GetCenterPosition().y;
+      //console.log(v);
+      if(v.x > 500)
+      {
+        v.x = 500;
+      }
+      if(v.x < -500)
+      {
+        v.x = -500;
+      }
+      if(v.y > 500)
+      {
+        v.y = 500;
+      }
+      if(v.y < -500)
+      {
+        v.y = -500;
+      }
       gameNs.game.player.getBody().ApplyImpulse(new b2Vec2(v.x * 500, v.y * 500), gameNs.game.player.getBody().GetCenterPosition());
       gameNs.game.clicked = false;
     }

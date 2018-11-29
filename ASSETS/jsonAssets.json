@@ -7,6 +7,8 @@
         "rotor": ["../ASSETS/rotor.png", 0, 0, 25, 150, "canvas"],
         "wall_rect_horizontal": ["../ASSETS/wall_rect_horizontal.png", 0, 0, 150, 100, "canvas"],
         "wall_rect_vertical": ["../ASSETS/wall_rect_vertical.png", 0, 0, 100, 150, "canvas"],
+        "water": ["../ASSETS/water.png", 0, 0, 200, 100, "canvas"],
+        "sand": ["../ASSETS/sand.png", 0, 0, 100, 100, "canvas"],
         "ball": ["../ASSETS/ball.png", 0, 0, 40, 40, "canvas"],
         "boundary_horizontal": ["../ASSETS/boundary_horizontal.png", 0, 0, 1600, 10, "canvas"],
         "boundary_vertical": ["../ASSETS/boundary_vertical.png", 0, 0, 10, 900, "canvas"]
