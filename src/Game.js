@@ -123,6 +123,7 @@ class Game{
     //overall asset setup, can do this in each class for other object images
      this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
      this.coin.setSpriteSheet(true, 5, 5);
+     //this.coin.setActive(true);
      this.music = this.MyAssetManager.find(this.MyAssetManager.SoundAssets, "music");
      this.music.loop = true;
     // confirm assets are setup
@@ -136,8 +137,8 @@ class Game{
     //var v = new b2Vec2(circleBody.GetCenterPosition().x - mouseX, circleBody.GetCenterPosition().y - mouseY);
     //v.Normalize();
     //circleBody.ApplyImpulse(new b2Vec2(v.x*300,v.y*300), circleBody.GetCenterPosition());
-    if((gameNs.game.player.getBody().GetLinearVelocity().x >= -0.5 && gameNs.game.player.getBody().GetLinearVelocity().x <= 0.5)
-    &&(gameNs.game.player.getBody().GetLinearVelocity().y >= -0.5 && gameNs.game.player.getBody().GetLinearVelocity().y <= 0.5))
+    if((gameNs.game.player.getBody().GetLinearVelocity().x >= -0.5 && gameNs.game.player.getBody().GetLinearVelocity().x <= 0.5) && 
+    (gameNs.game.player.getBody().GetLinearVelocity().y >= -0.5 && gameNs.game.player.getBody().GetLinearVelocity().y <= 0.5))
     {
       gameNs.game.clicked = true;
       console.log("clicked");
