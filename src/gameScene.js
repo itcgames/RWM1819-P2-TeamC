@@ -38,8 +38,7 @@ class gameScene extends Scene{
         this._containerDiv.appendChild(document.getElementById("canvas"));
     }
 
-    init()
-    {
+    init() {
         let canv =  document.getElementById("canvas");
         canv.style.position = 'absolute';
         canv.width = 1600;
@@ -48,7 +47,8 @@ class gameScene extends Scene{
         canv.style.top = "10%";
     }
 
-    resizeCanvas(){
+    resizeCanvas() {
+
         let canv =  document.getElementById("canvas");
         let screenX = document.body.clientWidth;
         let screenY = document.body.scrollHeight*0.9;
@@ -64,8 +64,6 @@ class gameScene extends Scene{
             canv.style.width = screenX + 'px';
             canv.style.height = screenY + 'px';
         }
-
-
     }
 
 
