@@ -15,6 +15,7 @@ class Level {
     this.obstacles.set("circleObstacles", []);
     this.obstacles.set("rotatingObstacles", []);
     this.obstacles.set("boundaryObstacles", []);
+    this.obstacles.set("terrains", []);
   }
 
   /**
@@ -69,6 +70,19 @@ class Level {
                gameNs.game.b2dWorld,
                gameNs.game.MyAssetManager,
                obs.sprite));
+         });
+       } else if (key === "terrains") {
+         console.log("TERRAINS");
+         level.data.obstacles[key].forEach((obs) => {
+           console.log(obs);
+           list.push(new Terrain(
+             obs.x,
+             obs.y,
+             obs.w,
+             obs.h,
+             obs.type,
+             gameNs.game.MyAssetManager,
+             obs.sprite));
          });
        }
      });
