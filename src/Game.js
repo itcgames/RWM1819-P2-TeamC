@@ -77,6 +77,12 @@ class Game{
         gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600,200),gameNs.game.player.getBody().GetRotation() );
         gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0,0));
       }
+
+      gameNs.game.testTerrain.checkCollision(
+        gameNs.game.player.body.GetCenterPosition().x,
+        gameNs.game.player.body.GetCenterPosition().y,
+        20,
+      );
       gameNs.game.draw();
     }
 
@@ -107,6 +113,7 @@ class Game{
     }
 
     this.goal.draw(ctx);
+    this.testTerrain.draw(ctx);
     drawWorld(this.b2dWorld, ctx);
   }
 
@@ -116,7 +123,7 @@ class Game{
    */
   setUp ()
   {
-
+    this.testTerrain = new Terrain(800,200,100,100);
 
     // Create Player
     this.player = new PlayerBall(this.b2dWorld, 600,200,20);
