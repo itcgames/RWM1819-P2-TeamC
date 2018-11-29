@@ -162,10 +162,12 @@ class Game {
     this.boundLeft = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical_left");
     this.boundRight = new BoundaryRect(1595, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical_right");
     this.boundTop = new BoundaryRect(800, 5, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal_top");
-    this.boundBottom = new BoundaryRect(800, 895, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal_bottom");     
+    this.boundBottom = new BoundaryRect(800, 895, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal_bottom");
+
     this.terrainList = [
-      new Terrain(800,200,100,100,"Sandtrap"),
-      new Terrain(400,400,200,100,"Water"),
+      new Terrain(10,10,365,200,"Water"),
+      new Terrain(1155,10,432,133,"Sandtrap"),
+      new Terrain(1455,140,133,250,"Sandtrap"),
     ];
 
     // Demo obstacles
