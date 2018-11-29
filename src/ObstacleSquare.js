@@ -1,8 +1,8 @@
 /**
- * @class ObstacleRect
- * @classdesc Simple rectangle obstacle for the player to collide with
+ * @class ObstacleSquare
+ * @classdesc Simple square obstacle for the player to collide with
  */
-class ObstacleRect{
+class ObstacleSquare{
   
   /**
   * @constructor
@@ -11,10 +11,10 @@ class ObstacleRect{
   constructor(x, y, rotation, world, assetManager)
   {
     var radians = rotation * Math.PI / 180;
-    this.body = b2dCreateBox(x, y, 50, 75, world, true);
+    this.body = b2dCreateBox(x, y, 50, 50, world, true);
     this.body.SetOriginPosition(this.body.GetCenterPosition(), radians);
-    this.image = assetManager.find(assetManager.ImageAssets, "wall_rect_vertical");
-    this.image.setPos(x - 50, y - 75);
+    this.image = assetManager.find(assetManager.ImageAssets, "wall_square");
+    this.image.setPos(x - 50, y - 50);
     this.image.rotate = radians;
     this.image.setActive(true);
   }
@@ -24,3 +24,4 @@ class ObstacleRect{
     return this.body;
   }
 }
+  
