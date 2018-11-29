@@ -8,8 +8,7 @@
 
 var gameNs = {};
 
-function main()
-{
+function main() {
   init();
   const game = new Game ();
   gameNs.game = game;
@@ -20,8 +19,7 @@ function main()
 /**
 * Initialise the canvas
 */
-function init()
-{
+function init() {
     console.log('initialising Game');
 
     var canv = document.createElement('canvas');

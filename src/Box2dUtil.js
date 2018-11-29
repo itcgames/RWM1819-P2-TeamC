@@ -1,7 +1,6 @@
 // Box2d Utility Functions
 
-function b2dCreateWorld()
-{
+function b2dCreateWorld() {
   var worldAABB = new b2AABB();
   worldAABB.minVertex.Set(-2000, -2000);
   worldAABB.maxVertex.Set(2000, 2000);
@@ -11,8 +10,7 @@ function b2dCreateWorld()
   return world;
 }
 
-function b2dCreateBox(x, y, w, h, world, static)
-{
+function b2dCreateBox(x, y, w, h, world, static) {
   static = static === true; // Handle non-bool values
 
   var bodyDef = new b2BodyDef();
@@ -29,8 +27,7 @@ function b2dCreateBox(x, y, w, h, world, static)
   return body;
 }
 
-function b2dCreateCircle(x, y, r, world, static)
-{
+function b2dCreateCircle(x, y, r, world, static) {
   static = static === true; // Handle non-bool values
 
   var bodyDef = new b2BodyDef();
@@ -48,8 +45,7 @@ function b2dCreateCircle(x, y, r, world, static)
   return body; // Can be done in fewer lines
 }
 
-function b2dCreateCustomCircle(x, y, r, world, density)
-{
+function b2dCreateCustomCircle(x, y, r, world, density) {
   var bodyDef = new b2BodyDef();
   bodyDef.position.Set(x, y);
   bodyDef.preventRotation = false;
@@ -66,8 +62,7 @@ function b2dCreateCustomCircle(x, y, r, world, density)
 }
 
 
-function b2dCreateRotor(x, y, w, h, world)
-{
+function b2dCreateRotor(x, y, w, h, world) {
   var rotor = b2dCreateBox(x, y, w, h, world, false);
   rotor.friction = 0.5;
   var jointDef = new b2RevoluteJointDef();
