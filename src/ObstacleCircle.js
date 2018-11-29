@@ -10,7 +10,7 @@ class ObstacleCircle{
   constructor(x, y, world, assetManager, sprite) {
     this.body = b2dCreateCircle(x, y, 191, world, true);
     this.image = assetManager.find(assetManager.ImageAssets, sprite);
-    this.image.setPos(x - 50, y - 50);
+    this.image.setPos(x - 191, y - 191);
     this.image.setActive(true);
   }
 

@@ -133,6 +133,9 @@ class Game {
 
         gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), gameNs.game.player.getBody().GetRotation());
         gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0, 0));
+        gameNs.game.levelHandler.currentLevel.hideLevel();
+        gameNs.game.levelHandler.goToLevel(gameNs.game.levelHandler._currentLevelIndex+1);
+        gameNs.game.levelHandler.currentLevel.loadLevel();
       }
       if (gameNs.game.goal.emit === true) {
         gameNs.game.goal.particleTimer += 1;
@@ -153,7 +156,7 @@ class Game {
   draw() {
     var canv = document.getElementById("canvas");
     var ctx = canv.getContext("2d");
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx.clearRect(0, 0, canv.width, canv.height);
 
 
     if(this.inSand === false)
@@ -194,9 +197,10 @@ class Game {
     this.goal = new Goal(1496,864,20);
 
     this.terrainList = [
-      new Terrain(800,400,100,100,"Sandtrap", this.MyAssetManager),
-      new Terrain(400,400,200,100,"Water", this.MyAssetManager),
+      //new Terrain(800,400,100,100,"Sandtrap", this.MyAssetManager),
+      //new Terrain(400,400,200,100,"Water", this.MyAssetManager),
       ];
+
     // overall asset setup, can do this in each class for other object images
      this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
      this.coin.setSpriteSheet(true, 5, 5);
@@ -206,10 +210,10 @@ class Game {
      this.music.play();
     // confirm assets are setup
     this.levelHandler = new LevelHandler();
-    this.levelHandler.addLevel(new Level("assets/level.json"));
-    this.levelHandler.levels.forEach((level) => {
-      level.loadLevel();
-    });
+    this.levelHandler.addLevel(new Level("assets/level1.json"));
+    this.levelHandler.addLevel(new Level("assets/level2.json"));
+    this.levelHandler.addLevel(new Level("assets/level3.json"));
+    this.levelHandler.currentLevel.loadLevel();
     this.initMenus();
     gameNs.game.MyAssetManager.isSetUp = true;
   }

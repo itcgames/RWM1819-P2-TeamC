@@ -82,6 +82,7 @@ class Level {
     this.obstacles.forEach((obsArray) => {
       obsArray.forEach((obs) => {
         obs.image.setActive(false);
+        gameNs.game.b2dWorld.DestroyBody( obs.getBody() );
       });
     });
   }

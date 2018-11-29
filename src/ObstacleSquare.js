@@ -14,7 +14,7 @@ class ObstacleSquare{
     this.body = b2dCreateBox(x, y, 66, 66, world, true);
     this.body.SetOriginPosition(this.body.GetCenterPosition(), radians);
     this.image = assetManager.find(assetManager.ImageAssets, sprite);
-    this.image.setPos(x - 50, y - 50);
+    this.image.setPos(x - 66, y - 66);
     this.image.rotate = radians;
     this.image.setActive(true);
   }
