@@ -1,19 +1,19 @@
 {
-    "soundsList": [{ "music": "../ASSETS/Music.mp3"}],
-    "imageList": [{
-        "coin": ["../ASSETS/coin.png", 10, 10, 788, 219, "canvas"],
-        "wall_square": ["../ASSETS/wall_square.png", 0, 0, 100, 100, "canvas"],
-        "wall_square1": ["../ASSETS/wall_square.png", 0, 0, 100, 100, "canvas"],
-        "wall_circle": ["../ASSETS/wall_circle.png", 0, 0, 100, 100, "canvas"],
-        "rotor": ["../ASSETS/rotor.png", 0, 0, 25, 150, "canvas"],
-        "wall_rect_horizontal": ["../ASSETS/wall_rect_horizontal.png", 0, 0, 150, 100, "canvas"],
-        "wall_rect_vertical": ["../ASSETS/wall_rect_vertical.png", 0, 0, 100, 150, "canvas"],
-        "water": ["../ASSETS/water.png", 0, 0, 200, 100, "canvas"],
-        "sand": ["../ASSETS/sand.png", 0, 0, 100, 100, "canvas"],
-        "ball": ["../ASSETS/ball.png", 0, 0, 40, 40, "canvas"],
-        "boundary_horizontal1": ["../ASSETS/boundary_horizontal.png", 0, 0, 1600, 10, "canvas"],
-        "boundary_vertical1": ["../ASSETS/boundary_vertical.png", 0, 0, 10, 900, "canvas"],
-        "boundary_horizontal2": ["../ASSETS/boundary_horizontal.png", 0, 0, 1600, 10, "canvas"],
-        "boundary_vertical2": ["../ASSETS/boundary_vertical.png", 0, 0, 10, 900, "canvas"]
-    }]
+  "soundsList": [{ "music": "../ASSETS/Music.mp3"}],
+  "imageList": [{
+    "coin": ["../ASSETS/coin.png", 10, 10, 788, 219, "canvas"],
+    "wall_square": ["../ASSETS/wall_square.png", 0, 0, 100, 100, "canvas"],
+    "wall_square1": ["../ASSETS/wall_square.png", 0, 0, 100, 100, "canvas"],
+    "wall_circle": ["../ASSETS/wall_circle.png", 0, 0, 100, 100, "canvas"],
+    "rotor": ["../ASSETS/rotor.png", 0, 0, 25, 150, "canvas"],
+    "wall_rect_horizontal": ["../ASSETS/wall_rect_horizontal.png", 0, 0, 150, 100, "canvas"],
+    "wall_rect_vertical": ["../ASSETS/wall_rect_vertical.png", 0, 0, 100, 150, "canvas"],
+    "water": ["../ASSETS/water.png", 0, 0, 200, 100, "canvas"],
+    "sand": ["../ASSETS/sand.png", 0, 0, 100, 100, "canvas"],
+    "ball": ["../ASSETS/ball.png", 0, 0, 40, 40, "canvas"],
+    "boundary_horizontal_top": ["../ASSETS/boundary_horizontal.png", 0, 0, 1600, 10, "canvas"],
+    "boundary_horizontal_bottom": ["../ASSETS/boundary_horizontal.png", 0, 0, 1600, 10, "canvas"],
+    "boundary_vertical_left": ["../ASSETS/boundary_vertical.png", 0, 0, 10, 900, "canvas"],
+    "boundary_vertical_right": ["../ASSETS/boundary_vertical.png", 0, 0, 10, 900, "canvas"]
+  }]
 }

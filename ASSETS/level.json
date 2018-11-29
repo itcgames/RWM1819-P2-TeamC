@@ -41,25 +41,25 @@
         "x": 0,
         "y": 450,
         "vertical": true,
-        "sprite": "boundary_vertical1"
+        "sprite": "boundary_vertical_left"
       },
       {
         "x": 800,
         "y": 0,
         "vertical": false,
-        "sprite": "boundary_horizontal1"
+        "sprite": "boundary_horizontal_top"
       },
       {
         "x": 1600,
         "y": 450,
         "vertical": true,
-        "sprite": "boundary_vertical2"
+        "sprite": "boundary_vertical_right"
       },
       {
         "x": 800,
         "y": 900,
         "vertical": false,
-        "sprite": "boundary_horizontal2"
+        "sprite": "boundary_horizontal_bottom"
       }
     ]
   }
