@@ -66,14 +66,18 @@ function b2dCreateCustomCircle(x, y, r, world, density)
 }
 
 
-function createRotor(x, y, w, h, world)
+function b2dCreateRotor(x, y, w, h, world)
 {
   var rotor = b2dCreateBox(x, y, w, h, world, false);
   rotor.friction = 0.5;
   var jointDef = new b2RevoluteJointDef();
   jointDef.body1 = rotor;
-  jointDef.body2 = world.GetAroundBody();
+  jointDef.body2 = world.GetGroundBody();
   jointDef.anchorPoint = rotor.GetCenterPosition();
+  jointDef.motorSpeed = -1.0 * Math.PI;
+  jointDef.motorTorque = 500000000.0;
+  jointDef.enableMotor = true;
+  console.log(world.GetGroundBody());
   world.CreateJoint(jointDef);
   return rotor;
 }
