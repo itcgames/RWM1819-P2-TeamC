@@ -18,6 +18,7 @@ class Goal {
     this.emit = false;
     this.particleTimer = 0;
   }
+
   draw(ctx) {
     for (var i = 0; i < this.emitters.length; i++) {
       this.emitters[i].draw(ctx);
@@ -26,6 +27,7 @@ class Goal {
     ctx.arc(this.posX, this.posY, this.radius, 0, 2 * Math.PI);
     ctx.stroke();
   }
+
   update(width, height) {
     for (var i = 0; i < this.emitters.length; i++) {
       if (this.emit == true) {
@@ -36,6 +38,7 @@ class Goal {
       this.emitters[i].setPos(this.posX, this.posY);
     }
   }
+  
   collision(p1x, p1y, r1) {
     var a;
     var x;
