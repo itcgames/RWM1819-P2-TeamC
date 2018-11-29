@@ -30,7 +30,7 @@ class Game{
   }
 
   /**
-  * initialise the game world
+  * initialize the game world
   */
   initWorld() {
     let canvas = document.getElementById('canvas');
@@ -43,13 +43,16 @@ class Game{
     div.style.height = document.body.scrollHeight + "px";
     div.appendChild(canvas);
     document.body.appendChild(div);
+
+    gameNs.game.g = new gameScene("Game Scene", div, {'x': 0, 'y': 0, 'width': 100, 'height': 100});
+
     document.body.onresize = function(){
       console.log("resize");
       div.style.width = document.body.clientWidth + "px";
       div.style.height = document.body.scrollHeight + "px";
+      gameNs.game.g.resizeCanvas();
     };
 
-    let g = new gameScene("Game Scene", div, {'x': 0, 'y': 0, 'width': 100, 'height': 100});
   }
 
   /**
@@ -113,6 +116,7 @@ class Game{
     // Create Player
     this.player = new PlayerBall(this.b2dWorld, 600,200,20);
     this.goal = new Goal(800,200,20);
+
 
     // Demo obstacles
     this.obSq = new ObstacleSquare(100, 100, 45, this.b2dWorld, this.MyAssetManager);
