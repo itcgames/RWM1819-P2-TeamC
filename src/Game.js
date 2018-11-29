@@ -73,6 +73,11 @@ class Game {
       if (gameNs.game.goal.collision(gameNs.game.player.getBody().GetCenterPosition().x, gameNs.game.player.getBody().GetCenterPosition().y, 20)) {
         //console.log("PUT");
         gameNs.game.goal.emit = true;
+
+        gameNs.game.player.score += gameNs.game.player.shotNumber - 4;
+        gameNs.game.player.shotNumber = 0;
+        console.log("Score: ",gameNs.game.player.score);
+
         gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), gameNs.game.player.getBody().GetRotation());
         gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0, 0));
       }
@@ -133,7 +138,7 @@ class Game {
     this.obRo = new ObstacleRotor(100, 400, this.b2dWorld, this.MyAssetManager);
     this.boReV = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager);
     this.boReV = new BoundaryRect(800, 0, false, this.b2dWorld, this.MyAssetManager);
-    // Declare sprites images && sounds here using... 
+    // Declare sprites images && sounds here using...
     //overall asset setup, can do this in each class for other object images
      this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
      this.coin.setSpriteSheet(true, 5, 5);
@@ -161,6 +166,8 @@ class Game {
   onRelease() {
     if (gameNs.game.clicked) {
       console.log("release");
+      gameNs.game.player.shotNumber += 1;
+      console.log("Shot number: ",gameNs.game.player.shotNumber);
       var v = new b2Vec2(gameNs.game.player.getBody().GetCenterPosition().x - gameNs.game.mouseX, gameNs.game.player.getBody().GetCenterPosition().y - gameNs.game.mouseY);
       //console.log("v: ",v)
       gameNs.game.player.getBody().ApplyImpulse(new b2Vec2(v.x * 500, v.y * 500), gameNs.game.player.getBody().GetCenterPosition());
