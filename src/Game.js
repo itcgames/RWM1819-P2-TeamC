@@ -68,16 +68,26 @@ class Game{
     // Executed once everything is loaded
     if(gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true)
     {
+      // Terrain logic
       gameNs.game.player.body.m_linearDamping = gameNs.game.player.standardFriction;
-      if(gameNs.game.testTerrain.checkCollision(
+      console.log(gameNs.game.player.startPos);
+      for(let i = 0; i < gameNs.game.terrainList.length; i++) {
+        if (gameNs.game.terrainList[i].checkCollision(
           gameNs.game.player.body.GetCenterPosition().x,
           gameNs.game.player.body.GetCenterPosition().y,
           20,
-      )){
-        if(gameNs.game.testTerrain.type == "Water") {
-          // reset
-        }else{
-          gameNs.game.player.body.m_linearDamping = gameNs.game.player.sandFriction;
+        )) {
+          if (gameNs.game.terrainList[i].type === "Water") {
+            gameNs.game.player.body.SetCenterPosition(
+              { x: gameNs.game.player.startPos.x,
+                y: gameNs.game.player.startPos.y,},
+              0,
+            );
+            gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0,0));
+            console.log("WATER!");
+          } else {
+            gameNs.game.player.body.m_linearDamping = gameNs.game.player.sandFriction;
+          }
         }
       }
 
@@ -90,19 +100,6 @@ class Game{
         gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600,200),gameNs.game.player.getBody().GetRotation() );
         gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0,0));
       }
-
-      if(gameNs.game.testTerrain.checkCollision(
-        gameNs.game.player.body.GetCenterPosition().x,
-        gameNs.game.player.body.GetCenterPosition().y,
-        20,
-      )){
-        if(gameNs.game.testTerrain.type == "Water") {
-          // reset
-        }else{
-
-        }
-      }
-
 
       gameNs.game.draw();
     }
@@ -134,7 +131,11 @@ class Game{
     }
 
     this.goal.draw(ctx);
-    this.testTerrain.draw(ctx);
+
+    for(let i = 0; i < gameNs.game.terrainList.length; i++){
+      gameNs.game.terrainList[i].draw(ctx);
+    }
+    //this.testTerrain.draw(ctx);
     drawWorld(this.b2dWorld, ctx);
   }
 
@@ -144,7 +145,12 @@ class Game{
    */
   setUp ()
   {
-    this.testTerrain = new Terrain(800,200,100,100);
+    //this.testTerrain = new Terrain(800,200,100,100,"Sandtrap");
+
+    this.terrainList = [
+      new Terrain(800,200,100,100,"Sandtrap"),
+      new Terrain(400,400,200,100,"Water"),
+    ];
 
     // Create Player
     this.player = new PlayerBall(this.b2dWorld, 600,200,20);
@@ -187,6 +193,9 @@ class Game{
       console.log("release");
       var v = new b2Vec2(gameNs.game.player.getBody().GetCenterPosition().x - gameNs.game.mouseX, gameNs.game.player.getBody().GetCenterPosition().y - gameNs.game.mouseY);
       //console.log("v: ",v)
+
+      gameNs.game.player.startPos.x = gameNs.game.player.getBody().GetCenterPosition().x;
+      gameNs.game.player.startPos.y = gameNs.game.player.getBody().GetCenterPosition().y;
       gameNs.game.player.getBody().ApplyImpulse(new b2Vec2(v.x * 500, v.y * 500), gameNs.game.player.getBody().GetCenterPosition());
       gameNs.game.clicked = false;
     }

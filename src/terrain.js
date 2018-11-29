@@ -1,6 +1,6 @@
 class Terrain{
 
-  constructor(x,y, w, h){
+  constructor(x,y, w, h, type){
     this.pos = {
       x: x,
       y: y,
@@ -15,7 +15,7 @@ class Terrain{
       "Sandtrap": 1,
       "Water": 2,
     };
-    this.type = "Sandtrap";
+    this.type = type;
 
     this.testBool = false;
   }

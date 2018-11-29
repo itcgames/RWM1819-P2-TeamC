@@ -15,6 +15,10 @@ class PlayerBall{
 
     this.standardFriction = 0.975;
     this.sandFriction = 0.78;
+    this.startPos = {
+      x: this.body.GetCenterPosition().x,
+      y: this.body.GetCenterPosition().y,
+    };
   }
   
   getBody()
