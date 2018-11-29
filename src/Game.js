@@ -129,6 +129,11 @@ class Game {
     this.player = new PlayerBall(this.b2dWorld, 216, 433, 20, this.MyAssetManager);
     this.goal = new Goal(1496,864,20);
 
+    this.boundLeft = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical_left");
+    this.boundRight = new BoundaryRect(1595, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical_right");
+    this.boundTop = new BoundaryRect(800, 5, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal_top");
+    this.boundBottom = new BoundaryRect(800, 895, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal_bottom");
+
     // Demo obstacles
     this.obs2 = new ObstacleSquare(233, 649, 0, this.b2dWorld, this.MyAssetManager, "wall_square");
     this.obs3 = new ObstacleCircle(533, 33, this.b2dWorld, this.MyAssetManager, "wall_circle");
