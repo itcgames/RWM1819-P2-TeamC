@@ -64,7 +64,6 @@ class Game {
     if (gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true) {
       gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
       gameNs.game.MyAssetManager.update();
-      gameNs.game.obRo.updateSprite();
       gameNs.game.player.update(window.innerWidth, window.innerHeight);
       gameNs.game.goal.update(window.innerWidth, window.innerHeight);
 
