@@ -1,4 +1,7 @@
-body,
+body{
+   overflow:hidden;
+  }
+  
 html {
   margin: 0;
   padding: 0;
