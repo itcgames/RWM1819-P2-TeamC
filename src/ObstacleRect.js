@@ -8,8 +8,7 @@ class ObstacleRect{
   * @constructor
   * @desc Simple constructor
   */
-  constructor(x, y, rotation, world, assetManager, sprite)
-  {
+  constructor(x, y, rotation, world, assetManager, sprite) {
     var radians = rotation * Math.PI / 180;
     this.body = b2dCreateBox(x, y, 50, 75, world, true);
     this.body.SetOriginPosition(this.body.GetCenterPosition(), radians);
@@ -19,8 +18,7 @@ class ObstacleRect{
     this.image.setActive(true);
   }
 
-  getBody()
-  {
+  getBody() {
     return this.body;
   }
 }

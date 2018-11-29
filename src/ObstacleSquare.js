@@ -19,8 +19,7 @@ class ObstacleSquare{
     this.image.setActive(true);
   }
 
-  getBody()
-  {
+  getBody() {
     return this.body;
   }
 }

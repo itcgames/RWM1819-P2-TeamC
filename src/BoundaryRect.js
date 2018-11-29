@@ -2,14 +2,13 @@
  * @class BoundaryRect
  * @classdesc Simple rectangle obstacle for the player to collide with
  */
-class BoundaryRect{
+class BoundaryRect {
   
     /**
     * @constructor
     * @desc Simple constructor
     */
-    constructor(x, y, vertical, world, assetManager, sprite)
-    {
+    constructor(x, y, vertical, world, assetManager, sprite) {
         vertical = vertical === true;
         this.image = assetManager.find(assetManager.ImageAssets, sprite);
         if(vertical)
@@ -25,8 +24,7 @@ class BoundaryRect{
         this.image.setActive(true);
     }
 
-    getBody()
-    {
+    getBody() {
         return this.body;
     }
 }
