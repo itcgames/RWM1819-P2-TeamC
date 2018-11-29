@@ -16,16 +16,14 @@ class Game {
     this.b2dWorld = b2dCreateWorld();
 
     // Mosue Stuff
-    this.mouseX;
-    this.mouseY;
+    this.mouseX = 0;
+    this.mouseY = 0;
     this.clicked = false;
     document.addEventListener("mousedown", this.onClick);
     document.addEventListener("mousemove", this.printMousePos);
     document.addEventListener("mouseup", this.onRelease);
 
-
-
-    this.canvasHeight = document.getElementById('canvas')
+    this.canvasHeight = document.getElementById('canvas');
   }
 
   /**
@@ -134,7 +132,7 @@ class Game {
     this.boReV = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager);
     this.boReV = new BoundaryRect(800, 0, false, this.b2dWorld, this.MyAssetManager);
     // Declare sprites images && sounds here using... 
-    //overall asset setup, can do this in each class for other object images
+    // overall asset setup, can do this in each class for other object images
      this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
      this.coin.setSpriteSheet(true, 5, 5);
      //this.coin.setActive(true);
