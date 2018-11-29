@@ -23,6 +23,8 @@ class Game {
     document.addEventListener("mousemove", this.printMousePos);
     document.addEventListener("mouseup", this.onRelease);
 
+    document.body.style.userSelect = 'none';
+
     this.canvasHeight = document.getElementById('canvas');
   }
 
@@ -114,7 +116,7 @@ class Game {
 
     this.goal.draw(ctx);
 
-    //drawWorld(this.b2dWorld, ctx);
+    drawWorld(this.b2dWorld, ctx);
 
   }
 
@@ -125,7 +127,7 @@ class Game {
   setUp() {
     // Create Player
     this.player = new PlayerBall(this.b2dWorld, 216, 433, 20, this.MyAssetManager);
-    this.goal = new Goal(800,200,20);
+    this.goal = new Goal(1496,864,20);
 
     // Demo obstacles
     this.obs2 = new ObstacleSquare(233, 649, 0, this.b2dWorld, this.MyAssetManager, "wall_square");
