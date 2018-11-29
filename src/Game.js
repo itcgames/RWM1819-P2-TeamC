@@ -44,8 +44,11 @@ class Game {
     div.appendChild(canvas);
     document.body.appendChild(div);
 
-    gameNs.game.g = new gameScene("Game Scene", div, {'x': 0, 'y': 0, 'width': 100, 'height': 100});
 
+
+    gameNs.game.camera = new Camera(0,0,document.body.clientWidth,document.body.scrollHeight);
+    gameNs.game.camera.setBounds(0,0,1600,900);
+    gameNs.game.g = new gameScene("Game Scene", div, {'x': 0, 'y': 0, 'width': 100, 'height': 100});
     document.body.onresize = function(){
       console.log("resize");
       div.style.width = document.body.clientWidth + "px";
@@ -59,6 +62,7 @@ class Game {
   * updates the game
   */
   update() {
+
     // Sets up assets once they are loaded
     if (gameNs.game.MyAssetManager.isLoaded === true && gameNs.game.MyAssetManager.isSetUp === false) {
       gameNs.game.setUp();
@@ -66,6 +70,7 @@ class Game {
     // Executed once everything is loaded
     if(gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true)
     {
+      console.log(gameNs.game.player.getBody().GetCenterPosition());
       // Terrain logic
       gameNs.game.player.body.m_linearDamping = gameNs.game.player.standardFriction;
       
@@ -111,6 +116,12 @@ class Game {
           gameNs.game.goal.particleTimer = 0;
         }
       }
+      gameNs.game.camera.follow(
+        gameNs.game.player.getBody().GetCenterPosition().x,
+        gameNs.game.player.getBody().GetCenterPosition().y,
+        );
+      gameNs.game.camera.update();
+
       gameNs.game.draw();
     }
 
@@ -145,6 +156,8 @@ class Game {
     for(let i = 0; i < gameNs.game.terrainList.length; i++){
       gameNs.game.terrainList[i].draw(ctx);
     }
+
+    gameNs.game.camera.draw(canv,ctx);
     //this.testTerrain.draw(ctx);
 
     //drawWorld(this.b2dWorld, ctx);

@@ -55,6 +55,9 @@ class gameScene extends Scene{
         let ratio = 16/9;
         let newRatio = screenX/screenY;
 
+        gameNs.game.camera.size.w = screenX;
+        gameNs.game.camera.size.h = screenY;
+
         if (newRatio > ratio) {
             screenX = screenY * ratio;
             canv.style.height = screenY + 'px';
