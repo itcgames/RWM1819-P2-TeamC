@@ -4,15 +4,14 @@
  * @class
  * @classdesc This game class initialises and runs the game.
  */
-class Game{
+class Game {
   /**
-  * @constructor
-  * @desc simple game constructor
-  */
+   * @constructor
+   * @desc simple game constructor
+   */
   constructor() {
     // Create an Asset manager
     this.MyAssetManager = new AssetManager("ASSETS/jsonAssets.json");
-
     // Initialise Box2D World
     this.b2dWorld = b2dCreateWorld();
 
@@ -26,17 +25,17 @@ class Game{
 
 
 
-    //this.player.getBody().SetCenterPosition(new b2Vec2(100,200));
+    this.canvasHeight = document.getElementById('canvas')
   }
 
   /**
-  * initialize the game world
-  */
+   * initialise the game world
+   */
   initWorld() {
     let canvas = document.getElementById('canvas');
     document.body.style.padding = '0px, 0px, 0px, 0px';
 
-    let div =  document.createElement('div');
+    let div = document.createElement('div');
     div.id = 'main div';
     div.style.position = "relative";
     div.style.width = document.body.clientWidth + "px";
@@ -52,29 +51,37 @@ class Game{
       div.style.height = document.body.scrollHeight + "px";
       gameNs.game.g.resizeCanvas();
     };
-
   }
+
 
   /**
   * updates the game
   */
   update() {
     // Sets up assets once they are loaded
-    if(gameNs.game.MyAssetManager.isLoaded === true && gameNs.game.MyAssetManager.isSetUp === false)
-    {
+    if (gameNs.game.MyAssetManager.isLoaded === true && gameNs.game.MyAssetManager.isSetUp === false) {
       gameNs.game.setUp();
     }
     // Executed once everything is loaded
-    if(gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true)
-    {
+    if (gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true) {
       gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
       gameNs.game.MyAssetManager.update();
       gameNs.game.obRo.updateSprite();
-      if(gameNs.game.goal.collision(gameNs.game.player.getBody().GetCenterPosition().x,gameNs.game.player.getBody().GetCenterPosition().y, 20))
-      {
+      gameNs.game.player.update(window.innerWidth, window.innerHeight);
+      gameNs.game.goal.update(window.innerWidth, window.innerHeight);
+
+      if (gameNs.game.goal.collision(gameNs.game.player.getBody().GetCenterPosition().x, gameNs.game.player.getBody().GetCenterPosition().y, 20)) {
         //console.log("PUT");
-        gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600,200),gameNs.game.player.getBody().GetRotation() );
-        gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0,0));
+        gameNs.game.goal.emit = true;
+        gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), gameNs.game.player.getBody().GetRotation());
+        gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0, 0));
+      }
+      if (gameNs.game.goal.emit === true) {
+        gameNs.game.goal.particleTimer += 1;
+        if (gameNs.game.goal.particleTimer >= 180) {
+          gameNs.game.goal.emit = false;
+          gameNs.game.goal.particleTimer = 0;
+        }
       }
       gameNs.game.draw();
     }
@@ -83,16 +90,15 @@ class Game{
   }
 
   /**
-  * draws the game
-  */
+   * draws the game
+   */
   draw() {
     var canv = document.getElementById("canvas");
     var ctx = canv.getContext("2d");
-    ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
-
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    this.player.draw(ctx);
     // Executed once everything is loaded
-    if(this.MyAssetManager.isSetUp === true && this.MyAssetManager.isLoaded === true)
-    {
+    if (this.MyAssetManager.isSetUp === true && this.MyAssetManager.isLoaded === true) {
       this.MyAssetManager.draw();
     }
 
@@ -105,17 +111,19 @@ class Game{
     }
 
     this.goal.draw(ctx);
-    drawWorld(this.b2dWorld, ctx);
+
+    //drawWorld(this.b2dWorld, ctx);
+
   }
 
   /**
    * Game setUp function for when files are finished loading
    * @function setUp
    */
-  setUp () {
+  setUp() {
     // Create Player
-    this.player = new PlayerBall(this.b2dWorld, 600,200,20);
-    this.goal = new Goal(800,200,20);
+    this.player = new PlayerBall(this.b2dWorld, 600, 200, 20, this.MyAssetManager);
+    this.goal = new Goal(800, 200, 20);
 
 
     // Demo obstacles
@@ -133,7 +141,7 @@ class Game{
      this.music = this.MyAssetManager.find(this.MyAssetManager.SoundAssets, "music");
      this.music.loop = true;
     // confirm assets are setup
-     gameNs.game.MyAssetManager.isSetUp = true;
+    gameNs.game.MyAssetManager.isSetUp = true;
   }
 
 
@@ -143,13 +151,11 @@ class Game{
     //var v = new b2Vec2(circleBody.GetCenterPosition().x - mouseX, circleBody.GetCenterPosition().y - mouseY);
     //v.Normalize();
     //circleBody.ApplyImpulse(new b2Vec2(v.x*300,v.y*300), circleBody.GetCenterPosition());
-    if((gameNs.game.player.getBody().GetLinearVelocity().x >= -0.5 && gameNs.game.player.getBody().GetLinearVelocity().x <= 0.5) && 
-    (gameNs.game.player.getBody().GetLinearVelocity().y >= -0.5 && gameNs.game.player.getBody().GetLinearVelocity().y <= 0.5))
-    {
+    if ((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) &&
+      (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 && gameNs.game.player.getBody().GetLinearVelocity().y <= 3)) {
       gameNs.game.clicked = true;
       console.log("clicked");
     }
-
   }
 
   onRelease() {
@@ -162,7 +168,7 @@ class Game{
     }
   }
 
-printMousePos(event) {
+  printMousePos(event) {
     gameNs.game.mouseX = event.clientX;
     gameNs.game.mouseY = event.clientY;
   }
