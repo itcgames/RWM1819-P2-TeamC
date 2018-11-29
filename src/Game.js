@@ -130,7 +130,7 @@ class Game {
   draw() {
     var canv = document.getElementById("canvas");
     var ctx = canv.getContext("2d");
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx.clearRect(0, 0, canv.width, canv.height);
 
 
     if(this.inSand === false)
@@ -157,6 +157,7 @@ class Game {
     }
 
     this.goal.draw(ctx);
+    drawWorld(this.b2dWorld, ctx);
 
   }
 
@@ -170,8 +171,8 @@ class Game {
     this.goal = new Goal(1496,864,20);
 
     this.terrainList = [
-      new Terrain(800,400,100,100,"Sandtrap", this.MyAssetManager),
-      new Terrain(400,400,200,100,"Water", this.MyAssetManager),
+      //new Terrain(800,400,100,100,"Sandtrap", this.MyAssetManager),
+      //new Terrain(400,400,200,100,"Water", this.MyAssetManager),
       ];
     // this.boundLeft = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical_left");
     // this.boundRight = new BoundaryRect(1595, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical_right");
