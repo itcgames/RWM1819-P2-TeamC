@@ -56,7 +56,7 @@ class LevelHandler {
    * @param index {number} the level index to go to
    */
   goToLevel(index) {
-    if ( index < this.levels.length && i >=  0) {
+    if ( index < this.levels.length && index >=  0) {
       this._currentLevelIndex = index;
       for (let i = 0; i < this.levels.length; i++) {
         if (i !== this._currentLevelIndex) {
