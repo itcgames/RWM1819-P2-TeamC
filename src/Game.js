@@ -70,7 +70,10 @@ class Game {
     // Executed once everything is loaded
     if(gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true)
     {
+      console.log("PLAYER");
       console.log(gameNs.game.player.getBody().GetCenterPosition());
+      console.log("CAMERA");
+      console.log(gameNs.game.camera.pos);
       // Terrain logic
       gameNs.game.player.body.m_linearDamping = gameNs.game.player.standardFriction;
       
@@ -234,5 +237,4 @@ class Game {
     gameNs.game.mouseX = (event.clientX - rect.left)/ (rect.right - rect.left) * canvas.width;
     gameNs.game.mouseY = (event.clientY - rect.top)/ (rect.bottom - rect.top) * canvas.height;
   }
-
 }
