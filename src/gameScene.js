@@ -30,11 +30,14 @@ class gameScene extends Scene{
         new Button("Pause Button", stat, function(){
             pause.style.display = 'block';
             gameNs.game.menuHandler.currentScene = "Pause";
-        }, {'x': 2, 'y': 40, 'width': 10, 'height': 10}, "%");
+        }, 
+        {'x': 2, 'y': 40, 'width': 10, 'height': 10}, "%");
+
         new Button("Unpause Button", pause, function(){
             pause.style.display = 'none';
             gameNs.game.menuHandler.currentScene = "Game Scene";
-        }, {'x': 50, 'y': 50, 'width': 10, 'height': 10}, "%");
+        }, 
+        {'x': 50, 'y': 50, 'width': 10, 'height': 10}, "%");
 
         this.init();
 
