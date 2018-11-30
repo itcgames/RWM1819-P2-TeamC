@@ -183,7 +183,7 @@ class Game {
     }
 
     this.goal.draw(ctx);
-    drawWorld(this.b2dWorld, ctx);
+    //drawWorld(this.b2dWorld, ctx);
 
   }
 

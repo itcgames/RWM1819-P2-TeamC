@@ -106,7 +106,7 @@
         "w": 1600,
         "h": 133,
         "type": "Water",
-        "sprite": "water1"
+        "sprite": "water4"
       },
       {
         "x": 0,
@@ -114,7 +114,7 @@
         "w": 66,
         "h": 900,
         "type": "Water",
-        "sprite": "water2"
+        "sprite": "water5"
       },
       {
         "x": 0,
@@ -122,7 +122,7 @@
         "w": 1600,
         "h": 133,
         "type": "Water",
-        "sprite": "water3"
+        "sprite": "water6"
       },
       {
         "x": 931,
@@ -130,7 +130,7 @@
         "w": 266,
         "h": 332,
         "type": "Sandtrap",
-        "sprite": "sand1"
+        "sprite": "sand6"
       },
       {
         "x": 0,
@@ -138,7 +138,7 @@
         "w": 1600,
         "h": 166,
         "type": "Sandtrap",
-        "sprite": "sand2"
+        "sprite": "sand7"
       },
       {
         "x": 931,
@@ -146,7 +146,7 @@
         "w": 266,
         "h": 133,
         "type": "Sandtrap",
-        "sprite": "sand3"
+        "sprite": "sand8"
       }
     ]
   }

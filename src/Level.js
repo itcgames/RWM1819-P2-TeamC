@@ -75,14 +75,16 @@ class Level {
          console.log("TERRAINS");
          level.data.obstacles[key].forEach((obs) => {
            console.log(obs);
-           list.push(new Terrain(
+           const newTerrain = new Terrain(
              obs.x,
              obs.y,
              obs.w,
              obs.h,
              obs.type,
              gameNs.game.MyAssetManager,
-             obs.sprite));
+             obs.sprite);
+           gameNs.game.terrainList.push(newTerrain);
+           list.push(newTerrain);
          });
        }
      });
@@ -96,7 +98,11 @@ class Level {
     this.obstacles.forEach((obsArray) => {
       obsArray.forEach((obs) => {
         obs.image.setActive(false);
-        gameNs.game.b2dWorld.DestroyBody( obs.getBody() );
+        if(obs.getBody !== undefined) {
+          gameNs.game.b2dWorld.DestroyBody(obs.getBody());
+        } else{
+          gameNs.game.terrainList.clear();
+        }
       });
     });
   }

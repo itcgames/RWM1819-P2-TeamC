@@ -83,7 +83,7 @@
         "w": 415,
         "h": 383,
         "type": "Water",
-        "sprite": "water1"
+        "sprite": "water2"
       },
       {
         "x": 1446,
@@ -91,7 +91,7 @@
         "w": 200,
         "h": 383,
         "type": "Water",
-        "sprite": "water2"
+        "sprite": "water3"
       },
       {
         "x": 315,
@@ -99,7 +99,7 @@
         "w": 282,
         "h": 166,
         "type": "Sandtrap",
-        "sprite": "sand1"
+        "sprite": "sand3"
       },
       {
         "x": 599,
@@ -107,7 +107,7 @@
         "w": 532,
         "h": 133,
         "type": "Sandtrap",
-        "sprite": "sand2"
+        "sprite": "sand4"
       },
       {
         "x": 1230,
@@ -115,7 +115,7 @@
         "w": 399,
         "h": 166,
         "type": "Sandtrap",
-        "sprite": "sand3"
+        "sprite": "sand5"
       }
     ]
   }
