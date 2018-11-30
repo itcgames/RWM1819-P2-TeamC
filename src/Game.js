@@ -136,6 +136,9 @@ class Game {
 
           gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), gameNs.game.player.getBody().GetRotation());
           gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0, 0));
+          gameNs.game.levelHandler.currentLevel.hideLevel();
+          gameNs.game.levelHandler.goToLevel(gameNs.game.levelHandler._currentLevelIndex+1);
+          gameNs.game.levelHandler.currentLevel.loadLevel();
         }
         if (gameNs.game.goal.emit === true) {
           gameNs.game.goal.particleTimer += 1;
