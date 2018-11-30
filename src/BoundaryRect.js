@@ -11,13 +11,10 @@ class BoundaryRect {
     constructor(x, y, vertical, world, assetManager, sprite) {
         vertical = vertical === true;
         this.image = assetManager.find(assetManager.ImageAssets, sprite);
-        if(vertical)
-        {
+        if(vertical) {
             this.body = b2dCreateBox(x, y, 5, 450, world, true);  
             this.image.setPos(x - 5, y - 450);
-        } 
-        else
-        {
+        } else {
             this.body = b2dCreateBox(x, y, 800, 5, world, true);  
             this.image.setPos(x - 800, y - 5);
         }

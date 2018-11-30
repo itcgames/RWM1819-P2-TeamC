@@ -15,6 +15,7 @@ class Level {
     this.obstacles.set("circleObstacles", []);
     this.obstacles.set("rotatingObstacles", []);
     this.obstacles.set("boundaryObstacles", []);
+    this.obstacles.set("terrains", []);
   }
 
   /**
@@ -25,16 +26,43 @@ class Level {
     let request = new XMLHttpRequest();
     request.addEventListener("load", function requestListener(level) {
       level.data = JSON.parse(this.responseText);
+
+      gameNs.game.player.body.SetCenterPosition(
+        {
+          x: level.data.player.x,
+          y: level.data.player.y,
+        },
+        0
+      );
+
+      gameNs.game.goal.posX = level.data.goal.x;
+      gameNs.game.goal.posY = level.data.goal.y;
+
       Object.keys(level.data.obstacles).forEach((key) => {
        let list = level.obstacles.get(key);
-       if (key === "squareObstacles") {
+       if (key === "terrains") {
+         console.log("TERRAINS");
+         level.data.obstacles[key].forEach((obs) => {
+           console.log(obs);
+           const newTerrain = new Terrain(
+             obs.x,
+             obs.y,
+             obs.w,
+             obs.h,
+             obs.type,
+             gameNs.game.MyAssetManager,
+             obs.sprite);
+           gameNs.game.terrainList.push(newTerrain);
+           list.push(newTerrain);
+         });
+       } else if (key === "squareObstacles") {
          level.data.obstacles[key].forEach((obs) => {
            console.log(obs);
            list.push(new ObstacleSquare(obs.x, obs.y,
-               obs.rotation,
-               gameNs.game.b2dWorld,
-               gameNs.game.MyAssetManager,
-               obs.sprite));
+             obs.rotation,
+             gameNs.game.b2dWorld,
+             gameNs.game.MyAssetManager,
+             obs.sprite));
          });
        } else if (key === "rectangleObstacles") {
          level.data.obstacles[key].forEach((obs) => {
@@ -62,14 +90,14 @@ class Level {
                obs.sprite));
          });
        } else if (key === "boundaryObstacles") {
-         level.data.obstacles[key].forEach((obs) => {
-           console.log(obs);
-           list.push(new BoundaryRect(obs.x, obs.y,
-               obs.vertical,
-               gameNs.game.b2dWorld,
-               gameNs.game.MyAssetManager,
-               obs.sprite));
-         });
+        level.data.obstacles[key].forEach((obs) => {
+          console.log(obs);
+          list.push(new BoundaryRect(obs.x, obs.y,
+            obs.vertical,
+            gameNs.game.b2dWorld,
+            gameNs.game.MyAssetManager,
+            obs.sprite));
+        });
        }
      });
      level.showLevel();
@@ -82,7 +110,11 @@ class Level {
     this.obstacles.forEach((obsArray) => {
       obsArray.forEach((obs) => {
         obs.image.setActive(false);
-        gameNs.game.b2dWorld.DestroyBody( obs.getBody() );
+        if(obs.getBody !== undefined) {
+          gameNs.game.b2dWorld.DestroyBody(obs.getBody());
+        } else{
+          gameNs.game.terrainList.clear();
+        }
       });
     });
   }

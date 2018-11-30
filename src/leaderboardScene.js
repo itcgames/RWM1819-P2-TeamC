@@ -11,7 +11,6 @@ class leaderboardScene extends Scene{
    
     //menu._containerDiv.style.opacity = 0;
     new Button("Back", menu.containerDiv, () => {
-
       gameNs.game.menuHandler.goToScene("Main Menu");
       canv2.style.visibility = "hidden";
     },

@@ -8,8 +8,18 @@ class Goal {
     this.posY = positionY;
     this.radius = radius;
 
-    this.emitters = [new Emitter(new Vector(800, 530), Vector.fromAngle(0.10, 3), 10, 'rgb(255,0,0)'), new Emitter(new Vector(800, 530), Vector.fromAngle(0.10, 3), 10, 'rgb(255,255,0)'),
-      new Emitter(new Vector(800, 530), Vector.fromAngle(0.10, 3), 10, 'rgb(0,0,255)')];
+    this.emitters = [new Emitter(new Vector(800, 530),
+      Vector.fromAngle(0.10, 3),
+      10, 'rgb(255,0,255)'), 
+
+      new Emitter(new Vector(800, 530),
+      Vector.fromAngle(0.10, 3),
+      10, 'rgb(0,255,255)'),
+
+      new Emitter(new Vector(800, 530),
+      Vector.fromAngle(0.10, 3),
+      10, 'rgb(255,255,0)')];
+
     for (var i = 0; i < this.emitters.length; i++) {
       this.emitters[i].setParticlesLifeTime(0.7);
       this.emitters[i].setEmissionRate(10);
@@ -38,7 +48,7 @@ class Goal {
       this.emitters[i].setPos(this.posX, this.posY);
     }
   }
-  
+
   collision(p1x, p1y, r1) {
     var a;
     var x;

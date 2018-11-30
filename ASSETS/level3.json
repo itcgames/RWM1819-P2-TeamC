@@ -1,4 +1,12 @@
 {
+  "player": {
+    "x": 133,
+    "y": 233
+  },
+  "goal": {
+    "x": 1130,
+    "y": 798
+  },
   "obstacles": {
     "squareObstacles": [
       {
@@ -97,6 +105,56 @@
         "y": 900,
         "vertical": false,
         "sprite": "boundary_horizontal_bottom"
+      }
+    ],
+    "terrains": [
+      {
+        "x": 0,
+        "y": 0,
+        "w": 1600,
+        "h": 133,
+        "type": "Water",
+        "sprite": "water4"
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "w": 66,
+        "h": 900,
+        "type": "Water",
+        "sprite": "water5"
+      },
+      {
+        "x": 0,
+        "y": 831,
+        "w": 1600,
+        "h": 133,
+        "type": "Water",
+        "sprite": "water6"
+      },
+      {
+        "x": 1330,
+        "y": 265,
+        "w": 266,
+        "h": 332,
+        "type": "Sandtrap",
+        "sprite": "sand6"
+      },
+      {
+        "x": 0,
+        "y": 698,
+        "w": 700,
+        "h": 166,
+        "type": "Sandtrap",
+        "sprite": "sand7"
+      },
+      {
+        "x": 931,
+        "y": 133,
+        "w": 266,
+        "h": 133,
+        "type": "Sandtrap",
+        "sprite": "sand8"
       }
     ]
   }
