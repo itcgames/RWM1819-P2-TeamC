@@ -1,0 +1,103 @@
+{
+  "obstacles": {
+    "squareObstacles": [
+      {
+        "x": 1163,
+        "y": 83,
+        "rotation": 45,
+        "sprite": "wall_square1"
+      }
+    ],
+    "rectangleObstacles": [
+      {
+        "x": 216,
+        "y": 665,
+        "rotation": -65,
+        "sprite": "wall_rect_vertical1"
+      },
+      {
+        "x": 798,
+        "y": 580,
+        "rotation": 60,
+        "sprite": "wall_rect_vertical2"
+      },
+      {
+        "x": 1562,
+        "y": 382,
+        "rotation": -45,
+        "sprite": "wall_rect_vertical3"
+      },
+      {
+        "x": 1562,
+        "y": 598,
+        "rotation": 45,
+        "sprite": "wall_rect_vertical4"
+      }
+    ],
+    "circleObstacles": [
+      {
+        "x": 631,
+        "y": 99,
+        "sprite": "wall_circle1"
+      },
+      {
+        "x": 831,
+        "y": 831,
+        "sprite": "wall_circle2"
+      },
+      {
+        "x": 1413,
+        "y": 764,
+        "sprite": "wall_circle3"
+      },
+      {
+        "x": 1396,
+        "y": 166,
+        "sprite": "wall_circle4"
+      }
+    ],
+    "rotatingObstacles": [
+      {
+        "x": 482,
+        "y": 432,
+        "sprite": "rotor1"
+      },
+      {
+        "x": 1047,
+        "y": 332,
+        "sprite": "rotor2"
+      },
+      {
+        "x": 1130,
+        "y": 598,
+        "sprite": "rotor3"
+      }
+    ],
+    "boundaryObstacles": [
+      {
+        "x": 0,
+        "y": 450,
+        "vertical": true,
+        "sprite": "boundary_vertical_left"
+      },
+      {
+        "x": 800,
+        "y": 0,
+        "vertical": false,
+        "sprite": "boundary_horizontal_top"
+      },
+      {
+        "x": 1600,
+        "y": 450,
+        "vertical": true,
+        "sprite": "boundary_vertical_right"
+      },
+      {
+        "x": 800,
+        "y": 900,
+        "vertical": false,
+        "sprite": "boundary_horizontal_bottom"
+      }
+    ]
+  }
+}

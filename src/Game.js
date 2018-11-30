@@ -88,26 +88,27 @@ class Game {
       gameNs.game.setUp();
     }
     // Executed once everything is loaded
-    if(gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true)
-    {
+    if(gameNs.game.MyAssetManager.isSetUp === true && gameNs.game.MyAssetManager.isLoaded === true) {
       // Terrain logic
       gameNs.game.player.body.m_linearDamping = gameNs.game.player.standardFriction;
       gameNs.game.player.emitter.color = 'rgb(0,250,0)';
       gameNs.game.inSand = false;
-      for(let i = 0; i < gameNs.game.terrainList.length; i++) {
+      for (let i = 0; i < gameNs.game.terrainList.length; i++) {
         if (gameNs.game.terrainList[i].checkCollision(
-          gameNs.game.player.body.GetCenterPosition().x,
-          gameNs.game.player.body.GetCenterPosition().y,
-          20
+            gameNs.game.player.body.GetCenterPosition().x,
+            gameNs.game.player.body.GetCenterPosition().y,
+            20
         )) {
           if (gameNs.game.terrainList[i].type === "Water") {
             gameNs.game.player.body.SetCenterPosition(
-              { x: gameNs.game.player.startPos.x,
-                y: gameNs.game.player.startPos.y,},
-              0
+                {
+                  x: gameNs.game.player.startPos.x,
+                  y: gameNs.game.player.startPos.y,
+                },
+                0
             );
-            gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0,0));
-            gameNs.game.player.shotNumber +=1;
+            gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0, 0));
+            gameNs.game.player.shotNumber += 1;
             console.log("WATER!");
           } else {
             gameNs.game.player.body.m_linearDamping = gameNs.game.player.sandFriction;
@@ -156,7 +157,7 @@ class Game {
   draw() {
     var canv = document.getElementById("canvas");
     var ctx = canv.getContext("2d");
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx.clearRect(0, 0, canv.width, canv.height);
 
 
     if(this.inSand === false)
@@ -197,25 +198,9 @@ class Game {
     this.goal = new Goal(1496,864,20);
 
     this.terrainList = [
-      new Terrain(800,400,100,100,"Sandtrap", this.MyAssetManager),
-      new Terrain(400,400,200,100,"Water", this.MyAssetManager),
+      //new Terrain(800,400,100,100,"Sandtrap", this.MyAssetManager),
+      //new Terrain(400,400,200,100,"Water", this.MyAssetManager),
       ];
-    // this.boundLeft = new BoundaryRect(0, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical_left");
-    // this.boundRight = new BoundaryRect(1595, 450, true, this.b2dWorld, this.MyAssetManager, "boundary_vertical_right");
-    // this.boundTop = new BoundaryRect(800, 5, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal_top");
-    // this.boundBottom = new BoundaryRect(800, 895, false, this.b2dWorld, this.MyAssetManager, "boundary_horizontal_bottom");
-
-    // Demo obstacles
-    // this.obs2 = new ObstacleSquare(233, 649, 0, this.b2dWorld, this.MyAssetManager, "wall_square");
-    // this.obs3 = new ObstacleCircle(533, 33, this.b2dWorld, this.MyAssetManager, "wall_circle");
-    // this.obs4 = new ObstacleCircle(766, 233, this.b2dWorld, this.MyAssetManager, "wall_circle");
-    // this.obs5 = new ObstacleCircle(964, 83, this.b2dWorld, this.MyAssetManager, "wall_circle");
-    // this.obs6 = new ObstacleSquare(1396, 216, 0, this.b2dWorld, this.MyAssetManager, "wall_square");
-    // this.obs7 = new ObstacleSquare(615, 515, 55, this.b2dWorld, this.MyAssetManager, "wall_square");
-    // this.obs8 = new ObstacleRect(581, 900, 20, this.b2dWorld, this.MyAssetManager, "wall_rect_vertical");
-    // this.obs9 = new ObstacleRect(831, 831, 40, this.b2dWorld, this.MyAssetManager, "wall_rect_vertical");
-    // this.obs10 = new ObstacleCircle(1197, 831, this.b2dWorld, this.MyAssetManager, "wall_circle");
-    // Declare sprites images && sounds here using... 
 
     // overall asset setup, can do this in each class for other object images
      this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
@@ -226,10 +211,10 @@ class Game {
      this.music.play();
     // confirm assets are setup
     this.levelHandler = new LevelHandler();
-    this.levelHandler.addLevel(new Level("assets/level.json"));
-    this.levelHandler.levels.forEach((level) => {
-      level.loadLevel();
-    });
+    this.levelHandler.addLevel(new Level("assets/level1.json"));
+    this.levelHandler.addLevel(new Level("assets/level2.json"));
+    this.levelHandler.addLevel(new Level("assets/level3.json"));
+    this.levelHandler.currentLevel.loadLevel(); 
     this.initMenus();
     gameNs.game.MyAssetManager.isSetUp = true;
   }
