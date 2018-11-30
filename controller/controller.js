@@ -15,7 +15,7 @@ function main()
 
   gestureManager.doubleTapThresholdMs = 400; // The maximum time between two taps for it to be registered as a doubleTap
   gestureManager.longTouchThresholdMs = 3500; // The minimum hold time for a long touch
-  gestureManager.doubleTapCallback = function() 
+  gestureManager.doubleTapCallback = function()
   {
     console.log("Double Tap Detected");
   };
@@ -24,7 +24,7 @@ function main()
   gestureManager.touchEndCallbackUser = touchEndCallback;
 
 
-  var ws = new WebSocket("ws://149.153.106.151:8080/wstest");
+  var ws = new WebSocket("ws://149.153.106.148:8080/wstest");
 
   //called when the websocket is opened
   ws.onopen = function() {

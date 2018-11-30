@@ -30,7 +30,7 @@ class Game {
     this.inSand=false;
     this.menuHandler = new MenuHandler();
 
-    var ws = new WebSocket("ws://149.153.106.151:8080/wstest");
+    var ws = new WebSocket("ws://149.153.106.148:8080/wstest");
 
     //called when the websocket is opened
     ws.onopen = function() {
@@ -134,16 +134,24 @@ class Game {
           gameNs.game.player.shotNumber = 0;
           console.log("Score: ", gameNs.game.player.score);
 
-          gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), gameNs.game.player.getBody().GetRotation());
+          //hide ball off screen while particles emit
+          gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(-100, -100), gameNs.game.player.getBody().GetRotation());
           gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0, 0));
-          gameNs.game.levelHandler.currentLevel.hideLevel();
-          gameNs.game.levelHandler.goToLevel(gameNs.game.levelHandler._currentLevelIndex+1);
-          gameNs.game.levelHandler.currentLevel.loadLevel();
+          //gameNs.game.levelHandler.currentLevel.hideLevel();
+
+
+
+
         }
         if (gameNs.game.goal.emit === true) {
           gameNs.game.goal.particleTimer += 1;
           if (gameNs.game.goal.particleTimer >= 180) {
             gameNs.game.goal.emit = false;
+            gameNs.game.levelHandler.currentLevel.hideLevel();
+            gameNs.game.levelHandler.goToLevel(gameNs.game.levelHandler._currentLevelIndex+1);
+            gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), gameNs.game.player.getBody().GetRotation());
+            gameNs.game.levelHandler.currentLevel.loadLevel();
+
             gameNs.game.goal.particleTimer = 0;
           }
         }
@@ -172,6 +180,7 @@ class Game {
     if (this.MyAssetManager.isSetUp === true && this.MyAssetManager.isLoaded === true) {
       this.MyAssetManager.draw();
     }
+
 
     if(this.inSand === true)
     {
@@ -217,21 +226,34 @@ class Game {
     this.levelHandler.addLevel(new Level("assets/level1.json"));
     this.levelHandler.addLevel(new Level("assets/level2.json"));
     this.levelHandler.addLevel(new Level("assets/level3.json"));
-    this.levelHandler.currentLevel.loadLevel(); 
+    this.levelHandler.currentLevel.loadLevel();
     this.initMenus();
+    //let img = document.createElement('img');
+  //  img.src = "assets/grass_template2.png";
+  //  img.style.left = "0%";
+  //  img.style.top = "0%";
+  //  img.style.width = "100%";
+  //  img.style.height = "100%";
+  //  this.g.containerDiv.appendChild(img);
     gameNs.game.MyAssetManager.isSetUp = true;
+
+
+    //this.background = this.MyAssetManager.find(gameNs.game.MyAssetManager.ImageAssets, "grass");
+    //this.background.setPos(0, 0);
+    //this.background.setActive(true);
   }
 
   onClick() {
-    //var v = new b2Vec2(circleBody.GetCenterPosition().x - mouseX, circleBody.GetCenterPosition().y - mouseY);
-    //v.Normalize();
-    //circleBody.ApplyImpulse(new b2Vec2(v.x*300,v.y*300), circleBody.GetCenterPosition());
-    if ((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) &&
-      (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 && gameNs.game.player.getBody().GetLinearVelocity().y <= 3) && gameNs.game.menuHandler.currentScene === "Game Scene") {
-      gameNs.game.clicked = true;
-      console.log("clicked");
+    var canvas = document.getElementById('canvas');
+    if(!(gameNs.game.mouseX < 0 || gameNs.game.mouseX > canvas.width || gameNs.game.mouseY <0 || gameNs.game.mouseY>canvas.height))
+    {
+      if ((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) &&
+        (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 && gameNs.game.player.getBody().GetLinearVelocity().y <= 3) && gameNs.game.menuHandler.currentScene === "Game Scene") {
+        gameNs.game.clicked = true;
+        console.log("clicked");
+      }
     }
-  }
+}
 
   onRelease() {
     if (gameNs.game.clicked && gameNs.game.menuHandler.currentScene === "Game Scene") {
