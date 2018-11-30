@@ -10,3 +10,12 @@ html {
 canvas {
   background-color: green;
 }
+
+button {
+    font-family: Kalam, serif;
+    font-size: 40px;
+}
+
+button:focus {
+    outline: none;
+}

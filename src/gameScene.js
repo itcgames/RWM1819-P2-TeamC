@@ -26,14 +26,16 @@ class gameScene extends Scene{
 
         let stat = this.statusBar;
         let pause = this.pauseDiv;
-        new Button("Pause Button", stat, function(){
+        let pauseBtn = new Button("Pause", stat, function(){
             pause.style.display = 'block';
             gameNs.game.menuHandler.currentScene = "Pause";
-        }, {'x': 2, 'y': 40, 'width': 10, 'height': 10}, "%");
-        new Button("Unpause Button", pause, function(){
+        }, {'x': 2, 'y': 25, 'width': 15, 'height': 50}, "%");
+        pauseBtn._element.style.borderRadius = "10px";
+        let resumeBtn = new Button("Resume", pause, function(){
             pause.style.display = 'none';
             gameNs.game.menuHandler.currentScene = "Game Scene";
-        }, {'x': 50, 'y': 50, 'width': 10, 'height': 10}, "%");
+        }, {'x': 40, 'y': 45, 'width': 20, 'height': 10}, "%");
+        resumeBtn._element.style.borderRadius = "10px";
 
         this.init();
 
@@ -67,6 +69,4 @@ class gameScene extends Scene{
             canv.style.height = screenY + 'px';
         }
     }
-
-
 }
