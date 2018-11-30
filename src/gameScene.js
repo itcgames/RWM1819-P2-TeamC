@@ -98,7 +98,7 @@ class gameScene extends Scene{
     updateShotText(shot) {
       this.shotText.innerText = `Shot No.: ${shot}`;
     }
-
+  
     updateScoreText(score) {
         this.scoreText.innerText = `Score: ${score}`;
     }

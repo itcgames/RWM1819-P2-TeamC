@@ -130,7 +130,7 @@ class Game {
             console.log("WATER!");
           } else {
             plyr.body.m_linearDamping = plyr.sandFriction;
-            plyr.emitter.color = 'rgb(255,0,0)';
+            plyr.emitter.color = 'rgb(218,165,32)';
             gameNs.game.inSand = true;
           }
         }
