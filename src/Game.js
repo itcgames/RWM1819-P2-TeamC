@@ -45,8 +45,18 @@ class Game {
     ws.onmessage = function (evt) {
 
       var obj = JSON.parse(evt.data);
-      //gameNs.game.player.getBody().ApplyImpulse(new b2Vec2(obj.x * 500, obj.y * 500), gameNs.game.player.getBody().GetCenterPosition());
-      if((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) &&
+      if(obj.type === "pause") {
+        console.log("pause");
+        if(gameNs.game.menuHandler.currentScene === "Game Scene") {
+          gameNs.game.g.pauseDiv.style.display = "block";
+          gameNs.game.menuHandler.currentScene = "Pause";
+        }
+        else {
+          gameNs.game.g.pauseDiv.style.display = 'none';
+          gameNs.game.menuHandler.currentScene = "Game Scene";
+        }
+      }
+      else if((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) &&
       (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 && gameNs.game.player.getBody().GetLinearVelocity().y <= 3)) {
         gameNs.game.playerShot(new b2Vec2(obj.x, obj.y));
       }
