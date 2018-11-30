@@ -79,7 +79,7 @@ class Game {
     div.appendChild(canvas);
     document.body.appendChild(div);
 
-    gameNs.game.g = new gameScene("Game Scene", div, 
+    gameNs.game.g = new gameScene("Game Scene", div,
       {'x': 0, 'y': 0, 'width': 100, 'height': 100});
 
     this.menuHandler.addScene("Game Scene", gameNs.game.g);
@@ -97,14 +97,14 @@ class Game {
   */
   update() {
     // Sets up assets once they are loaded
-    if (gameNs.game.MyAssetManager.isLoaded === true && 
+    if (gameNs.game.MyAssetManager.isLoaded === true &&
         gameNs.game.MyAssetManager.isSetUp === false) {
       gameNs.game.setUp();
     }
     // Executed once everything is loaded
-    if(gameNs.game.MyAssetManager.isSetUp === true && 
+    if(gameNs.game.MyAssetManager.isSetUp === true &&
         gameNs.game.MyAssetManager.isLoaded === true) {
-      
+
       let plyr = gameNs.game.player;
 
       // Terrain logic
@@ -144,7 +144,7 @@ class Game {
         plyr.update(window.innerWidth, window.innerHeight);
         gameNs.game.goal.update(window.innerWidth, window.innerHeight);
 
-        if (gameNs.game.goal.collision(plyr.getBody().GetCenterPosition().x, 
+        if (gameNs.game.goal.collision(plyr.getBody().GetCenterPosition().x,
             plyr.getBody().GetCenterPosition().y, 20)) {
 
           gameNs.game.goal.emit = true;
@@ -195,7 +195,7 @@ class Game {
     }
 
     // Executed once everything is loaded
-    if (this.MyAssetManager.isSetUp === true && 
+    if (this.MyAssetManager.isSetUp === true &&
           this.MyAssetManager.isLoaded === true) {
       this.MyAssetManager.draw();
     }
@@ -207,7 +207,7 @@ class Game {
 
     if (this.clicked) {
       ctx.beginPath();
-      ctx.moveTo(this.player.getBody().GetCenterPosition().x, 
+      ctx.moveTo(this.player.getBody().GetCenterPosition().x,
           this.player.getBody().GetCenterPosition().y);
       ctx.lineTo(this.mouseX, this.mouseY);
       ctx.stroke();
@@ -224,14 +224,14 @@ class Game {
    */
   setUp() {
     // Create Player
-    this.player = 
+    this.player =
       new PlayerBall(this.b2dWorld, 216, 433, 20, this.MyAssetManager);
     this.goal = new Goal(1496,864,20);
 
+    this.terrainList = [];
+
     // overall asset setup, can do this in each class for other object images
-    this.terrainList = [
-      ];
-     this.music = 
+     this.music =
       this.MyAssetManager.find(this.MyAssetManager.SoundAssets, "music");
      this.music.loop = true;
      this.music.play();
@@ -242,21 +242,8 @@ class Game {
     this.levelHandler.addLevel(new Level("assets/level3.json"));
     this.levelHandler.currentLevel.loadLevel();
     this.initMenus();
-    //let img = document.createElement('img');
-    //img.src = "assets/grass_template2.png";
-    //img.style.left = "0%";
-    //img.style.top = "0%";
-    //img.style.width = "100%";
-    //img.style.height = "100%";
-    //this.g.containerDiv.appendChild(img);
 
     gameNs.game.MyAssetManager.isSetUp = true;
-
-    //this.background = this.MyAssetManager.find(
-      //gameNs.game.MyAssetManager.ImageAssets, "grass"
-      //);
-    //this.background.setPos(0, 0);
-    //this.background.setActive(true);
   }
 
   onClick() {
@@ -275,22 +262,22 @@ class Game {
         console.log("clicked");
       }
     }
-}
+  }
 
   onRelease() {
-    if (gameNs.game.clicked && 
+    if (gameNs.game.clicked &&
         gameNs.game.menuHandler.currentScene === "Game Scene") {
       console.log("release");
       gameNs.game.player.shotNumber += 1;
       console.log("Shot number: ",gameNs.game.player.shotNumber);
-      var v = 
-        new b2Vec2(gameNs.game.player.getBody().GetCenterPosition().x - 
-        gameNs.game.mouseX, gameNs.game.player.getBody().GetCenterPosition().y - 
+      var v =
+        new b2Vec2(gameNs.game.player.getBody().GetCenterPosition().x -
+        gameNs.game.mouseX, gameNs.game.player.getBody().GetCenterPosition().y -
         gameNs.game.mouseY);
 
-      gameNs.game.player.startPos.x = 
+      gameNs.game.player.startPos.x =
         gameNs.game.player.getBody().GetCenterPosition().x;
-      gameNs.game.player.startPos.y = 
+      gameNs.game.player.startPos.y =
         gameNs.game.player.getBody().GetCenterPosition().y;
 
       gameNs.game.playerShot(v);
@@ -309,16 +296,16 @@ class Game {
       } else if(v.y < -500) {
         v.y = -500;
       }
-      gameNs.game.player.getBody().ApplyImpulse(new b2Vec2(v.x * 500, 
-        v.y * 500), gameNs.game.player.getBody().GetCenterPosition());
+      gameNs.game.player.getBody().ApplyImpulse(new b2Vec2(v.x * 500, v.y * 500),
+        gameNs.game.player.getBody().GetCenterPosition());
   }
 
   printMousePos(event) {
     var canvas = document.getElementById('canvas');
     var rect = canvas.getBoundingClientRect();
-    gameNs.game.mouseX = 
+    gameNs.game.mouseX =
       (event.clientX - rect.left)/ (rect.right - rect.left) * canvas.width;
-    gameNs.game.mouseY = 
+    gameNs.game.mouseY =
       (event.clientY - rect.top)/ (rect.bottom - rect.top) * canvas.height;
   }
 

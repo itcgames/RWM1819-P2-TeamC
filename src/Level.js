@@ -26,6 +26,18 @@ class Level {
     let request = new XMLHttpRequest();
     request.addEventListener("load", function requestListener(level) {
       level.data = JSON.parse(this.responseText);
+
+      gameNs.game.player.body.SetCenterPosition(
+        {
+          x: level.data.player.x,
+          y: level.data.player.y,
+        },
+        0
+      );
+
+      gameNs.game.goal.posX = level.data.goal.x;
+      gameNs.game.goal.posY = level.data.goal.y;
+
       Object.keys(level.data.obstacles).forEach((key) => {
        let list = level.obstacles.get(key);
        if (key === "terrains") {
