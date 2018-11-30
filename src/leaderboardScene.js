@@ -44,7 +44,6 @@ class leaderboardScene extends Scene{
       ctx2.fillStyle = "black";
       ctx2.fillRect(0,0, canv2.width, canv2.height);
 
-      debugger
       for (var i = 0; i < gameNs.game.ScoreBoardTop.scoreboard.length; i++) {
         var place = i + 1;
         var player = gameNs.game.ScoreBoardTop.scoreboard[i];

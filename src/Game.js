@@ -171,10 +171,19 @@ class Game {
           if (gameNs.game.goal.particleTimer >= 60) {
             gameNs.game.goal.emit = false;
             gameNs.game.levelHandler.currentLevel.hideLevel();
-            if(gameNs.game.levelHandler._currentLevelIndex > gameNs.game.levelHandler.levels.length - 1) {
+            if(gameNs.game.levelHandler._currentLevelIndex + 1 > gameNs.game.levelHandler.levels.length - 1) {
               gameNs.game.ScoreBoardTop.addToBoard(gameNs.game.player.score);
               gameNs.game.ScoreBoardTop.filterScore(-1);
+
               console.log(gameNs.game.ScoreBoardTop.getBoard());
+              var canv2 =  document.getElementById("boardcanvas");
+              var ctx2 = canv2.getContext("2d");
+
+              gameNs.game.leaderboard.drawLeaderboard(ctx2);
+              gameNs.game.menuHandler.goToScene("Leaderboard");
+              gameNs.game.levelHandler._currentLevelIndex = -1;
+              gameNs.game.player.score = 0;
+              gameNs.game.player.shotNumber = 0;
   
             }
             gameNs.game.levelHandler.goToLevel(
