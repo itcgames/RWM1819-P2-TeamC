@@ -12,6 +12,9 @@ class Game {
   constructor() {
     // Create an Asset manager
     this.MyAssetManager = new AssetManager("ASSETS/jsonAssets.json");
+    this.ScoreBoardTop = new ScoreboardManager();
+    this.ScoreBoardTop.startTimer();
+    this.ScoreBoardTop.initBoard("session");
 
     // Initialise Box2D World
     this.b2dWorld = b2dCreateWorld();
@@ -148,6 +151,7 @@ class Game {
       }
 
       if(gameNs.game.menuHandler.currentScene === "Game Scene") {
+        gameNs.game.ScoreBoardTop.getDisplayTimer();
         gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
         gameNs.game.MyAssetManager.update();
         gameNs.game.levelHandler.update();
@@ -161,9 +165,9 @@ class Game {
           gameNs.game.goal.emit = true;
 
           plyr.score += plyr.shotNumber - 4;
-          gameNs.game.g.updateScoreText(gameNs.game.player.score);
+          gameNs.game.g.updateScoreText(plyr.score);
           plyr.shotNumber = 0;
-          gameNs.game.g.updateShotText(gameNs.game.player.shotNumber);
+          gameNs.game.g.updateShotText(plyr.shotNumber);
           console.log("Score: ", plyr.score);
           //hide ball off screen while particles emit
           gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(-100, -100),
@@ -188,6 +192,21 @@ class Game {
             gameNs.game.camera.panTo(0, 0);
             gameNs.game.goal.emit = false;
             gameNs.game.levelHandler.currentLevel.hideLevel();
+            if(gameNs.game.levelHandler._currentLevelIndex + 1 > gameNs.game.levelHandler.levels.length - 1) {
+              gameNs.game.ScoreBoardTop.addToBoard(gameNs.game.player.score);
+              gameNs.game.ScoreBoardTop.filterScore(-1);
+
+              console.log(gameNs.game.ScoreBoardTop.getBoard());
+              var canv2 =  document.getElementById("boardcanvas");
+              var ctx2 = canv2.getContext("2d");
+
+              gameNs.game.leaderboard.drawLeaderboard(ctx2);
+              gameNs.game.menuHandler.goToScene("Leaderboard");
+              gameNs.game.levelHandler._currentLevelIndex = -1;
+              gameNs.game.player.score = 0;
+              gameNs.game.player.shotNumber = 0;
+  
+            }
             gameNs.game.levelHandler.goToLevel(
               gameNs.game.levelHandler._currentLevelIndex + 1);
             gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200),
@@ -359,14 +378,23 @@ class Game {
     mainMenu.containerDiv.appendChild(image);
 
     mainMenuScene.addMenu(mainMenu);
-    let playBtn = new Button("Play", mainMenu.containerDiv,
-        this.menuHandler.goToScene.bind(this.menuHandler, "Game Scene"),
+    let playBtn = new Button("Play", mainMenu.containerDiv,() => {
+      gameNs.game.menuHandler.goToScene("Game Scene");
+      //gameNs.game.ScoreBoardTop.startTimer();
+      //gameNs.game.ScoreBoardTop.clearSessionStorage();
+      //gameNs.game.ScoreBoardTop.clearLocalStorage();
+      //gameNs.game.ScoreBoardTop.initBoard("session");
+     },
         {'x': 40, 'y': 60, 'width': 20, 'height': 10},
         "%");
     playBtn._element.style.borderRadius = "10px";
 
-    let leaderboardBtn = new Button("Leaderboard", mainMenu.containerDiv,
-        this.menuHandler.goToScene.bind(this.menuHandler, "Leaderboard"),
+    let leaderboardBtn = new Button("Leaderboard", mainMenu.containerDiv, () => { 
+      var canv = document.createElement('canvas');
+      var ctx = canv.getContext("2d");
+      gameNs.game.menuHandler.goToScene("Leaderboard");
+      gameNs.game.leaderboard.drawLeaderboard(ctx);
+   },
         {'x': 40, 'y': 75, 'width': 20, 'height': 10},
         "%");
     leaderboardBtn._element.style.borderRadius = "10px";
@@ -389,7 +417,8 @@ class Game {
         document.getElementById("main div"),
         {'x': 0, 'y': 0, 'width': 100, 'height': 100},
         "#7aacff");
-    this.menuHandler.addScene("Leaderboard", leaderboard);
+    this.leaderboard = leaderboard;
+    this.menuHandler.addScene("Leaderboard", this.leaderboard);
 
     this.menuHandler.currentScene = "Main Menu";
     this.menuHandler.showOnlyCurrentScene();

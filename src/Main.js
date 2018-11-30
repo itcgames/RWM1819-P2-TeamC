@@ -24,8 +24,6 @@ function init() {
 
     var canv = document.createElement('canvas');
     canv.id = "canvas";
-    var ctx = canv.getContext("2d");
-
     canv.width = window.innerWidth;
     canv.height = window.innerHeight;
 
