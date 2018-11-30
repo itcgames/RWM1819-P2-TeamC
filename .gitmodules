@@ -13,9 +13,6 @@
 [submodule "lib/GestureComponent"]
 	path = lib/GestureComponent
 	url = https://github.com/itcgames/RWM1819-Gesture-B
-[submodule "lib/ScoreboardManager"]
-	path = lib/ScoreboardManager
-	url = https://github.com/itcgames/RWM1819-Scoreboard-A
 [submodule "lib/CameraJohnComponent"]
 	path = lib/CameraJohnComponent
 	url = https://github.com/itcgames/RWM1819-Camera-B
