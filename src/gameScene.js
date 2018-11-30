@@ -15,7 +15,7 @@ class gameScene extends Scene{
         this.pauseDiv =  document.createElement('div');
         this.pauseDiv.id = "pause screen";
         this.pauseDiv.style.position = "absolute";
-    
+
         this.pauseDiv.style.width = '100%';
         this.pauseDiv.style.height = '100%';
         this.pauseDiv.style.zIndex = '2';
@@ -23,17 +23,21 @@ class gameScene extends Scene{
         this.pauseDiv.style.display = 'none';
         this._containerDiv.appendChild(this.pauseDiv);
         this._containerDiv.appendChild(this.statusBar);
+        this.alpha = "00";
 
         let stat = this.statusBar;
         let pause = this.pauseDiv;
         new Button("Pause Button", stat, function(){
             pause.style.display = 'block';
             gameNs.game.menuHandler.currentScene = "Pause";
-        }, {'x': 2, 'y': 40, 'width': 10, 'height': 10}, "%");
+        }, 
+        {'x': 2, 'y': 40, 'width': 10, 'height': 10}, "%");
+
         new Button("Unpause Button", pause, function(){
             pause.style.display = 'none';
             gameNs.game.menuHandler.currentScene = "Game Scene";
-        }, {'x': 50, 'y': 50, 'width': 10, 'height': 10}, "%");
+        }, 
+        {'x': 50, 'y': 50, 'width': 10, 'height': 10}, "%");
 
         this.init();
 

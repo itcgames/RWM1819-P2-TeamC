@@ -12,6 +12,7 @@ var gestureManager = new GestureManager(false);
 
 function main()
 {
+
   var ws = new WebSocket("ws://149.153.106.151:8080/wstest");
 
   //called when the websocket is opened

@@ -1,6 +1,7 @@
 {
   "soundsList": [{ "music": "../ASSETS/Music.mp3"}],
   "imageList": [{
+    "grass": ["../ASSETS/grass_template2.png", 0, 0, 1600, 900, "canvas"],
     "coin": ["../ASSETS/coin.png", 10, 10, 788, 219, "canvas"],
     "sand1": ["../ASSETS/sand.png", 0, 0, 432,133, "canvas"],
     "sand2": ["../ASSETS/sand.png", 0, 0, 133,200, "canvas"],
@@ -19,10 +20,10 @@
     "wall_square1": ["../ASSETS/wall_square.png", 0, 0, 132, 132, "canvas"],
     "wall_square2": ["../ASSETS/wall_square.png", 0, 0, 132, 132, "canvas"],
     "wall_square3": ["../ASSETS/wall_square.png", 0, 0, 132, 132, "canvas"],
-    "wall_circle1": ["../ASSETS/wall_circle.png", 0, 0, 382, 382, "canvas"],
-    "wall_circle2": ["../ASSETS/wall_circle.png", 0, 0, 382, 382, "canvas"],
-    "wall_circle3": ["../ASSETS/wall_circle.png", 0, 0, 382, 382, "canvas"],
-    "wall_circle4": ["../ASSETS/wall_circle.png", 0, 0, 382, 382, "canvas"],
+    "wall_circle1": ["../ASSETS/rock.png", 0, 0, 382, 382, "canvas"],
+    "wall_circle2": ["../ASSETS/rock.png", 0, 0, 382, 382, "canvas"],
+    "wall_circle3": ["../ASSETS/rock.png", 0, 0, 382, 382, "canvas"],
+    "wall_circle4": ["../ASSETS/rock.png", 0, 0, 382, 382, "canvas"],
     "rotor1": ["../ASSETS/rotor.png", 0, 0, 25, 150, "canvas"],
     "rotor2": ["../ASSETS/rotor.png", 0, 0, 25, 150, "canvas"],
     "rotor3": ["../ASSETS/rotor.png", 0, 0, 25, 150, "canvas"],
