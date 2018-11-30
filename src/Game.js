@@ -55,9 +55,9 @@ class Game {
           gameNs.game.menuHandler.currentScene = "Game Scene";
         }
       }
-      else if((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 
-      && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) 
-      && (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 
+      else if((gameNs.game.player.getBody().GetLinearVelocity().x >= -3
+      && gameNs.game.player.getBody().GetLinearVelocity().x <= 3)
+      && (gameNs.game.player.getBody().GetLinearVelocity().y >= -3
       && gameNs.game.player.getBody().GetLinearVelocity().y <= 3)) {
         gameNs.game.playerShot(new b2Vec2(obj.x, obj.y));
       }
@@ -130,7 +130,7 @@ class Game {
             console.log("WATER!");
           } else {
             plyr.body.m_linearDamping = plyr.sandFriction;
-            plyr.emitter.color = 'rgb(255,0,0)';
+            plyr.emitter.color = 'rgb(218,165,32)';
             gameNs.game.inSand = true;
           }
         }
@@ -153,7 +153,7 @@ class Game {
           plyr.shotNumber = 0;
           console.log("Score: ", plyr.score);
           //hide ball off screen while particles emit
-          gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(-100, -100), 
+          gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(-100, -100),
           gameNs.game.player.getBody().GetRotation());
           gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0, 0));
           //gameNs.game.levelHandler.currentLevel.hideLevel();
@@ -167,7 +167,7 @@ class Game {
             gameNs.game.levelHandler.currentLevel.hideLevel();
             gameNs.game.levelHandler.goToLevel(
               gameNs.game.levelHandler._currentLevelIndex + 1);
-            gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), 
+            gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200),
             gameNs.game.player.getBody().GetRotation());
             gameNs.game.levelHandler.currentLevel.loadLevel();
 
@@ -248,15 +248,15 @@ class Game {
 
   onClick() {
     var canvas = document.getElementById('canvas');
-    if(!(gameNs.game.mouseX < 0 
-      || gameNs.game.mouseX > canvas.width 
-      || gameNs.game.mouseY <0 
+    if(!(gameNs.game.mouseX < 0
+      || gameNs.game.mouseX > canvas.width
+      || gameNs.game.mouseY <0
       || gameNs.game.mouseY>canvas.height))
     {
-      if ((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 
-      && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) 
-      && (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 
-      && gameNs.game.player.getBody().GetLinearVelocity().y <= 3) 
+      if ((gameNs.game.player.getBody().GetLinearVelocity().x >= -3
+      && gameNs.game.player.getBody().GetLinearVelocity().x <= 3)
+      && (gameNs.game.player.getBody().GetLinearVelocity().y >= -3
+      && gameNs.game.player.getBody().GetLinearVelocity().y <= 3)
       && gameNs.game.menuHandler.currentScene === "Game Scene") {
         gameNs.game.clicked = true;
         console.log("clicked");
