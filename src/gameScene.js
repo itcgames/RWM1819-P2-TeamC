@@ -39,7 +39,7 @@ class gameScene extends Scene{
         this.pauseDiv =  document.createElement('div');
         this.pauseDiv.id = "pause screen";
         this.pauseDiv.style.position = "absolute";
-    
+
         this.pauseDiv.style.width = '100%';
         this.pauseDiv.style.height = '100%';
         this.pauseDiv.style.zIndex = '2';
@@ -47,6 +47,7 @@ class gameScene extends Scene{
         this.pauseDiv.style.display = 'none';
         this._containerDiv.appendChild(this.pauseDiv);
         this._containerDiv.appendChild(this.statusBar);
+        this.alpha = "00";
 
         let stat = this.statusBar;
         let pause = this.pauseDiv;

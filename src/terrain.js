@@ -1,6 +1,6 @@
 class Terrain{
 
-  constructor(x,y, w, h, type, assetManager){
+  constructor(x,y, w, h, type, assetManager, sprite) {
     this.pos = {
       x: x,
       y: y,
@@ -19,16 +19,7 @@ class Terrain{
 
     this.testBool = false;
 
-    if(this.type === "Sandtrap")
-    {
-      console.log("sand!!!!!!");
-      this.image = assetManager.find(assetManager.ImageAssets, "sand");
-    }
-    else {
-      this.image = assetManager.find(assetManager.ImageAssets, "water");
-    }
-
-
+    this.image = assetManager.find(assetManager.ImageAssets, sprite);
     this.image.setPos(this.pos.x , this.pos.y );
     this.image.setActive(true);
 
@@ -38,7 +29,7 @@ class Terrain{
    *
    * @returns {*}
    */
-  getType(){
+  getType() {
     return this.typeList[this.type];
   }
 
@@ -49,7 +40,7 @@ class Terrain{
    * @param radius
    * @returns {boolean} If it collides
    */
-  checkCollision(x,y,radius){
+  checkCollision(x,y,radius) {
     // Find closest point P
     // Initialised to circle's center
     let p = {
@@ -57,10 +48,10 @@ class Terrain{
       y: y,
     };
 
-    if (x < this.pos.x){
+    if (x < this.pos.x) {
       p.x = this.pos.x;
     }
-    if (x > this.pos.x + this.size.w){
+    if (x > this.pos.x + this.size.w) {
       p.x = this.pos.x + this.size.w;
     }
     if (y < this.pos.y){
@@ -77,23 +68,18 @@ class Terrain{
       this.testBool = true;
       return true;
     }
-    else{
+    else {
       this.testBool = false;
       return false;
     }
   }
 
-  draw(ctx){
+  // Draw Function
+  draw(ctx) {
     if(this.type === "Sandtrap") {
       ctx.fillStyle = "#ffca77";
     } else if(this.type === "Water"){
       ctx.fillStyle = "#8acdff";
     }
-    //ctx.fillRect(
-    //  this.pos.x,
-    //  this.pos.y,
-      //this.size.w,
-      //this.size.h,
-    //);
   }
 }
