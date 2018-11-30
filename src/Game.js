@@ -131,7 +131,9 @@ class Game {
           gameNs.game.goal.emit = true;
 
           gameNs.game.player.score += gameNs.game.player.shotNumber - 4;
+          gameNs.game.g.updateScoreText(gameNs.game.player.score);
           gameNs.game.player.shotNumber = 0;
+          gameNs.game.g.updateShotText(gameNs.game.player.shotNumber);
           console.log("Score: ", gameNs.game.player.score);
 
           gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), gameNs.game.player.getBody().GetRotation());
@@ -237,6 +239,7 @@ class Game {
     if (gameNs.game.clicked && gameNs.game.menuHandler.currentScene === "Game Scene") {
       console.log("release");
       gameNs.game.player.shotNumber += 1;
+      gameNs.game.g.updateShotText(gameNs.game.player.shotNumber);
       console.log("Shot number: ",gameNs.game.player.shotNumber);
       var v = new b2Vec2(gameNs.game.player.getBody().GetCenterPosition().x - gameNs.game.mouseX, gameNs.game.player.getBody().GetCenterPosition().y - gameNs.game.mouseY);
       //console.log("v: ",v)

@@ -9,7 +9,31 @@ class gameScene extends Scene{
         this.statusBar.style.position = 'absolute';
         this.statusBar.style.width = '100%';
         this.statusBar.style.height = '10%';
-        this.statusBar.style.background = "rgba(155,155,255,155)"
+        this.statusBar.style.background = "url('assets/paper.jpg')";
+        this.statusBar.style.backgroundSize = "cover";
+        let shotText = document.createElement("h1");
+        shotText.style.position = "absolute";
+        shotText.style.fontFamily = "Arial";
+        shotText.style.left = "70%";
+        shotText.style.top = "2%";
+        shotText.style.width = "25%";
+        shotText.style.height = "10%";
+        shotText.innerText = "Shot No.: 0";
+        shotText.style.fontSize = "40px";
+        this.shotText = shotText;
+        this.statusBar.appendChild(this.shotText);
+
+      let scoreText = document.createElement("h1");
+      scoreText.style.position = "absolute";
+      scoreText.style.fontFamily = "Arial";
+      scoreText.style.left = "40%";
+      scoreText.style.top = "2%";
+      scoreText.style.width = "25%";
+      scoreText.style.height = "10%";
+      scoreText.innerText = "Score: 0";
+      scoreText.style.fontSize = "40px";
+      this.scoreText = scoreText;
+      this.statusBar.appendChild(this.scoreText);
 
 
         this.pauseDiv =  document.createElement('div');
@@ -68,5 +92,13 @@ class gameScene extends Scene{
             canv.style.width = screenX + 'px';
             canv.style.height = screenY + 'px';
         }
+    }
+
+    updateShotText(shot) {
+      this.shotText.innerText = `Shot No.: ${shot}`;
+    }
+
+    updateScoreText(score) {
+        this.scoreText.innerText = `Score: ${score}`;
     }
 }
