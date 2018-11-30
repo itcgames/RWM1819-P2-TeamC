@@ -98,6 +98,56 @@
         "vertical": false,
         "sprite": "boundary_horizontal_bottom"
       }
+    ],
+    "terrains": [
+      {
+        "x": 0,
+        "y": 0,
+        "w": 1600,
+        "h": 133,
+        "type": "Water",
+        "sprite": "water1"
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "w": 66,
+        "h": 900,
+        "type": "Water",
+        "sprite": "water2"
+      },
+      {
+        "x": 0,
+        "y": 831,
+        "w": 1600,
+        "h": 133,
+        "type": "Water",
+        "sprite": "water3"
+      },
+      {
+        "x": 931,
+        "y": 133,
+        "w": 266,
+        "h": 332,
+        "type": "Sandtrap",
+        "sprite": "sand1"
+      },
+      {
+        "x": 0,
+        "y": 698,
+        "w": 1600,
+        "h": 166,
+        "type": "Sandtrap",
+        "sprite": "sand2"
+      },
+      {
+        "x": 931,
+        "y": 133,
+        "w": 266,
+        "h": 133,
+        "type": "Sandtrap",
+        "sprite": "sand3"
+      }
     ]
   }
 }
