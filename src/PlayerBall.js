@@ -21,8 +21,8 @@ class PlayerBall{
 
     var vec = new b2Vec2(this.body.GetLinearVelocity().x, this.body.GetLinearVelocity().y);
     vec.Normalize();
+    
     this.emitter = new Emitter(new Vector(800, 530), Vector.fromAngle(0.10, 1), 10 ,'rgb(0,200,0)');
-    //this.emitter.color = 'rgb(255,0,0)';
     this.emitter.setParticlesLifeTime(1);
     this.emitter.setEmissionRate(0);
     this.emitter.setMaxParticles(100000);
@@ -51,7 +51,6 @@ class PlayerBall{
     var vec = rotMat.col1;
     var angle = Math.atan2(vec.y, vec.x);
     this.image.rotate = angle;
-    //this.emitter.setParticlesLifeTime(1);
   }
 
   draw(ctx) {

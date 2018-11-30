@@ -55,8 +55,10 @@ class Game {
           gameNs.game.menuHandler.currentScene = "Game Scene";
         }
       }
-      else if((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) &&
-      (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 && gameNs.game.player.getBody().GetLinearVelocity().y <= 3)) {
+      else if((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 
+      && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) 
+      && (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 
+      && gameNs.game.player.getBody().GetLinearVelocity().y <= 3)) {
         gameNs.game.playerShot(new b2Vec2(obj.x, obj.y));
       }
     };
@@ -151,7 +153,8 @@ class Game {
           plyr.shotNumber = 0;
           console.log("Score: ", plyr.score);
           //hide ball off screen while particles emit
-          gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(-100, -100), gameNs.game.player.getBody().GetRotation());
+          gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(-100, -100), 
+          gameNs.game.player.getBody().GetRotation());
           gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0, 0));
           //gameNs.game.levelHandler.currentLevel.hideLevel();
 
@@ -162,8 +165,10 @@ class Game {
           if (gameNs.game.goal.particleTimer >= 180) {
             gameNs.game.goal.emit = false;
             gameNs.game.levelHandler.currentLevel.hideLevel();
-            gameNs.game.levelHandler.goToLevel(gameNs.game.levelHandler._currentLevelIndex+1);
-            gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), gameNs.game.player.getBody().GetRotation());
+            gameNs.game.levelHandler.goToLevel(
+              gameNs.game.levelHandler._currentLevelIndex + 1);
+            gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), 
+            gameNs.game.player.getBody().GetRotation());
             gameNs.game.levelHandler.currentLevel.loadLevel();
 
             gameNs.game.goal.particleTimer = 0;
@@ -237,15 +242,22 @@ class Game {
     this.levelHandler.addLevel(new Level("assets/level3.json"));
     this.levelHandler.currentLevel.loadLevel();
     this.initMenus();
+
     gameNs.game.MyAssetManager.isSetUp = true;
   }
 
   onClick() {
     var canvas = document.getElementById('canvas');
-    if(!(gameNs.game.mouseX < 0 || gameNs.game.mouseX > canvas.width || gameNs.game.mouseY <0 || gameNs.game.mouseY>canvas.height))
+    if(!(gameNs.game.mouseX < 0 
+      || gameNs.game.mouseX > canvas.width 
+      || gameNs.game.mouseY <0 
+      || gameNs.game.mouseY>canvas.height))
     {
-      if ((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) &&
-        (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 && gameNs.game.player.getBody().GetLinearVelocity().y <= 3) && gameNs.game.menuHandler.currentScene === "Game Scene") {
+      if ((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 
+      && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) 
+      && (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 
+      && gameNs.game.player.getBody().GetLinearVelocity().y <= 3) 
+      && gameNs.game.menuHandler.currentScene === "Game Scene") {
         gameNs.game.clicked = true;
         console.log("clicked");
       }
@@ -276,14 +288,12 @@ class Game {
   playerShot(v) {
       if(v.x > 500){
         v.x = 500;
-      }
-      else if(v.x < -500){
+      } else if(v.x < -500) {
         v.x = -500;
       }
       if(v.y > 500){
         v.y = 500;
-      }
-      else if(v.y < -500){
+      } else if(v.y < -500) {
         v.y = -500;
       }
       gameNs.game.player.getBody().ApplyImpulse(new b2Vec2(v.x * 500, v.y * 500),
