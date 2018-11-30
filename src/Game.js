@@ -79,8 +79,19 @@ class Game {
     div.appendChild(canvas);
     document.body.appendChild(div);
 
+
+    gameNs.game.camera = new Camera(0,0, div.style.width, div.style.height);
+    gameNs.game.camera.bounds = {
+      x:0,
+      y:0,
+      w:1000000,
+      h:1000000,
+    };
+
+
     gameNs.game.g = new gameScene("Game Scene", div,
       {'x': 0, 'y': 0, 'width': 100, 'height': 100});
+
 
     this.menuHandler.addScene("Game Scene", gameNs.game.g);
     document.body.onresize = function(){
@@ -105,6 +116,7 @@ class Game {
     if(gameNs.game.MyAssetManager.isSetUp === true &&
         gameNs.game.MyAssetManager.isLoaded === true) {
 
+      //gameNs.game.camera.panTo(500,500);
       let plyr = gameNs.game.player;
 
       // Terrain logic
@@ -141,6 +153,8 @@ class Game {
         gameNs.game.MyAssetManager.update();
         gameNs.game.levelHandler.update();
 
+        //gameNs.game.camera.zoomTo(1.01);
+
         plyr.update(window.innerWidth, window.innerHeight);
         gameNs.game.goal.update(window.innerWidth, window.innerHeight);
 
@@ -164,18 +178,30 @@ class Game {
         }
         if (gameNs.game.goal.emit === true) {
           gameNs.game.goal.particleTimer += 1;
+
+          let xOff = Math.round(Math.random()) * 2 - 1;
+          let yOff = Math.round(Math.random()) * 2 - 1;
+
+          //gameNs.game.camera.pan(xOff*50,yOff*50);
+          gameNs.game.camera.panSpeed.x = 15;
+          gameNs.game.camera.panTo(1600,0);
+          //gameNs.game.camera.zoomBy(0.1);
           if (gameNs.game.goal.particleTimer >= 180) {
+            //gameNs.game.camera.zoomTo(1);
+            gameNs.game.camera.panTo(0, 0);
             gameNs.game.goal.emit = false;
             gameNs.game.levelHandler.currentLevel.hideLevel();
             gameNs.game.levelHandler.goToLevel(
               gameNs.game.levelHandler._currentLevelIndex + 1);
             gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200),
-            gameNs.game.player.getBody().GetRotation());
+              gameNs.game.player.getBody().GetRotation());
             gameNs.game.levelHandler.currentLevel.loadLevel();
 
             gameNs.game.goal.particleTimer = 0;
           }
         }
+
+        gameNs.game.camera.update();
       }
       gameNs.game.draw();
     }
@@ -216,6 +242,8 @@ class Game {
     }
 
     this.goal.draw(ctx);
+
+    gameNs.game.camera.draw(canv,ctx);
     //drawWorld(this.b2dWorld, ctx);
 
   }
