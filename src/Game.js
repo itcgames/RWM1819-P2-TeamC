@@ -207,21 +207,18 @@ class Game {
    */
   setUp() {
     // Create Player
-    this.player = new PlayerBall(this.b2dWorld, 216, 433, 20, this.MyAssetManager);
-    this.goal = new Goal(1496,864,20);
+    this.player = new PlayerBall(this.b2dWorld, 0, 0, 20, this.MyAssetManager);
+    this.goal = new Goal(0,0,20);
 
-    this.terrainList = [
-      //new Terrain(800,400,100,100,"Sandtrap", this.MyAssetManager),
-      //new Terrain(400,400,200,100,"Water", this.MyAssetManager),
-      ];
+    this.terrainList = [];
 
     // overall asset setup, can do this in each class for other object images
-     this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
-     this.coin.setSpriteSheet(true, 5, 5);
-     //this.coin.setActive(true);
-     this.music = this.MyAssetManager.find(this.MyAssetManager.SoundAssets, "music");
-     this.music.loop = true;
-     this.music.play();
+    this.coin = this.MyAssetManager.find(this.MyAssetManager.ImageAssets, "coin");
+    this.coin.setSpriteSheet(true, 5, 5);
+    //this.coin.setActive(true);
+    this.music = this.MyAssetManager.find(this.MyAssetManager.SoundAssets, "music");
+    this.music.loop = true;
+    this.music.play();
     // confirm assets are setup
     this.levelHandler = new LevelHandler();
     this.levelHandler.addLevel(new Level("assets/level1.json"));

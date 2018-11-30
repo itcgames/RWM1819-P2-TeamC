@@ -1,4 +1,12 @@
 {
+  "player": {
+    "x": 133,
+    "y": 233
+  },
+  "goal": {
+    "x": 1130,
+    "y": 798
+  },
   "obstacles": {
     "squareObstacles": [
       {
