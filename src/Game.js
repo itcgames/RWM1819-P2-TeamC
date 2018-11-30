@@ -116,7 +116,6 @@ class Game {
     if(gameNs.game.MyAssetManager.isSetUp === true &&
         gameNs.game.MyAssetManager.isLoaded === true) {
 
-      //gameNs.game.camera.panTo(500,500);
       let plyr = gameNs.game.player;
 
       // Terrain logic
@@ -153,8 +152,6 @@ class Game {
         gameNs.game.MyAssetManager.update();
         gameNs.game.levelHandler.update();
 
-        //gameNs.game.camera.zoomTo(1.01);
-
         plyr.update(window.innerWidth, window.innerHeight);
         gameNs.game.goal.update(window.innerWidth, window.innerHeight);
 
@@ -186,7 +183,7 @@ class Game {
           gameNs.game.camera.panSpeed.x = 15;
           gameNs.game.camera.panTo(1600,0);
           //gameNs.game.camera.zoomBy(0.1);
-          if (gameNs.game.goal.particleTimer >= 180) {
+          if (gameNs.game.goal.particleTimer >= 60) {
             //gameNs.game.camera.zoomTo(1);
             gameNs.game.camera.panTo(0, 0);
             gameNs.game.goal.emit = false;
@@ -194,7 +191,7 @@ class Game {
             gameNs.game.levelHandler.goToLevel(
               gameNs.game.levelHandler._currentLevelIndex + 1);
             gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200),
-              gameNs.game.player.getBody().GetRotation());
+            gameNs.game.player.getBody().GetRotation());
             gameNs.game.levelHandler.currentLevel.loadLevel();
 
             gameNs.game.goal.particleTimer = 0;
