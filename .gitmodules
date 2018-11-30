@@ -16,3 +16,6 @@
 [submodule "lib/CameraJohnComponent"]
 	path = lib/CameraJohnComponent
 	url = https://github.com/itcgames/RWM1819-Camera-B
+[submodule "lib/ScoreboardManager"]
+	path = lib/ScoreboardManager
+	url = https://github.com/EricOT98/RWM1819-Scoreboard-A.git
