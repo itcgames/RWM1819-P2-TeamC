@@ -9,7 +9,31 @@ class gameScene extends Scene{
         this.statusBar.style.position = 'absolute';
         this.statusBar.style.width = '100%';
         this.statusBar.style.height = '10%';
-        this.statusBar.style.background = "rgba(155,155,255,155)"
+        this.statusBar.style.background = "url('assets/paper.jpg')";
+        this.statusBar.style.backgroundSize = "cover";
+        let shotText = document.createElement("h1");
+        shotText.style.position = "absolute";
+        shotText.style.fontFamily = "Arial";
+        shotText.style.left = "70%";
+        shotText.style.top = "2%";
+        shotText.style.width = "25%";
+        shotText.style.height = "10%";
+        shotText.innerText = "Shot No.: 0";
+        shotText.style.fontSize = "40px";
+        this.shotText = shotText;
+        this.statusBar.appendChild(this.shotText);
+
+      let scoreText = document.createElement("h1");
+      scoreText.style.position = "absolute";
+      scoreText.style.fontFamily = "Arial";
+      scoreText.style.left = "40%";
+      scoreText.style.top = "2%";
+      scoreText.style.width = "25%";
+      scoreText.style.height = "10%";
+      scoreText.innerText = "Score: 0";
+      scoreText.style.fontSize = "40px";
+      this.scoreText = scoreText;
+      this.statusBar.appendChild(this.scoreText);
 
 
         this.pauseDiv =  document.createElement('div');
@@ -27,17 +51,16 @@ class gameScene extends Scene{
 
         let stat = this.statusBar;
         let pause = this.pauseDiv;
-        new Button("Pause Button", stat, function(){
+        let pauseBtn = new Button("Pause", stat, function(){
             pause.style.display = 'block';
             gameNs.game.menuHandler.currentScene = "Pause";
-        }, 
-        {'x': 2, 'y': 40, 'width': 10, 'height': 10}, "%");
-
-        new Button("Unpause Button", pause, function(){
+        }, {'x': 2, 'y': 25, 'width': 15, 'height': 50}, "%");
+        pauseBtn._element.style.borderRadius = "10px";
+        let resumeBtn = new Button("Resume", pause, function(){
             pause.style.display = 'none';
             gameNs.game.menuHandler.currentScene = "Game Scene";
-        }, 
-        {'x': 50, 'y': 50, 'width': 10, 'height': 10}, "%");
+        }, {'x': 40, 'y': 45, 'width': 20, 'height': 10}, "%");
+        resumeBtn._element.style.borderRadius = "10px";
 
         this.init();
 
@@ -72,5 +95,11 @@ class gameScene extends Scene{
         }
     }
 
-
+    updateShotText(shot) {
+      this.shotText.innerText = `Shot No.: ${shot}`;
+    }
+  
+    updateScoreText(score) {
+        this.scoreText.innerText = `Score: ${score}`;
+    }
 }

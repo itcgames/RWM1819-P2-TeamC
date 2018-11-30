@@ -150,7 +150,9 @@ class Game {
           gameNs.game.goal.emit = true;
 
           plyr.score += plyr.shotNumber - 4;
+          gameNs.game.g.updateScoreText(gameNs.game.player.score);
           plyr.shotNumber = 0;
+          gameNs.game.g.updateShotText(gameNs.game.player.shotNumber);
           console.log("Score: ", plyr.score);
           //hide ball off screen while particles emit
           gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(-100, -100),
@@ -269,6 +271,7 @@ class Game {
         gameNs.game.menuHandler.currentScene === "Game Scene") {
       console.log("release");
       gameNs.game.player.shotNumber += 1;
+      gameNs.game.g.updateShotText(gameNs.game.player.shotNumber);
       console.log("Shot number: ",gameNs.game.player.shotNumber);
       var v =
         new b2Vec2(gameNs.game.player.getBody().GetCenterPosition().x -
@@ -314,22 +317,46 @@ class Game {
     let mainMenuScene = new Scene("Main Menu",
         document.getElementById("main div"),
         {'x': 0, 'y': 0, 'width': 100, 'height': 100},
-        "#FF0026",
+        "#0f881e",
         "%");
     let mainMenu = new Menu("Main Menu",
         {'x': 0, 'y': 0, 'width': 100, 'height': 100},
         "%");
+    mainMenu.colour = "#0f881e";
     mainMenuScene.alpha = "22";
+    let image = document.createElement('img');
+    image.style.left = "0%";
+    image.style.top = "50%";
+    image.style.width = "30%";
+    image.style.height = "50%";
+    image.src = "assets/golf-md.png";
+    image.style.position = "absolute";
+    mainMenu.containerDiv.appendChild(image);
+
     mainMenuScene.addMenu(mainMenu);
     let playBtn = new Button("Play", mainMenu.containerDiv,
         this.menuHandler.goToScene.bind(this.menuHandler, "Game Scene"),
         {'x': 40, 'y': 60, 'width': 20, 'height': 10},
         "%");
+    playBtn._element.style.borderRadius = "10px";
 
     let leaderboardBtn = new Button("Leaderboard", mainMenu.containerDiv,
         this.menuHandler.goToScene.bind(this.menuHandler, "Leaderboard"),
         {'x': 40, 'y': 75, 'width': 20, 'height': 10},
         "%");
+    leaderboardBtn._element.style.borderRadius = "10px";
+
+    let title = document.createElement("h1");
+    title.style.fontFamily = "Arial";
+    title.innerText = "Team C Golfing";
+    title.style.left = "10%";
+    title.style.top = "30%";
+    title.style.width = "80%";
+    title.style.height = "20%";
+    title.style.position = "absolute";
+    title.style.textAlign = "center";
+    title.style.fontSize = ((mainMenuScene.containerDiv.clientHeight / 100.0) * 8).toString() + "px";
+    mainMenuScene.containerDiv.appendChild(title);
 
     this.menuHandler.addScene("Main Menu", mainMenuScene);
 
