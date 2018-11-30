@@ -18,6 +18,9 @@ class WSHandler(tornado.websocket.WebSocketHandler):
 
         global gameAvailable
 
+        print("Message Received")
+        print("Associated Web Socket Handler: " + str(tornado.websocket.WebSocketHandler))
+
         msg = json.loads(message)
 
         if msg["type"] == "connect":
@@ -27,12 +30,9 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             elif msg["data"] == "controller":
                 session["controller"] = self
                 print("controller conencted")
-        elif msg["type"] == "vec" and gameAvailable == True:
+        elif (msg["type"] == "vec" or msg["type"] == "pause") and gameAvailable == True:
             session["game"].write_message(msg["data"])
-            print("Sent Vec Message")
-
-        print("Message Received")
-        print("Associated Web Socket Handler: " + str(tornado.websocket.WebSocketHandler))
+            print("Sent Message: " + msg["type"])
 
     def on_close(self): # Can handle closing of client pages without breaking
         global gameAvailable

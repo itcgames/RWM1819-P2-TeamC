@@ -43,14 +43,21 @@ class Game {
 
     //called when the client receives a message
     ws.onmessage = function (evt) {
-
-      let obj = JSON.parse(evt.data);
-      let bod = gameNs.game.player.getBody();
-      if((bod.GetLinearVelocity().x >= -3 && bod.GetLinearVelocity().x <= 3) &&
-          (bod.GetLinearVelocity().y >= -3 && bod.GetLinearVelocity().y <= 3)) {
-
-          gameNs.game.playerShot(new b2Vec2(obj.x, obj.y));
-
+      var obj = JSON.parse(evt.data);
+      if(obj.type === "pause") {
+        console.log("pause");
+        if(gameNs.game.menuHandler.currentScene === "Game Scene") {
+          gameNs.game.g.pauseDiv.style.display = "block";
+          gameNs.game.menuHandler.currentScene = "Pause";
+        }
+        else {
+          gameNs.game.g.pauseDiv.style.display = 'none';
+          gameNs.game.menuHandler.currentScene = "Game Scene";
+        }
+      }
+      else if((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) &&
+      (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 && gameNs.game.player.getBody().GetLinearVelocity().y <= 3)) {
+        gameNs.game.playerShot(new b2Vec2(obj.x, obj.y));
       }
     };
   }
@@ -198,7 +205,7 @@ class Game {
     }
 
     this.goal.draw(ctx);
-    drawWorld(this.b2dWorld, ctx);
+    //drawWorld(this.b2dWorld, ctx);
 
   }
 
@@ -223,7 +230,7 @@ class Game {
     this.levelHandler.addLevel(new Level("assets/level1.json"));
     this.levelHandler.addLevel(new Level("assets/level2.json"));
     this.levelHandler.addLevel(new Level("assets/level3.json"));
-    this.levelHandler.currentLevel.loadLevel(); 
+    this.levelHandler.currentLevel.loadLevel();
     this.initMenus();
     gameNs.game.MyAssetManager.isSetUp = true;
   }

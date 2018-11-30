@@ -12,18 +12,6 @@ var gestureManager = new GestureManager(false);
 
 function main()
 {
-
-  gestureManager.doubleTapThresholdMs = 400; // The maximum time between two taps for it to be registered as a doubleTap
-  gestureManager.longTouchThresholdMs = 3500; // The minimum hold time for a long touch
-  gestureManager.doubleTapCallback = function() 
-  {
-    console.log("Double Tap Detected");
-  };
-  gestureManager.touchStartCallbackUser = touchStartCallback;
-  document.addEventListener("touchmove", touchMoveCallback, {passive:false});
-  gestureManager.touchEndCallbackUser = touchEndCallback;
-
-
   var ws = new WebSocket("ws://149.153.106.151:8080/wstest");
 
   //called when the websocket is opened
@@ -43,6 +31,20 @@ function main()
  init(ws);
 
  socket = ws;
+
+ gestureManager.doubleTapThresholdMs = 400; // The maximum time between two taps for it to be registered as a doubleTap
+ gestureManager.longTouchThresholdMs = 3500; // The minimum hold time for a long touch
+ gestureManager.doubleTapCallback = function() 
+ {
+   obj = {};
+   obj.type = "pause";
+   obj.data = {type: "pause"};
+   sendUpdate(socket, obj)
+ };
+ gestureManager.touchStartCallbackUser = touchStartCallback;
+ document.addEventListener("touchmove", touchMoveCallback, {passive:false});
+ gestureManager.touchEndCallbackUser = touchEndCallback;
+
 }
 
 function touchStartCallback(e) {
@@ -72,7 +74,10 @@ function touchEndCallback(e) {
   {
     validStart = false;
     vectorReady = false;
-    sendUpdate(socket);
+    var object = {};
+    object.type = "vec";
+    object.data = { type: "vec", x: startX - endX, y: startY - endY };
+    sendUpdate(socket, object);
   }
   render();
 }
@@ -118,13 +123,9 @@ function getDistance(x1, y1, x2, y2)
   return Math.sqrt((x2 -x1) * (x2 -x1) + (y2 - y1) * (y2 - y1));
 }
 
-function sendUpdate(ws)
+function sendUpdate(ws, obj)
 {
-  console.log("Send Update: " + startX + "," + startY + " - " + endX + "," + endY);
-  var object = {};
-  object.type = "vec";
-  object.data = { x: startX - endX, y: startY - endY };
-  var messageString = JSON.stringify(object);
+  var messageString = JSON.stringify(obj);
   if(ws.readyState === ws.OPEN)
   {
     console.log("Sending Message")
