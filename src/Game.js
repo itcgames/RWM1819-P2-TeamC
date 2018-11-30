@@ -79,8 +79,19 @@ class Game {
     div.appendChild(canvas);
     document.body.appendChild(div);
 
+
+    gameNs.game.camera = new Camera(0,0, div.style.width, div.style.height);
+    gameNs.game.camera.bounds = {
+      x:0,
+      y:0,
+      w:1000000,
+      h:1000000,
+    };
+
+
     gameNs.game.g = new gameScene("Game Scene", div,
       {'x': 0, 'y': 0, 'width': 100, 'height': 100});
+
 
     this.menuHandler.addScene("Game Scene", gameNs.game.g);
     document.body.onresize = function(){
@@ -164,7 +175,17 @@ class Game {
         }
         if (gameNs.game.goal.emit === true) {
           gameNs.game.goal.particleTimer += 1;
+
+          let xOff = Math.round(Math.random()) * 2 - 1;
+          let yOff = Math.round(Math.random()) * 2 - 1;
+
+          //gameNs.game.camera.pan(xOff*50,yOff*50);
+          gameNs.game.camera.panSpeed.x = 15;
+          gameNs.game.camera.panTo(1600,0);
+          //gameNs.game.camera.zoomBy(0.1);
           if (gameNs.game.goal.particleTimer >= 60) {
+            //gameNs.game.camera.zoomTo(1);
+            gameNs.game.camera.panTo(0, 0);
             gameNs.game.goal.emit = false;
             gameNs.game.levelHandler.currentLevel.hideLevel();
             gameNs.game.levelHandler.goToLevel(
@@ -176,6 +197,8 @@ class Game {
             gameNs.game.goal.particleTimer = 0;
           }
         }
+
+        gameNs.game.camera.update();
       }
       gameNs.game.draw();
     }
@@ -216,6 +239,8 @@ class Game {
     }
 
     this.goal.draw(ctx);
+
+    gameNs.game.camera.draw(canv,ctx);
     //drawWorld(this.b2dWorld, ctx);
 
   }

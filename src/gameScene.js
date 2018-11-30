@@ -93,6 +93,11 @@ class gameScene extends Scene{
             canv.style.width = screenX + 'px';
             canv.style.height = screenY + 'px';
         }
+
+        gameNs.game.camera.size = {
+          w: screenX,
+          h: screenY,
+        };
     }
 
     updateShotText(shot) {
