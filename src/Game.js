@@ -30,7 +30,7 @@ class Game {
     this.inSand=false;
     this.menuHandler = new MenuHandler();
 
-    var ws = new WebSocket("ws://149.153.106.151:8080/wstest");
+    var ws = new WebSocket("ws://149.153.106.148:8080/wstest");
 
     //called when the websocket is opened
     ws.onopen = function() {
@@ -150,18 +150,22 @@ class Game {
           plyr.score += plyr.shotNumber - 4;
           plyr.shotNumber = 0;
           console.log("Score: ", plyr.score);
+          //hide ball off screen while particles emit
+          gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(-100, -100), gameNs.game.player.getBody().GetRotation());
+          gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0, 0));
+          //gameNs.game.levelHandler.currentLevel.hideLevel();
 
-          plyr.getBody().SetCenterPosition(new b2Vec2(600, 200), 
-              plyr.getBody().GetRotation());
-          plyr.getBody().SetLinearVelocity(new b2Vec2(0, 0));
-          gameNs.game.levelHandler.currentLevel.hideLevel();
-          gameNs.game.levelHandler.goToLevel(gameNs.game.levelHandler._currentLevelIndex+1);
-          gameNs.game.levelHandler.currentLevel.loadLevel();
+
         }
         if (gameNs.game.goal.emit === true) {
           gameNs.game.goal.particleTimer += 1;
           if (gameNs.game.goal.particleTimer >= 180) {
             gameNs.game.goal.emit = false;
+            gameNs.game.levelHandler.currentLevel.hideLevel();
+            gameNs.game.levelHandler.goToLevel(gameNs.game.levelHandler._currentLevelIndex+1);
+            gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), gameNs.game.player.getBody().GetRotation());
+            gameNs.game.levelHandler.currentLevel.loadLevel();
+
             gameNs.game.goal.particleTimer = 0;
           }
         }
@@ -220,7 +224,8 @@ class Game {
     this.goal = new Goal(1496,864,20);
 
     // overall asset setup, can do this in each class for other object images
-
+    this.terrainList = [
+      ];
      this.music = 
       this.MyAssetManager.find(this.MyAssetManager.SoundAssets, "music");
      this.music.loop = true;
@@ -232,20 +237,32 @@ class Game {
     this.levelHandler.addLevel(new Level("assets/level3.json"));
     this.levelHandler.currentLevel.loadLevel();
     this.initMenus();
+    //let img = document.createElement('img');
+  //  img.src = "assets/grass_template2.png";
+  //  img.style.left = "0%";
+  //  img.style.top = "0%";
+  //  img.style.width = "100%";
+  //  img.style.height = "100%";
+  //  this.g.containerDiv.appendChild(img);
     gameNs.game.MyAssetManager.isSetUp = true;
+
+
+    //this.background = this.MyAssetManager.find(gameNs.game.MyAssetManager.ImageAssets, "grass");
+    //this.background.setPos(0, 0);
+    //this.background.setActive(true);
   }
 
   onClick() {
-    if ((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 && 
-        gameNs.game.player.getBody().GetLinearVelocity().x <= 3) &&
-        (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 && 
-        gameNs.game.player.getBody().GetLinearVelocity().y <= 3) && 
-        gameNs.game.menuHandler.currentScene === "Game Scene") {
-
-      gameNs.game.clicked = true;
-      console.log("clicked");
+    var canvas = document.getElementById('canvas');
+    if(!(gameNs.game.mouseX < 0 || gameNs.game.mouseX > canvas.width || gameNs.game.mouseY <0 || gameNs.game.mouseY>canvas.height))
+    {
+      if ((gameNs.game.player.getBody().GetLinearVelocity().x >= -3 && gameNs.game.player.getBody().GetLinearVelocity().x <= 3) &&
+        (gameNs.game.player.getBody().GetLinearVelocity().y >= -3 && gameNs.game.player.getBody().GetLinearVelocity().y <= 3) && gameNs.game.menuHandler.currentScene === "Game Scene") {
+        gameNs.game.clicked = true;
+        console.log("clicked");
+      }
     }
-  }
+}
 
   onRelease() {
     if (gameNs.game.clicked && 
