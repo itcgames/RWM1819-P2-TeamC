@@ -164,7 +164,7 @@ class Game {
         }
         if (gameNs.game.goal.emit === true) {
           gameNs.game.goal.particleTimer += 1;
-          if (gameNs.game.goal.particleTimer >= 180) {
+          if (gameNs.game.goal.particleTimer >= 60) {
             gameNs.game.goal.emit = false;
             gameNs.game.levelHandler.currentLevel.hideLevel();
             gameNs.game.levelHandler.goToLevel(
