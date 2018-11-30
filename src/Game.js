@@ -12,6 +12,9 @@ class Game {
   constructor() {
     // Create an Asset manager
     this.MyAssetManager = new AssetManager("ASSETS/jsonAssets.json");
+    this.ScoreBoardTop = new ScoreboardManager();
+    this.ScoreBoardTop.startTimer();
+    this.ScoreBoardTop.initBoard("session");
 
     // Initialise Box2D World
     this.b2dWorld = b2dCreateWorld();
@@ -119,6 +122,7 @@ class Game {
       }
 
       if(gameNs.game.menuHandler.currentScene === "Game Scene") {
+        gameNs.game.ScoreBoardTop.getDisplayTimer();
         gameNs.game.b2dWorld.Step(1.0 / 60.0, 1);
         gameNs.game.MyAssetManager.update();
         gameNs.game.levelHandler.update();
@@ -128,16 +132,22 @@ class Game {
 
         if (gameNs.game.goal.collision(gameNs.game.player.getBody().GetCenterPosition().x, gameNs.game.player.getBody().GetCenterPosition().y, 20)) {
           //console.log("PUT");
+          
           gameNs.game.goal.emit = true;
 
           gameNs.game.player.score += gameNs.game.player.shotNumber - 4;
           gameNs.game.player.shotNumber = 0;
           console.log("Score: ", gameNs.game.player.score);
+          if(gameNs.game.levelHandler._currentLevelIndex + 3 > gameNs.game.levelHandler.levels.length - 1) {
+            gameNs.game.ScoreBoardTop.addToBoard(gameNs.game.player.score);
+            gameNs.game.ScoreBoardTop.filterScore(-1);
+            console.log(gameNs.game.ScoreBoardTop.getBoard());
+          }
 
           gameNs.game.player.getBody().SetCenterPosition(new b2Vec2(600, 200), gameNs.game.player.getBody().GetRotation());
           gameNs.game.player.getBody().SetLinearVelocity(new b2Vec2(0, 0));
           gameNs.game.levelHandler.currentLevel.hideLevel();
-          gameNs.game.levelHandler.goToLevel(gameNs.game.levelHandler._currentLevelIndex+1);
+          gameNs.game.levelHandler.goToLevel(gameNs.game.levelHandler._currentLevelIndex+2);
           gameNs.game.levelHandler.currentLevel.loadLevel();
         }
         if (gameNs.game.goal.emit === true) {
@@ -288,13 +298,22 @@ class Game {
         "%");
     mainMenuScene.alpha = "22";
     mainMenuScene.addMenu(mainMenu);
-    let playBtn = new Button("Play", mainMenu.containerDiv,
-        this.menuHandler.goToScene.bind(this.menuHandler, "Game Scene"),
+    let playBtn = new Button("Play", mainMenu.containerDiv,() => {
+      gameNs.game.menuHandler.goToScene("Game Scene");
+      //gameNs.game.ScoreBoardTop.startTimer();
+      //gameNs.game.ScoreBoardTop.clearSessionStorage();
+      //gameNs.game.ScoreBoardTop.clearLocalStorage();
+      //gameNs.game.ScoreBoardTop.initBoard("session");
+     },
         {'x': 40, 'y': 60, 'width': 20, 'height': 10},
         "%");
 
-    let leaderboardBtn = new Button("Leaderboard", mainMenu.containerDiv,
-        this.menuHandler.goToScene.bind(this.menuHandler, "Leaderboard"),
+    let leaderboardBtn = new Button("Leaderboard", mainMenu.containerDiv, () => { 
+      var canv = document.createElement('canvas');
+      var ctx = canv.getContext("2d");
+      gameNs.game.menuHandler.goToScene("Leaderboard");
+      gameNs.game.leaderboard.drawLeaderboard(ctx);
+   },
         {'x': 40, 'y': 75, 'width': 20, 'height': 10},
         "%");
 
@@ -316,7 +335,8 @@ class Game {
     let leaderboard = new leaderboardScene("Leaderboard",
         document.getElementById("main div"),{'x': 0, 'y': 0, 'width': 100, 'height': 100},
         "#7aacff");
-    this.menuHandler.addScene("Leaderboard", leaderboard);
+    this.leaderboard = leaderboard;
+    this.menuHandler.addScene("Leaderboard", this.leaderboard);
 
     this.menuHandler.currentScene = "Main Menu";
     this.menuHandler.showOnlyCurrentScene();
