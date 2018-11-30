@@ -197,7 +197,7 @@ class Game {
     }
 
     this.goal.draw(ctx);
-    drawWorld(this.b2dWorld, ctx);
+    //drawWorld(this.b2dWorld, ctx);
 
   }
 
@@ -227,7 +227,7 @@ class Game {
     this.levelHandler.addLevel(new Level("assets/level1.json"));
     this.levelHandler.addLevel(new Level("assets/level2.json"));
     this.levelHandler.addLevel(new Level("assets/level3.json"));
-    this.levelHandler.currentLevel.loadLevel(); 
+    this.levelHandler.currentLevel.loadLevel();
     this.initMenus();
     gameNs.game.MyAssetManager.isSetUp = true;
   }

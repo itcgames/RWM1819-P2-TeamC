@@ -1,6 +1,6 @@
 class Terrain{
 
-  constructor(x,y, w, h, type, assetManager){
+  constructor(x,y, w, h, type, assetManager, sprite){
     this.pos = {
       x: x,
       y: y,
@@ -19,14 +19,7 @@ class Terrain{
 
     this.testBool = false;
 
-    if(this.type === "Sandtrap")
-    {
-      console.log("sand!!!!!!");
-      this.image = assetManager.find(assetManager.ImageAssets, "sand");
-    }
-    else {
-      this.image = assetManager.find(assetManager.ImageAssets, "water");
-    }
+    this.image = assetManager.find(assetManager.ImageAssets, sprite);
 
 
     this.image.setPos(this.pos.x , this.pos.y );

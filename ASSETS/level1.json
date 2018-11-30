@@ -81,6 +81,32 @@
         "vertical": false,
         "sprite": "boundary_horizontal_bottom"
       }
+    ],
+    "terrains": [
+      {
+        "x": 10,
+        "y": 10,
+        "w": 365,
+        "h": 200,
+        "type": "Water",
+        "sprite": "water1"
+      },
+      {
+        "x": 1163,
+        "y": 10,
+        "w": 432,
+        "h": 133,
+        "type": "Sandtrap",
+        "sprite": "sand1"
+      },
+      {
+        "x": 1463,
+        "y": 166,
+        "w": 133,
+        "h": 200,
+        "type": "Sandtrap",
+        "sprite": "sand2"
+      }
     ]
   }
 }
